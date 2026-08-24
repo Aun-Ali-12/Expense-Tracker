@@ -45,6 +45,42 @@ export const signup = async (req, res) => {
   }
 };
 
-const login = (req, res) => {
-  
+export const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    //find user's email in db
+    const user = await userModel.findOne({ email });
+    console.log(user);
+
+    // validate email
+    if (!user) {
+      return res.status(400).json({ message: "Email not found" });
+    }
+
+    //validate password
+    const isMatch = bycrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid password" });
+    }
+
+    //create token
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    //send token
+    res.status(200).json({
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      },
+    });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "Something wen't wrong", error: err.message });
+  }
 };
