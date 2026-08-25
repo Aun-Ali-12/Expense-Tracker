@@ -51,7 +51,6 @@ export const login = async (req, res) => {
 
     //find user's email in db
     const user = await userModel.findOne({ email });
-    console.log(user);
 
     // validate email
     if (!user) {
@@ -59,7 +58,7 @@ export const login = async (req, res) => {
     }
 
     //validate password
-    const isMatch = bycrypt.compare(password, user.password);
+    const isMatch = await bycrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid password" });
     }

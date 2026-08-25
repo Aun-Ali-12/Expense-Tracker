@@ -7,12 +7,20 @@ export default function useForm(mode) {
         email: "",
         password: ""
     })
-
     const [loading, setLoading] = useState(false) //handles loading state in form
     const [error, setError] = useState("") //handles form error
     const [succes, setSuccess] = useState("")
     const successMessage = mode === "signup" ? "signup successfull" : "login successfull"
     const validateFields = mode === "signup" ? !formData.name || !formData.email || !formData.password : !formData.email || !formData.password
+
+    //password validator:
+    const passwordChecks = {
+        hasMinLength: formData.password.length > 8,
+        hasUpperCase: /[A-Z]/.test(formData.password),
+        hasLowerCase: /[a-z]/.test(formData.password),
+        hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(formData.password)
+    }
+
     //handle change
     const handleChange = (e) => {
 
@@ -63,11 +71,12 @@ export default function useForm(mode) {
 
             if (!res.ok) {
                 console.log(res);
-                setError("Something went wrong!")
+                setError(data.message || "Something went wrong!")
                 setLoading(false)
                 return;
             }
             setSuccess(successMessage)
+            console.log(data);
             localStorage.setItem("token", data.token)
             localStorage.setItem("user", JSON.stringify(data.user))
         }
@@ -79,5 +88,5 @@ export default function useForm(mode) {
         }
     }
 
-    return { formData, handleChange, handleSubmit, loading, error, succes }
+    return { formData, handleChange, handleSubmit, loading, error, succes, passwordChecks }
 }

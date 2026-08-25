@@ -3,8 +3,16 @@
 import useForm from "@/hooks/useForm";
 
 export default function AuthForm({ mode }) {
-  const { formData, handleChange, handleSubmit, loading, error, succes } =
-    useForm(mode);
+  const {
+    formData,
+    handleChange,
+    handleSubmit,
+    loading,
+    error,
+    succes,
+    passwordChecks,
+  } = useForm(mode);
+
   return (
     <>
       <div>
@@ -86,6 +94,28 @@ export default function AuthForm({ mode }) {
                   required
                 />
               </label>
+              <ul>
+                <li
+                  className={`${passwordChecks.hasMinLength ? "text-green-600" : "text-red-600"}`}
+                >
+                  Must be of 8 Characters
+                </li>
+                <li
+                  className={`${passwordChecks.hasUpperCase ? "text-green-600" : "text-red-600"}`}
+                >
+                  Must contain one Capital letter
+                </li>
+                <li
+                  className={`${passwordChecks.hasLowerCase ? "text-green-600" : "text-red-600"}`}
+                >
+                  Must contain one Small letter
+                </li>
+                <li
+                  className={`${passwordChecks.hasSpecialChar ? "text-green-600" : "text-red-600"}`}
+                >
+                  Must contain one special character
+                </li>
+              </ul>
               <br />
             </>
           )}
