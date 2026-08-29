@@ -8,7 +8,6 @@ const expenseSchema = new mongoose.Schema(
       ref: "User", //ref to get id from
       required: true,
     },
-
     note: {
       type: String,
       required: true,
@@ -21,9 +20,9 @@ const expenseSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    date:{
-        type: Date,
-        default: Date.now
+    date: {
+      type: Date,
+      default: Date.now
     }
   },
 );

@@ -1,6 +1,9 @@
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 export default function useForm(mode) {
+    const router = useRouter() //for navigation
+
     //manages form data 
     const [formData, setFormData] = useState({
         name: "",
@@ -63,22 +66,27 @@ export default function useForm(mode) {
                 method: "POST",
                 headers: { "content-type": "application/json" },
                 body: JSON.stringify(body)
-
             })
 
             //convert res into json
             const data = await res.json()
 
             if (!res.ok) {
-                console.log(res);
                 setError(data.message || "Something went wrong!")
                 setLoading(false)
                 return;
             }
             setSuccess(successMessage)
             console.log(data);
-            localStorage.setItem("token", data.token)
-            localStorage.setItem("user", JSON.stringify(data.user))
+            localStorage.setItem("token", data.token) //setting token in localstorage
+            localStorage.setItem("user", JSON.stringify(data.user)) //setting user object in localstorage
+
+            //navigating user on base of mode
+            if (mode === "login") {
+                router.push("/expense")
+            } else {
+                router.push("/login")
+            }
         }
         catch (error) {
             setError("Server error, please try again!", error)

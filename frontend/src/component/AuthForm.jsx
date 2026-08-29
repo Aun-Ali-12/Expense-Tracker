@@ -12,7 +12,6 @@ export default function AuthForm({ mode }) {
     succes,
     passwordChecks,
   } = useForm(mode);
-
   return (
     <>
       <div>

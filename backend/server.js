@@ -3,6 +3,7 @@ import connectDB from "./db.js";
 import { config } from "dotenv";
 import cors from "cors";
 import authRoutes from "/ExpenseTracker/Expense-Tracker/backend/routes/authRoutes.js"
+import expenseRoutes from "/ExpenseTracker/Expense-Tracker/backend/routes/dashboard/expenseRoutes.js"
 
 config();
 connectDB();
@@ -12,6 +13,7 @@ app.use(express.json()); //to parse request body in json
 app.use(cors()); //to make request allowable from frontend
 
 app.use("/api/auth", authRoutes);
+app.use("/api/dashboard", expenseRoutes)
 
 app.get("/", (req, res) => {
   res.send("Hello World");
