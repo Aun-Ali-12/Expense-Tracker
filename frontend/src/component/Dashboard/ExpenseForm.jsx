@@ -1,11 +1,15 @@
 "use client";
 
-import useExpense from "@/hooks/dashboard/useExpense";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-export default function ExpenseForm() {
-  const { expense, handleChange, handleSubmit } = useExpense();
+export default function ExpenseForm({
+  formData,
+  handleChange,
+  handleSubmit,
+  edit,
+  isEdit,
+}) {
   const router = useRouter();
   useEffect(() => {
     //auth check on frontend
@@ -26,7 +30,7 @@ export default function ExpenseForm() {
             <input
               type="text"
               name="note"
-              value={expense.note}
+              value={isEdit ? edit.note : formData.note}
               id="note"
               onChange={handleChange}
               placeholder="name of an item.."
@@ -38,7 +42,7 @@ export default function ExpenseForm() {
             <input
               type="number"
               name="amount"
-              value={expense.amount}
+              value={isEdit ? edit.amount : formData.amount}
               id="amount"
               onChange={handleChange}
             />
@@ -62,7 +66,7 @@ export default function ExpenseForm() {
             <input
               type="date"
               name="date"
-              value={expense.date}
+              value={isEdit ? edit.date : formData.date}
               id="date"
               onChange={handleChange}
             />

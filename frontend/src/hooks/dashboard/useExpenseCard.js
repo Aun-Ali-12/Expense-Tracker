@@ -7,6 +7,7 @@ export default function useExpenseCard() {
     const [expense, setExpense] = useState([])
 
 
+    //get data handle
     const fetchExpense = async () => {
         setLoading(true)
         const endPoint = "/dashboard/expenses/all"
@@ -39,6 +40,7 @@ export default function useExpenseCard() {
     }
 
 
+    //delete handle
     const handleDel = async (id) => {
         const token = localStorage.getItem("token")
         console.log(id);
@@ -72,5 +74,7 @@ export default function useExpenseCard() {
             setLoading(false)
         }
     }
+
+
     return { expense, fetchExpense, handleDel }
 }

@@ -18,14 +18,11 @@ export async function detectCategoryWithAI(note) {
         )
 
         const data = await res.json()
-        console.log("response", data);
         const category = data?.choices?.[0]?.message?.content?.trim()
-        console.log("category hai", category);
         return category || "Uncategorized"
 
     }
     catch (error) {
-        console.log("Gemini api error", error.message);
         return "Uncategorized"
     }
 }

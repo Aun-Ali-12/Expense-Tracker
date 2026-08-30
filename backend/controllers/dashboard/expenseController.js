@@ -1,14 +1,16 @@
-import mongoose from "mongoose";
 import expenseModel from "../../models/Expense.js"
 import learnedCategoryModel from "../../models/LearnedCategory.js"
 import detectCategory from "../../utility/categoryMap.js";
 import { detectCategoryWithAI } from "../../utility/gemini.js";
 
 
+//add expense in collection (expense)
 export const addExpenseController = async (req, res) => {
+
     const { note, amount, date } = req.body
     const userId = req.userId
-    const lowerNote = note.trim()
+    const lowerNote = note.toLowerCase().trim()
+
     try {
         //detect category function
         let category = detectCategory(lowerNote)
@@ -17,7 +19,6 @@ export const addExpenseController = async (req, res) => {
         if (!category) {
 
             const learned = await learnedCategoryModel.findOne({ keyword: lowerNote })
-            console.log("learned", learned);
 
             //if already in db, reassign to category variable
             if (learned) {
@@ -25,7 +26,6 @@ export const addExpenseController = async (req, res) => {
             } else {
                 //otherwise hit api
                 category = await detectCategoryWithAI(lowerNote)
-                console.log("category:", category);
 
                 //then add category in db
                 await learnedCategoryModel.create({
@@ -34,7 +34,6 @@ export const addExpenseController = async (req, res) => {
                 })
             }
         }
-        console.log("category:", category);
 
         //add expense in db
         const addExpense = await expenseModel.create({
@@ -47,11 +46,11 @@ export const addExpenseController = async (req, res) => {
         res.status(200).json({ message: "expense added successfully" })
     }
     catch (err) {
-        console.log(err.message);
         return res.status(400).json({ message: "Something wen't wrong, try again!" })
     }
 }
 
+//fetches specific user's data
 export const getData = async (req, res) => {
     //fetch user's data
     const expenseData = await expenseModel.find({ userId: req.userId })
@@ -65,6 +64,7 @@ export const getData = async (req, res) => {
     return res.status(200).json({ data: expenseData })
 }
 
+//single delete logic
 export const deleteOne = async (req, res) => {
     const expenseId = req.params.id
     const deleteExpense = await expenseModel.deleteOne({
@@ -73,9 +73,76 @@ export const deleteOne = async (req, res) => {
     })
 
     if (!deleteExpense) {
-        console.log("nahi hua delete");
         return res.status(400).json({ message: "something wen't wrong" })
     }
-    console.log(deleteExpense);
     return res.status(200).json({ message: "Deleted Successfully", data: deleteExpense })
-} 
+}
+
+
+//edit logic 
+export const editExpense = async (req, res) => {
+
+    const expenseId = req.params.id //extracting id from route
+    const userId = req.userId //extracting from middleware 
+    const { note, amount, date } = req.body
+    const lowerNote = note.toLowerCase().trim()
+
+    try {
+
+        let category = detectCategory(note)
+
+        if (!category) {
+            const learned = await learnedCategoryModel.findOne({ keyword: lowerNote })
+            if (learned) {
+                category = learned.category
+            } else {
+                category = await detectCategoryWithAI(lowerNote)
+                await learnedCategoryModel.create({ keyword: lowerNote, category: category })
+            }
+        }
+
+        //updates expense in expensecollection
+        const updatedExpense = await expenseModel.findOneAndUpdate(
+            //filter
+            {
+                _id: expenseId,
+                userId: userId
+            },
+
+            //update part
+            {
+                note: lowerNote,
+                category, amount, date
+            },
+            //return updated record
+            { new: true } //return doc
+        )
+
+        if (!updatedExpense) {
+            return res.status(404).json({ message: "Expense not found" })
+        }
+
+        return res.status(200).json({ message: "Expense has been updated successfully!" })
+
+    } catch (err) {
+        return res.status(500).json({ message: err.message })
+    }
+}
+
+//delete all
+export const deleteAllExpense = async (req, res) => {
+    try {
+        const userId = req.userId
+        const deleteResponse = await expenseModel.deleteMany({ userId })
+
+        if (!deleteResponse) {
+            console.log(deleteResponse);
+            return res.status(404).json({ message: "No record found to be delete" })
+        }
+        console.log(deleteResponse);
+        return res.status(200).json({ message: "All record successfully deleted", count: deleteResponse.deletedCount })
+    } catch (err) {
+        console.log(err.message);
+        return res.status(500).json({ message: err.message })
+    }
+}

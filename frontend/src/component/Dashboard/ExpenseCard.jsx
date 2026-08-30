@@ -1,20 +1,5 @@
 "use client";
-
-import useExpenseCard from "@/hooks/dashboard/useExpenseCard";
-import { useEffect } from "react";
-
-export default function ExpenseCard() {
-  const { expense, fetchExpense, handleDel } = useExpenseCard();
-  useEffect(() => {
-    fetchExpense();
-    // console.log(expense);
-  }, []);
-
-  useEffect(() => {
-    fetchExpense();
-    // console.log(expense);
-  }, []);
-
+export default function ExpenseCard({ expense, handleDel, handleEdit }) {
   return (
     <>
       <section>
@@ -39,7 +24,13 @@ export default function ExpenseCard() {
                   <td>{e.amount}</td>
                   <td>{e.category}</td>
                   <td>
-                    <button>edit</button>
+                    <button
+                      onClick={() => {
+                        handleEdit(e, e._id);
+                      }}
+                    >
+                      edit
+                    </button>
                     <button
                       onClick={() => {
                         handleDel(e._id);
