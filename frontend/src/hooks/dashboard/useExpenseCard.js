@@ -76,5 +76,5 @@ export default function useExpenseCard() {
     }
 
 
-    return { expense, fetchExpense, handleDel }
+    return { expense, loading, error, fetchExpense, handleDel }
 }

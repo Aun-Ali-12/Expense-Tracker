@@ -2,6 +2,7 @@
 import useExpense from "@/hooks/dashboard/useExpense";
 import ExpenseCard from "../Dashboard/ExpenseCard";
 import ExpenseForm from "../Dashboard/ExpenseForm";
+import Budget from "../Dashboard/Budget";
 import useExpenseCard from "@/hooks/dashboard/useExpenseCard";
 import { useEffect } from "react";
 
@@ -19,6 +20,7 @@ export default function DashboardRep() {
 
   return (
     <>
+      <Budget />
       <ExpenseForm
         formData={formData}
         edit={edit}
