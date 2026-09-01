@@ -9,6 +9,7 @@ export default function ExpenseCard({ expense, handleDel, handleEdit }) {
         <table>
           <thead>
             <tr>
+              <td>date</td>
               <td>note</td>
               <td>amount</td>
               <td>category</td>
@@ -20,6 +21,7 @@ export default function ExpenseCard({ expense, handleDel, handleEdit }) {
             {expense &&
               expense.map((e, index) => (
                 <tr key={index}>
+                  <td>{new Date(e.date).toLocaleDateString()}</td>
                   <td>{e.note}</td>
                   <td>{e.amount}</td>
                   <td>{e.category}</td>

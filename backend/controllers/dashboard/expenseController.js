@@ -52,16 +52,33 @@ export const addExpenseController = async (req, res) => {
 
 //fetches specific user's data
 export const getData = async (req, res) => {
-    //fetch user's data
-    const expenseData = await expenseModel.find({ userId: req.userId })
+    const now = new Date()
+    const year = now.getFullYear()
+    const month = now.getMonth() + 1
+    const startOfMonth = new Date(year, month - 1, 1)
+    const endOfMonth = new Date(year, month, 1)
+    console.log(startOfMonth);
+    console.log(endOfMonth);
 
-    //check if data is empty
-    if (expenseData.length === 0) {
-        return res.status(200).json({ message: "No data found", data: [] })
+    try {
+        //fetch user's data
+        const expenseData = await expenseModel.find({
+            userId: req.userId,
+            date: { $gte: startOfMonth, $lte: endOfMonth }
+        }).sort({ date: -1 })
+
+        //check if data is empty
+        if (expenseData.length === 0) {
+            return res.status(200).json({ message: "No data found", data: [] })
+        }
+
+        //if data found
+        return res.status(200).json({ data: expenseData })
     }
-
-    //if data found
-    return res.status(200).json({ data: expenseData })
+    catch (err) {
+        console.log(err.message);
+        return res.status(500).json({ message: "Something wen't wrong", error: err.message })
+    }
 }
 
 //single delete logic

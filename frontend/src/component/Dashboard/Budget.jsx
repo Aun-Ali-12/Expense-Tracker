@@ -1,24 +1,9 @@
 import { useExpense } from "@/Context/ExpenseData";
-import useBudget from "@/hooks/dashboard/useBudget";
-import { useEffect } from "react";
+import { useFeatures } from "@/hooks/dashboard/useFeatures";
 
 export default function Budget() {
-  const {
-    amount,
-    budget,
-    setAmount,
-    setBudgetHandler,
-    fetchBudgetHandler,
-    open,
-    isOpen,
-  } = useBudget();
-
-const {balanceBudget, totalExpense} = useExpense()
-
-  useEffect(() => {
-    fetchBudgetHandler();
-  }, [budget]);
-
+  const { amount, setAmount, setBudgetHandler, open, isOpen } = useExpense();
+  const { budget, totalExpense, balanceBudget } = useFeatures();
   return (
     <>
       <section>
@@ -37,8 +22,8 @@ const {balanceBudget, totalExpense} = useExpense()
             <>
               <input
                 type="number"
-                name="budget"
-                id="budget"
+                name="amount"
+                id="amount"
                 value={amount}
                 placeholder="set your budget"
                 onChange={(e) => {

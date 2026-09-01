@@ -6,6 +6,7 @@ export default function useBudget() {
     const [open, isOpen] = useState(false) //toggles the state of set budget button
     const month = new Date().toISOString().slice(0, 7) //this gives yyy-mm
 
+    //set budget
     const setBudgetHandler = async () => {
         const token = localStorage.getItem("token")
         const endPoint = "/budget"
@@ -25,8 +26,8 @@ export default function useBudget() {
                 console.log(data.message);
                 return
             }
-            console.log(data.message);
             alert("Budget is set! you can update it anytime.")
+            await fetchBudgetHandler()
         }
         catch (err) {
             return res.status(500).json({ message: "something went wrong" })
@@ -37,6 +38,7 @@ export default function useBudget() {
         }
     }
 
+    //fetch budget
     const fetchBudgetHandler = async () => {
         const token = localStorage.getItem("token")
         const endPoint = "/getbudget"

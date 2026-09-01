@@ -17,8 +17,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", expenseRoutes)
 app.use("/api", budgetRoutes)
 
-
-
 app.get("/", (req, res) => {
   res.send("Hello World");
 });

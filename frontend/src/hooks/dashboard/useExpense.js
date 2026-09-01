@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function useExpense() {
+export default function useExpenseHook() {
     //handles add expense data 
     const [formData, setFormData] = useState({
         note: "",

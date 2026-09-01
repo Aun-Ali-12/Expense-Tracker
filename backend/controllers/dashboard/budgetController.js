@@ -3,11 +3,12 @@ import budgetModel from "../../models/Budget.js"
 //set budget
 export const insertBudget = async (req, res) => {
     const userId = req.userId
-    console.log("userId", userId);
 
     const { month, amount } = req.body
-    console.log("month", month);
-    console.log("amount", amount);
+    console.log(amount);
+    console.log(month);
+
+
     try {
         const setBudget = await budgetModel.findOneAndUpdate(
             { userId, month },
@@ -21,7 +22,7 @@ export const insertBudget = async (req, res) => {
         }
         console.log("success mn", setBudget);
 
-        return res.status(200).json({ message: "Successfully set the budget" })
+        return res.status(200).json({ message: "Successfully set the budget", data: setBudget })
     } catch (err) {
         console.log(err.message);
         return res.status(500).json({ message: `something wen't wrong ${err.message}` })
@@ -30,15 +31,18 @@ export const insertBudget = async (req, res) => {
 
 //get budget
 export const fetchBudget = async (req, res) => {
+
     const userId = req.userId
+    const month = new Date().toISOString().slice(0, 7)
+
     try {
-        const getBudget = await budgetModel.findOne({ userId: userId })
+        const getBudget = await budgetModel.findOne({ userId, month })
         if (!getBudget) {
             console.log("get budget error", getBudget);
-            res.status(404).json({ message: "No budget added yet!" })
+            return res.status(404).json({ message: "No budget added yet!" })
         }
         console.log("success", getBudget);
-        res.status(200).json({ message: `Your Budget: ${getBudget.amount}`, data: getBudget.amount })
+        return res.status(200).json({ message: `Your Budget: ${getBudget.amount}`, data: getBudget.amount })
 
     }
     catch (err) {
