@@ -7,6 +7,9 @@ import useExpenseHook from "@/hooks/dashboard/useExpense";
 import { useExpense } from "@/Context/ExpenseData";
 import Highlights from "../Dashboard/Highlights";
 import { useFeatures } from "@/hooks/dashboard/useFeatures";
+import Filters from "../Dashboard/Filters";
+import Pagination from "../Dashboard/Pagination";
+import usePagination from "@/hooks/dashboard/Pagination";
 
 export default function DashboardRep() {
   const { formData, handleChange, handleSubmit, handleEdit, edit, isEdit } =
@@ -22,13 +25,16 @@ export default function DashboardRep() {
     highestSpendingItem,
   } = useFeatures();
 
+  const { page, setPage, limit, setLimit, paginatedExpense, totalPages } =
+    usePagination();
+
   useEffect(() => {
     fetchExpense();
   }, []);
-console.log(highestSpendingItem);
 
   return (
     <>
+      <Filters />
       <Budget
         budget={budget}
         totalExpense={totalExpense}
@@ -42,11 +48,21 @@ console.log(highestSpendingItem);
         handleSubmit={handleSubmit}
       />
       <ExpenseCard
-        expense={expense}
+        expense={paginatedExpense}
         handleDel={handleDel}
         handleEdit={handleEdit}
       />
-      <Highlights totalSpendingCategoryWise={totalSpendingCategoryWise} highestSpendingItem={highestSpendingItem} />
+      <Highlights
+        totalSpendingCategoryWise={totalSpendingCategoryWise}
+        highestSpendingItem={highestSpendingItem}
+      />
+      <Pagination
+        page={page}
+        setPage={setPage}
+        limit={limit}
+        setLimit={setLimit}
+        totalPages={totalPages}
+      />
     </>
   );
 }

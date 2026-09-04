@@ -8,11 +8,17 @@ export default function useExpenseCard() {
 
 
     //get data handle
-    const fetchExpense = async () => {
+    const fetchExpense = async (from, to) => {
         setLoading(true)
-        const endPoint = "/dashboard/expenses/all"
+
         const token = localStorage.getItem("token")
 
+        const params = new URLSearchParams()
+
+        if (from) params.append("from", from)
+        if (to) params.append("to", to)
+
+        const endPoint = `/dashboard/expenses/all${params.toString() ? `?${params.toString()}` : ""}`
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endPoint}`, {
                 method: "GET",
@@ -28,11 +34,12 @@ export default function useExpenseCard() {
                 console.log(data.message);
                 return
             }
-            console.log(data);
+            console.log(data.message);
             setExpense(data.data)
         }
         catch (err) {
-            console.log(err);
+            console.log(data.message);
+            console.log(err.message);
         }
         finally {
             setLoading(false)

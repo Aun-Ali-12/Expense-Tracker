@@ -52,19 +52,33 @@ export const addExpenseController = async (req, res) => {
 
 //fetches specific user's data
 export const getData = async (req, res) => {
-    const now = new Date()
-    const year = now.getFullYear()
-    const month = now.getMonth() + 1
-    const startOfMonth = new Date(year, month - 1, 1)
-    const endOfMonth = new Date(year, month, 1)
-    console.log(startOfMonth);
-    console.log(endOfMonth);
+    const userId = req.userId
+    const { from, to } = req.query
+
+
+    let startDate, endDate
+
+    if (from && to) {
+        startDate = new Date(from)
+        endDate = new Date(to)
+        endDate.setHours(23, 59, 59, 999)
+    } else {
+        const now = new Date()
+        const year = now.getFullYear()
+        const month = now.getMonth() + 1
+        startDate = new Date(year, month - 1, 1)
+        endDate = new Date(year, month, 1)
+    }
+
+    if (startDate > endDate) {
+        return res.status(400).json({ message: "range is invalid" })
+    }
 
     try {
         //fetch user's data
         const expenseData = await expenseModel.find({
-            userId: req.userId,
-            date: { $gte: startOfMonth, $lte: endOfMonth }
+            userId,
+            date: { $gte: startDate, $lte: endDate }
         }).sort({ date: -1 })
 
         //check if data is empty

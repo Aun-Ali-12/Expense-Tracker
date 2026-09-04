@@ -30,7 +30,7 @@ export default function Highlights({
                 {item.highestItem.totalAmount}
               </p>
             ))}
-        </div>
+        </div> 
       </section>
     </>
   );
