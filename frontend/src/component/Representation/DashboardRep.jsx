@@ -1,7 +1,6 @@
 "use client";
 import ExpenseCard from "../Dashboard/ExpenseCard";
 import ExpenseForm from "../Dashboard/ExpenseForm";
-import Budget from "../Dashboard/Budget";
 import { useEffect } from "react";
 import useExpenseHook from "@/hooks/dashboard/useExpense";
 import { useExpense } from "@/Context/ExpenseData";
@@ -35,11 +34,6 @@ export default function DashboardRep() {
   return (
     <>
       <Filters />
-      <Budget
-        budget={budget}
-        totalExpense={totalExpense}
-        balanceBudget={balanceBudget}
-      />
       <ExpenseForm
         formData={formData}
         edit={edit}

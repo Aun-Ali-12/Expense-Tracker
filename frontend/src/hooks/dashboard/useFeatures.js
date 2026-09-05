@@ -56,5 +56,5 @@ export function useFeatures() {
             highestItem
         }
     })
-    return { budget, totalExpense, balanceBudget, totalSpendingCategoryWise, highestSpendingItem }
+    return { expense, budget, totalExpense, balanceBudget, totalSpendingCategoryWise, highestSpendingItem }
 }

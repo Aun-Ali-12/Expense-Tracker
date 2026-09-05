@@ -1,3 +1,4 @@
+"use client";
 import { useExpense } from "@/Context/ExpenseData";
 import { useFeatures } from "@/hooks/dashboard/useFeatures";
 

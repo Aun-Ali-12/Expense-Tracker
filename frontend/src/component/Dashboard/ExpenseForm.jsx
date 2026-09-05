@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Budget from "./Budget/Budget";
 
 export default function ExpenseForm({
   formData,
@@ -21,6 +22,7 @@ export default function ExpenseForm({
 
   return (
     <>
+      {/* expense form  */}
       <div>
         <h1>Expense</h1>
         <form onSubmit={handleSubmit}>
@@ -48,19 +50,6 @@ export default function ExpenseForm({
             />
           </label>
           <br />
-          {/* <label htmlFor="category">
-            select category:{" "}
-            <select
-              name="category"
-              id="category"
-              value={expense.category}
-              onChange={handleChange}
-            >
-              <option value="">select category</option>
-              <option value="grocery">grocery</option>
-              <option value="fun">fun</option>
-            </select>
-          </label> */}
 
           <label htmlFor="date">
             <input
