@@ -9,6 +9,7 @@ import { useFeatures } from "@/hooks/dashboard/useFeatures";
 import Filters from "../Dashboard/Filters";
 import Pagination from "../Dashboard/Pagination";
 import usePagination from "@/hooks/dashboard/Pagination";
+import SideBar from "../Dashboard/Navbar/SideBar";
 
 export default function DashboardRep() {
   const { formData, handleChange, handleSubmit, handleEdit, edit, isEdit } =
@@ -33,30 +34,36 @@ export default function DashboardRep() {
 
   return (
     <>
-      <Filters />
-      <ExpenseForm
-        formData={formData}
-        edit={edit}
-        isEdit={isEdit}
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-      />
-      <ExpenseCard
-        expense={paginatedExpense}
-        handleDel={handleDel}
-        handleEdit={handleEdit}
-      />
-      <Highlights
-        totalSpendingCategoryWise={totalSpendingCategoryWise}
-        highestSpendingItem={highestSpendingItem}
-      />
-      <Pagination
-        page={page}
-        setPage={setPage}
-        limit={limit}
-        setLimit={setLimit}
-        totalPages={totalPages}
-      />
+      <div className="flex">
+        <section className="bg-sidebar">
+          <SideBar />
+        </section>
+
+        <section>
+          <Filters />
+          <ExpenseForm
+            formData={formData}
+            edit={edit}
+            isEdit={isEdit}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+          />
+          <ExpenseCard
+            expense={paginatedExpense}
+            handleDel={handleDel}
+            handleEdit={handleEdit}
+            page={page}
+            setPage={setPage}
+            limit={limit}
+            setLimit={setLimit}
+            totalPages={totalPages}
+          />
+          <Highlights
+            totalSpendingCategoryWise={totalSpendingCategoryWise}
+            highestSpendingItem={highestSpendingItem}
+          />
+        </section>
+      </div>
     </>
   );
 }

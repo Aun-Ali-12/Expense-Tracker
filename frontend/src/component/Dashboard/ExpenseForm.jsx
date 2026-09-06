@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Budget from "./Budget/Budget";
-
+import { X, Receipt } from "lucide-react";
 export default function ExpenseForm({
   formData,
   handleChange,
@@ -11,10 +11,13 @@ export default function ExpenseForm({
   edit,
   isEdit,
 }) {
-  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false); //used to handle form toggling
+
+  const router = useRouter(); //use to relocate user if not loggedin
+
+  //runs when component mounts to check if user is loggedin
   useEffect(() => {
-    //auth check on frontend
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token"); //token from localstorage
     if (!token) {
       router.push("/login");
     }
@@ -22,46 +25,109 @@ export default function ExpenseForm({
 
   return (
     <>
-      {/* expense form  */}
       <div>
-        <h1>Expense</h1>
-        <form onSubmit={handleSubmit}>
-          <h1> Add Your Expense</h1>
-          <label htmlFor="note">
-            add note:
-            <input
-              type="text"
-              name="note"
-              value={isEdit ? edit.note : formData.note}
-              id="note"
-              onChange={handleChange}
-              placeholder="name of an item.."
-            />
-          </label>
-          <br />
-          <label htmlFor="amount">
-            add amount:{" "}
-            <input
-              type="number"
-              name="amount"
-              value={isEdit ? edit.amount : formData.amount}
-              id="amount"
-              onChange={handleChange}
-            />
-          </label>
-          <br />
+        <button
+          onClick={() => setIsOpen(true)}
+          className="bg-accent-primary text-white text-sm font-medium px-4 py-2.5 rounded-3xl shadow-sm hover:opacity-90 transition-opacity cursor-pointer"
+        >
+          +
+        </button>
 
-          <label htmlFor="date">
-            <input
-              type="date"
-              name="date"
-              value={isEdit ? edit.date : formData.date}
-              id="date"
-              onChange={handleChange}
-            />
-          </label>
-          <button type="submit">add</button>
-        </form>
+        {isOpen && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in"
+            onClick={() => setIsOpen(false)}
+          >
+            <div
+              className="bg-card w-full max-w-md mx-4 rounded-2xl p-7 relative shadow-2xl animate-scale-in"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setIsOpen(false)}
+                aria-label="Close form"
+                className="absolute top-5 right-5 text-text-secondary hover:text-text-primary hover:rotate-90 transition-all duration-200"
+              >
+                <X size={20} />
+              </button>
+
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-xl bg-accent-primary/10 flex items-center justify-center">
+                  <Receipt size={20} className="text-accent-primary" />
+                </div>
+                <div>
+                  <h1 className="text-lg font-semibold text-text-primary">
+                    Add Expense
+                  </h1>
+                  <p className="text-xs text-text-secondary">
+                    Track your spending
+                  </p>
+                </div>
+              </div>
+
+              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                <div className="flex flex-col gap-1.5">
+                  <label
+                    htmlFor="note"
+                    className="text-xs font-medium text-text-secondary uppercase tracking-wide"
+                  >
+                    Note
+                  </label>
+                  <input
+                    type="text"
+                    name="note"
+                    id="note"
+                    value={isEdit ? edit.note : formData.note}
+                    onChange={handleChange}
+                    placeholder="e.g. Grocery shopping"
+                    className="px-3.5 py-2.5 rounded-xl border border-border text-sm text-text-primary placeholder:text-text-secondary/60 focus:outline-none focus:ring-2 focus:ring-accent-primary focus:border-transparent transition-all"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label
+                    htmlFor="amount"
+                    className="text-xs font-medium text-text-secondary uppercase tracking-wide"
+                  >
+                    Amount
+                  </label>
+                  <input
+                    type="number"
+                    name="amount"
+                    id="amount"
+                    value={isEdit ? edit.amount : formData.amount}
+                    onChange={handleChange}
+                    placeholder="0.00"
+                    className="px-3.5 py-2.5 rounded-xl border border-border text-sm text-text-primary placeholder:text-text-secondary/60 focus:outline-none focus:ring-2 focus:ring-accent-primary focus:border-transparent transition-all"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label
+                    htmlFor="date"
+                    className="text-xs font-medium text-text-secondary uppercase tracking-wide"
+                  >
+                    Date
+                  </label>
+                  <input
+                    type="date"
+                    name="date"
+                    id="date"
+                    value={isEdit ? edit.date : formData.date}
+                    onChange={handleChange}
+                    className="px-3.5 py-2.5 rounded-xl border border-border text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-accent-primary focus:border-transparent transition-all"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="mt-2 bg-accent-primary text-white text-sm font-semibold py-3 rounded-xl shadow-sm hover:opacity-90 hover:shadow-md active:scale-[0.98] transition-all"
+                >
+                  Add Expense
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

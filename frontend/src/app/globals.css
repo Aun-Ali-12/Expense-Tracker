@@ -1,25 +1,66 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+@theme {
+  /* Sidebar */
+  --color-sidebar: #0369a1;
+  --color-sidebar-hover: rgba(255, 255, 255, 0.1);
+  --color-sidebar-active: rgba(255, 255, 255, 0.15);
+  --color-sidebar-text: #bae6fd;
+  --color-sidebar-text-active: #ffffff;
+
+  /* Background */
+  --color-page: #f1f5f9;
+  --color-card: #ffffff;
+
+  /* Stat Cards */
+  --color-balance-bg: #e0f2fe;
+  --color-balance-text: #0c4a6e;
+  --color-balance-label: #0369a1;
+
+  --color-income-bg: #ccfbf1;
+  --color-income-text: #134e4a;
+  --color-income-label: #0f766e;
+
+  --color-expense-bg: #ffe4e6;
+  --color-expense-text: #881337;
+  --color-expense-label: #be123c;
+
+  /* Chart Accents */
+  --color-accent-primary: #0ea5e9;
+  --color-accent-secondary: #2dd4bf;
+  --color-accent-tertiary: #fbbf24;
+  --color-accent-danger: #fb7185;
+
+  /* Text */
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #64748b;
+  --color-text-muted: #94a3b8;
+
+  /* Border */
+  --color-border: #e2e8f0;
+
+  /* Animation keyframes */
+  --animate-fade-in: fade-in 0.2s ease-out;
+  --animate-scale-in: scale-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
