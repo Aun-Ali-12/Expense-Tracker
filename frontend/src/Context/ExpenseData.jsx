@@ -8,7 +8,8 @@ const ExpenseContext = createContext();
 
 //provider
 export const ExpenseProvider = ({ children }) => {
-  const { expense, loading, error, fetchExpense, handleDel } = useExpenseCard();
+  const { expense, setExpense, loading, error, fetchExpense, handleDel } =
+    useExpenseCard();
   const {
     budget,
     fetchBudgetHandler,
@@ -29,6 +30,7 @@ export const ExpenseProvider = ({ children }) => {
       value={{
         budget,
         expense,
+        setExpense,
         fetchExpense,
         handleDel,
         fetchBudgetHandler,

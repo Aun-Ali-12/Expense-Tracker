@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Budget from "./Budget/Budget";
 import { X, Receipt } from "lucide-react";
 export default function ExpenseForm({
   formData,
@@ -10,9 +9,9 @@ export default function ExpenseForm({
   handleSubmit,
   edit,
   isEdit,
+  isOpen,
+  setIsOpen,
 }) {
-  const [isOpen, setIsOpen] = useState(false); //used to handle form toggling
-
   const router = useRouter(); //use to relocate user if not loggedin
 
   //runs when component mounts to check if user is loggedin
@@ -27,7 +26,7 @@ export default function ExpenseForm({
     <>
       <div>
         <button
-          onClick={() => setIsOpen(true)}
+          onClick={() => setIsOpen(!isOpen)}
           className="bg-accent-primary text-white text-sm font-medium px-4 py-2.5 rounded-3xl shadow-sm hover:opacity-90 transition-opacity cursor-pointer"
         >
           +
@@ -36,7 +35,7 @@ export default function ExpenseForm({
         {isOpen && (
           <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in"
-            onClick={() => setIsOpen(false)}
+            onClick={() => setIsOpen(!isOpen)}
           >
             <div
               className="bg-card w-full max-w-md mx-4 rounded-2xl p-7 relative shadow-2xl animate-scale-in"

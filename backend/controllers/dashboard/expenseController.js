@@ -43,7 +43,7 @@ export const addExpenseController = async (req, res) => {
         if (!addExpense) {
             return res.status(400).json({ message: "Couldn't add expense, try again!" })
         }
-        res.status(200).json({ message: "expense added successfully" })
+        res.status(200).json({ message: "expense added successfully!", data: addExpense })
     }
     catch (err) {
         return res.status(400).json({ message: "Something wen't wrong, try again!" })
@@ -150,10 +150,9 @@ export const editExpense = async (req, res) => {
         )
 
         if (!updatedExpense) {
-            return res.status(404).json({ message: "Expense not found" })
+            return res.status(404).json({ message: "Couldn't updated expense, try again!" })
         }
-
-        return res.status(200).json({ message: "Expense has been updated successfully!" })
+        return res.status(200).json({ message: "Expense has been successfully updated!", data: updatedExpense })
 
     } catch (err) {
         return res.status(500).json({ message: err.message })

@@ -1,5 +1,4 @@
 "use client";
-
 import useBudgetProgress from "@/hooks/dashboard/Analytics/useBudgetProgress";
 
 export default function ProgressChart() {
@@ -11,71 +10,38 @@ export default function ProgressChart() {
     budget,
     balanceBudget,
   } = useBudgetProgress();
+
   return (
-    <>
-      <section
-        style={{
-          padding: "16px",
-          borderRadius: 12,
-          border: "1px solid #E5E7EB",
-        }}
+    <section className="bg-card border border-border rounded-2xl p-4 sm:p-5">
+      <h2 className="text-sm font-semibold text-text-primary mb-3">
+        Budget vs spending
+      </h2>
+
+      {/* Progress bar track */}
+      <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+        <div
+          className="h-full rounded-full transition-all duration-500 ease-out"
+          style={{ width: `${percentage}%`, backgroundColor: getColor() }}
+        />
+      </div>
+
+      {/* Stats neeche */}
+      <div className="flex justify-between mt-2.5 text-xs text-text-secondary">
+        <span>Spent: Rs. {totalExpense}</span>
+        <span>Budget: Rs. {budget}</span>
+      </div>
+
+      <p
+        className={`text-xs mt-1.5 ${balanceBudget < 0 ? "text-rose-600" : "text-text-primary"}`}
       >
-        <h2 style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>
-          Budget vs Spending
-        </h2>
+        {balanceBudget >= 0
+          ? `Remaining: Rs. ${balanceBudget}`
+          : `Over budget by Rs. ${Math.abs(balanceBudget)}`}
+      </p>
 
-        {/* Progress bar track */}
-        <div
-          style={{
-            width: "100%",
-            height: 12,
-            backgroundColor: "#F3F4F6",
-            borderRadius: 999,
-            overflow: "hidden",
-          }}
-        >
-          <div
-            style={{
-              width: `${percentage}%`,
-              height: "100%",
-              backgroundColor: getColor(),
-              borderRadius: 999,
-              transition: "width 0.4s ease",
-            }}
-          />
-        </div>
-
-        {/* Stats neeche */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: 10,
-            fontSize: 12,
-            color: "#6B7280",
-          }}
-        >
-          <span>Spent: Rs. {totalExpense}</span>
-          <span>Budget: Rs. {budget}</span>
-        </div>
-
-        <p
-          style={{
-            fontSize: 12,
-            marginTop: 6,
-            color: balanceBudget < 0 ? "#ef4444" : "#374151",
-          }}
-        >
-          {/* if spending gets more than budget  */}
-          {balanceBudget >= 0
-            ? `Remaining: Rs. ${balanceBudget}`
-            : `Over budget by Rs. ${Math.abs(balanceBudget)}`}
-        </p>
-
-        <p style={{ fontSize: 11, marginTop: 4, color: "#9CA3AF" }}>
-          {rawPercentage.toFixed(1)}% of budget used
-        </p>
-      </section>
-    </>
+      <p className="text-[11px] mt-1 text-text-secondary/70">
+        {rawPercentage.toFixed(1)}% of budget used
+      </p>
+    </section>
   );
 }

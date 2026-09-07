@@ -1,5 +1,6 @@
 "use client";
 import { useFeatures } from "@/hooks/dashboard/useFeatures";
+import { ListChecks, Calculator } from "lucide-react";
 
 export default function TransactionCountChart() {
   const { expense, totalExpense } = useFeatures();
@@ -9,23 +10,34 @@ export default function TransactionCountChart() {
     totalTransactions > 0 ? (totalExpense / totalTransactions).toFixed(0) : 0;
 
   return (
-    <section
-      style={{ padding: 16, borderRadius: 12, border: "1px solid #E5E7EB" }}
-    >
-      <h2 style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>
+    <section className="bg-card border border-border rounded-2xl p-4 sm:p-5">
+      <h2 className="text-sm font-semibold text-text-primary mb-4">
         Transactions
       </h2>
 
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <div>
-          <p style={{ fontSize: 12, color: "#9CA3AF" }}>Total Transactions</p>
-          <h3 style={{ fontSize: 24, margin: 0 }}>{totalTransactions}</h3>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-lg bg-accent-primary/10 flex items-center justify-center flex-shrink-0">
+            <ListChecks size={16} className="text-accent-primary" />
+          </div>
+          <div>
+            <p className="text-xs text-text-secondary">Total transactions</p>
+            <h3 className="text-xl font-semibold text-text-primary">
+              {totalTransactions}
+            </h3>
+          </div>
         </div>
-        <div>
-          <p style={{ fontSize: 12, color: "#9CA3AF" }}>Avg per Transaction</p>
-          <h3 style={{ fontSize: 24, margin: 0 }}>
-            Rs. {averagePerTransaction}
-          </h3>
+
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-lg bg-accent-secondary/10 flex items-center justify-center flex-shrink-0">
+            <Calculator size={16} className="text-accent-secondary" />
+          </div>
+          <div>
+            <p className="text-xs text-text-secondary">Avg per transaction</p>
+            <h3 className="text-xl font-semibold text-text-primary">
+              Rs. {averagePerTransaction}
+            </h3>
+          </div>
         </div>
       </div>
     </section>

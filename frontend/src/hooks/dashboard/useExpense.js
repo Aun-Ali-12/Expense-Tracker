@@ -1,3 +1,4 @@
+import { useExpense } from "@/Context/ExpenseData"
 import { useState } from "react"
 
 export default function useExpenseHook() {
@@ -14,6 +15,12 @@ export default function useExpenseHook() {
     const [edit, setEdit] = useState(null)
     //edit toggle
     const [isEdit, setIsEdit] = useState(false)
+    //used to handle form toggling
+    const [isOpen, setIsOpen] = useState(false);
+    //expense context
+    const { expense, setExpense } = useExpense()
+    //message
+    const [message, setMessage] = useState("")
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -52,8 +59,10 @@ export default function useExpenseHook() {
     }
 
     const addExpense = async () => {
+        setMessage("")
         const endPoint = "/dashboard/expenses"
         const token = localStorage.getItem("token")
+
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endPoint}`, {
                 method: "POST",
@@ -69,26 +78,42 @@ export default function useExpenseHook() {
 
             if (!res.ok) {
                 console.log(data.message);
+                setMessage(data.message)
                 return res.status(400).json({ message: "something went wrong" })
             }
-            console.log("added success", data);
-        } catch (err) {
+            setExpense((prev) => [data.data, ...prev])
+            setMessage(data.message)
+            alert("Added")
+            console.log("added success", data.data);
+        }
+        catch (err) {
             console.log("Something went wrong");
+            console.log(err.message);
         }
 
-        if (isEdit) {
-            try {
-                const endPoint = `/dashboard/expense/${edit._id}`
-                console.log(endPoint);
-            }
-            catch (err) {
-                console.log("something wen't wrong while updating expense in collection");
-
-            }
+        finally {
+            setFormData({
+                note: "",
+                amount: "",
+                date: ""
+            })
+            setIsOpen(false)
         }
+        // if (isEdit) {
+        //     try {
+        //         const endPoint = `/dashboard/expense/${edit._id}`
+        //         console.log(endPoint);
+        //     }
+        //     catch (err) {
+        //         console.log("something wen't wrong while updating expense in collection");
+
+        //     }
+
+        // }
     }
 
     const updateExpense = async (id) => {
+        setMessage("")
         const token = localStorage.getItem("token")
         try {
             const endPoint = `/dashboard/expenses/${id}`
@@ -106,15 +131,25 @@ export default function useExpenseHook() {
 
             if (!res.ok) {
                 console.log(data.message);
+                setMessage(data.message)
                 return
             }
-            console.log(data.message);
-            console.log(data);
+            setExpense((prev) => [data.data, ...prev])
+            setMessage(data.message)
+            alert("updated")
         }
         catch (err) {
             console.log("err in update handler");
         }
+        finally {
+            setFormData({
+                note: "",
+                amount: "",
+                date: ""
+            })
+            setIsOpen(false)
+        }
     }
 
-    return { formData, handleChange, handleSubmit, handleEdit, edit, isEdit }
+    return { formData, handleChange, handleSubmit, handleEdit, edit, isEdit, isOpen, setIsOpen, message, setMessage }
 }

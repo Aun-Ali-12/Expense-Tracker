@@ -12,6 +12,9 @@ export default function ExpenseCard({
   limit,
   setLimit,
   totalPages,
+  isOpen,
+  setIsOpen,
+  getCategoryColor,
 }) {
   return (
     <section className="bg-card rounded-2xl p-4 border border-border capitalize">
@@ -63,7 +66,7 @@ export default function ExpenseCard({
                   </td>
                   <td className="px-5 py-3.5">
                     <span
-                      className={`text-xs font-medium px-2.5 py-1 rounded-full `}
+                      className={`text-xs font-medium px-2.5 py-1 rounded-full ${getCategoryColor(e.category)} `}
                     >
                       {e.category}
                     </span>
@@ -71,7 +74,10 @@ export default function ExpenseCard({
                   <td className="px-5 py-3.5">
                     <div className="flex items-center justify-end gap-2">
                       <button
-                        onClick={() => handleEdit(e, e._id)}
+                        onClick={() => {
+                          handleEdit(e, e._id);
+                          setIsOpen(!isOpen);
+                        }}
                         aria-label="Edit expense"
                         className="p-1.5 rounded-lg text-text-secondary hover:bg-accent-primary/10 hover:text-accent-primary transition-colors"
                       >
@@ -123,7 +129,10 @@ export default function ExpenseCard({
 
                 <div className="flex items-center gap-2">
                   <button
-                    onClick={() => handleEdit(e, e._id)}
+                    onClick={() => {
+                      handleEdit(e, e._id);
+                      setIsOpen(!isOpen);
+                    }}
                     aria-label="Edit expense"
                     className="p-1.5 rounded-lg text-text-secondary hover:bg-accent-primary/10 hover:text-accent-primary transition-colors"
                   >
