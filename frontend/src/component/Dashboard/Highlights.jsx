@@ -6,7 +6,7 @@ export default function TopHighlights({
   getCategoryColor,
 }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
       {/* ---------- Section 1: Top Highlights (Category-wise spending) ---------- */}
       <section className="bg-card border border-border rounded-2xl p-4 sm:p-5">
         <h2 className="text-sm font-semibold text-text-primary mb-4">

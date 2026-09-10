@@ -14,9 +14,7 @@ export default function BudgetSummary({ budget, balanceBudget, totalExpense }) {
             Current month's budget
           </p>
         </div>
-        <h2 className="text-2xl font-semibold text-balance-text">
-          Rs. {budget}
-        </h2>
+        <h2 className="text-2xl font-bold text-balance-text">Rs. {budget}</h2>
       </div>
 
       {/* Card 2: Balance */}

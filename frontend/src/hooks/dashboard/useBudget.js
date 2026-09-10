@@ -3,7 +3,7 @@ import { useState } from "react";
 export default function useBudget() {
     const [budget, setBudget] = useState(0) //handle budget of user
     const [amount, setAmount] = useState(0) //handles amount getting from user input
-    const [open, isOpen] = useState(false) //toggles the state of set budget button
+    const [isOpen, setIsOpen] = useState(false) //toggles the state of set budget button
     const month = new Date().toISOString().slice(0, 7) //this gives yyy-mm
 
     //set budget
@@ -33,7 +33,7 @@ export default function useBudget() {
             return res.status(500).json({ message: "something went wrong" })
         }
         finally {
-            isOpen(false)
+            setIsOpen(false)
             setAmount(0)
         }
     }
@@ -64,5 +64,5 @@ export default function useBudget() {
             console.log(err.message);
         }
     }
-    return { amount, setAmount, setBudgetHandler, fetchBudgetHandler, open, isOpen, budget }
+    return { amount, setAmount, setBudgetHandler, fetchBudgetHandler, isOpen, setIsOpen, budget }
 }

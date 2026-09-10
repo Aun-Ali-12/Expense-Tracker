@@ -16,8 +16,8 @@ export const ExpenseProvider = ({ children }) => {
     amount,
     setAmount,
     setBudgetHandler,
-    open,
     isOpen,
+    setIsOpen,
   } = useBudget();
 
   useEffect(() => {
@@ -37,8 +37,8 @@ export const ExpenseProvider = ({ children }) => {
         amount,
         setAmount,
         setBudgetHandler,
-        open,
         isOpen,
+        setIsOpen,
       }}
     >
       {children}

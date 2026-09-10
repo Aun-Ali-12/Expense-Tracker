@@ -25,13 +25,17 @@ export default function ExpenseForm({
   return (
     <>
       <div>
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="bg-accent-primary text-white text-sm font-medium px-4 py-2.5 rounded-3xl shadow-sm hover:opacity-90 transition-opacity cursor-pointer"
-        >
-          +
-        </button>
-
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-semibold text-text-primary">
+            Dashboard
+          </h2>
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="bg-accent-primary text-white text-sm font-medium px-4 py-2.5 rounded-3xl shadow-sm hover:opacity-90 transition-opacity cursor-pointer"
+          >
+            +
+          </button>
+        </div>
         {isOpen && (
           <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in"

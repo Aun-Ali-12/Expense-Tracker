@@ -1,5 +1,6 @@
 "use client";
 import useBudgetProgress from "@/hooks/dashboard/Analytics/useBudgetProgress";
+import { Target } from "lucide-react";
 
 export default function ProgressChart() {
   const {
@@ -13,11 +14,15 @@ export default function ProgressChart() {
 
   return (
     <section className="bg-card border border-border rounded-2xl p-4 sm:p-5">
-      <h2 className="text-sm font-semibold text-text-primary mb-3">
-        Budget vs spending
-      </h2>
+      <div className="flex items-center gap-2 mb-3">
+        <div className="w-8 h-8 rounded-lg bg-accent-primary/10 flex items-center justify-center">
+          <Target size={15} className="text-accent-primary" />
+        </div>
+        <h2 className="text-sm font-semibold text-text-primary">
+          Budget vs spending
+        </h2>
+      </div>
 
-      {/* Progress bar track */}
       <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
         <div
           className="h-full rounded-full transition-all duration-500 ease-out"
@@ -25,7 +30,6 @@ export default function ProgressChart() {
         />
       </div>
 
-      {/* Stats neeche */}
       <div className="flex justify-between mt-2.5 text-xs text-text-secondary">
         <span>Spent: Rs. {totalExpense}</span>
         <span>Budget: Rs. {budget}</span>

@@ -7,6 +7,7 @@ import {
   ChartColumnBig,
   ChevronLeft,
   ChevronRight,
+  LogOut,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -30,6 +31,7 @@ export default function SideBar() {
         }`}
       >
         {/* Top: Logo + Toggle button */}
+
         <div className="flex items-center justify-between px-5 py-5">
           {!collapsed && (
             <div className="flex items-center gap-2 text-white font-medium text-base">
@@ -41,7 +43,7 @@ export default function SideBar() {
           <button
             onClick={() => setCollapsed(!collapsed)}
             aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-            className="flex items-center justify-center w-7 h-7 rounded-md text-sidebar-text hover:bg-sidebar-hover hover:text-white transition-colors mx-auto"
+            className="flex items-center justify-center w-7 h-7 rounded-md text-sidebar-text hover:bg-sidebar-hover hover:text-white transition-colors mx-auto cursor-pointer"
           >
             {collapsed ? (
               <ChevronRight size={16} aria-hidden="true" />
@@ -80,6 +82,18 @@ export default function SideBar() {
             })}
           </ul>
         </nav>
+        {/* Logout button */}
+        <div className="px-3 pb-5 pt-2 border-t border-white/10">
+          <button
+            title={collapsed ? "Logout" : undefined}
+            className={`flex items-center gap-2.5 w-full px-3 py-2.5 rounded-lg text-sm text-rose-200 hover:bg-rose-500/15 hover:text-rose-100 transition-colors cursor-pointer  ${
+              collapsed ? "justify-center" : ""
+            }`}
+          >
+            <LogOut size={16} aria-hidden="true" />
+            {!collapsed && <span>Logout</span>}
+          </button>
+        </div>
       </aside>
     </>
   );

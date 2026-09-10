@@ -9,48 +9,65 @@ import {
 } from "recharts";
 import { useFeatures } from "@/hooks/dashboard/useFeatures";
 
+const PIE_COLORS = ["#0EA5E9", "#2DD4BF", "#FBBF24", "#FB7185", "#8B5CF6"];
+
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    const data = payload[0].payload;
+    return (
+      <div className="bg-card border border-border rounded-xl px-3 py-2 text-xs shadow-md">
+        <p className="font-semibold text-text-primary mb-0.5">
+          {data.category}
+        </p>
+        <p className="text-text-secondary">Rs. {data.amount}</p>
+      </div>
+    );
+  }
+  return null;
+};
+
 export default function PieCharts() {
   const { totalSpendingCategoryWise: stats } = useFeatures();
-  const PieColor = ["#f59e0b", "#ef4444", "#22c55e"];
-  return (
-    <>
-      <section>
-        <h2>category wise spending</h2>
 
-        {/* Chart */}
-        <ResponsiveContainer width="100%" height={260}>
-          <PieChart>
-            <Pie
-              data={stats}
-              cx="50%"
-              cy="45%"
-              innerRadius={60}
-              outerRadius={95}
-              dataKey="amount"
-              nameKey="category"
-              label={({ category, amount }) => `${category}: ${amount}`}
-              labelLine={false}
-            >
-              {stats.map((entry, index) => (
-                <Cell key={index} fill={PieColor[index % PieColor.length]} />
+  return (
+    <section className="bg-card border border-border rounded-2xl p-4 sm:p-5">
+      <h2 className="text-sm font-semibold text-text-primary mb-1">
+        Category wise spending
+      </h2>
+      <p className="text-xs text-text-secondary mb-3">
+        How your spending is split this month
+      </p>
+
+      <ResponsiveContainer width="100%" height={280}>
+        <PieChart>
+          <Pie
+            data={stats}
+            cx="50%"
+            cy="45%"
+            innerRadius={65}
+            outerRadius={95}
+            paddingAngle={2}
+            dataKey="amount"
+            nameKey="category"
+            labelLine={false}
+          >
+            {stats &&
+              stats.map((entry, index) => (
+                <Cell
+                  key={index}
+                  fill={PIE_COLORS[index % PIE_COLORS.length]}
+                  stroke="none"
+                />
               ))}
-            </Pie>
-            <Tooltip
-              contentStyle={{
-                borderRadius: 12,
-                border: "1px solid #E5E7EB",
-                fontSize: 12,
-                boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.05)",
-              }}
-            />
-            <Legend
-              iconType="circle"
-              iconSize={12}
-              wrapperStyle={{ fontSize: 12, paddingTop: 8 }}
-            />
-          </PieChart>
-        </ResponsiveContainer>
-      </section>
-    </>
+          </Pie>
+          <Tooltip content={<CustomTooltip />} />
+          <Legend
+            iconType="circle"
+            iconSize={8}
+            wrapperStyle={{ fontSize: 12, paddingTop: 12 }}
+          />
+        </PieChart>
+      </ResponsiveContainer>
+    </section>
   );
 }

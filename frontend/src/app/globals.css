@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
-
 @theme {
   /* Sidebar */
   --color-sidebar: #0369a1;
+  --color-sidebar-light-1: #0284c7; /* thoda lighter, subtle difference */
+  --color-sidebar-light-2: #0ea5e9; /* aapka existing accent-primary jaisa */
+  --color-sidebar-light-3: #38bdf8;
   --color-sidebar-hover: rgba(255, 255, 255, 0.1);
   --color-sidebar-active: rgba(255, 255, 255, 0.15);
   --color-sidebar-text: #bae6fd;

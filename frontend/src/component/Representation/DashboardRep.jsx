@@ -12,6 +12,7 @@ import BudgetSummary from "../Dashboard/Budget/BudgetSummary";
 import TransactionCountChart from "../Dashboard/Analytics/TransactionsChart";
 import ProgressChart from "../Dashboard/Analytics/ProgressChart";
 import { useCategoryColors } from "@/hooks/dashboard/utility/getCategoryColors";
+import MobileNav from "../Dashboard/Navbar/MobNav";
 
 export default function DashboardRep() {
   const {
@@ -46,50 +47,67 @@ export default function DashboardRep() {
   }, []);
 
   return (
-    <>
-      <div className="flex">
-        <section className="bg-sidebar">
-          <SideBar />
-        </section>
-
-        <section>
-          <ExpenseForm
-            formData={formData}
-            edit={edit}
-            isEdit={isEdit}
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            message={message}
-          />
-          <BudgetSummary
-            budget={budget}
-            totalExpense={totalExpense}
-            balanceBudget={balanceBudget}
-          />
-          <Highlights
-            totalSpendingCategoryWise={totalSpendingCategoryWise}
-            highestSpendingItem={highestSpendingItem}
-            getCategoryColor={getCategoryColor}
-          />
-          <ProgressChart />
-          <TransactionCountChart />
-          <ExpenseCard
-            expense={paginatedExpense}
-            handleDel={handleDel}
-            handleEdit={handleEdit}
-            page={page}
-            setPage={setPage}
-            limit={limit}
-            setLimit={setLimit}
-            totalPages={totalPages}
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            getCategoryColor={getCategoryColor}
-          />
-        </section>
+    <div className="flex">
+      <div className="hidden md:block bg-sidebar">
+        <SideBar />
       </div>
-    </>
+
+      <div className="block md:hidden">
+        <MobileNav />
+      </div>
+
+      <section className="flex-1 flex flex-col gap-4 p-2 sm:p-6 mt-20 md:mt-0">
+        <ExpenseForm
+          formData={formData}
+          edit={edit}
+          isEdit={isEdit}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          message={message}
+        />
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          {/* Left — wide column: Budget summary + Expense table */}
+          <div className="lg:col-span-2 flex flex-col gap-4">
+            <BudgetSummary
+              budget={budget}
+              totalExpense={totalExpense}
+              balanceBudget={balanceBudget}
+            />
+
+            <ExpenseCard
+              expense={paginatedExpense}
+              handleDel={handleDel}
+              handleEdit={handleEdit}
+              page={page}
+              setPage={setPage}
+              limit={limit}
+              setLimit={setLimit}
+              totalPages={totalPages}
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              getCategoryColor={getCategoryColor}
+            />
+          </div>
+
+          {/* Right — narrow column: Highlights */}
+          <div className="lg:col-span-1">
+            {/* Progress + Transaction Count side by side */}
+            <div className="grid grid-cols-1 gap-4 mb-2">
+              <ProgressChart />
+              <TransactionCountChart />
+            </div>
+
+            <Highlights
+              totalSpendingCategoryWise={totalSpendingCategoryWise}
+              highestSpendingItem={highestSpendingItem}
+              getCategoryColor={getCategoryColor}
+            />
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
