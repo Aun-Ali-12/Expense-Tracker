@@ -1,9 +1,9 @@
 "use client";
-import PieCharts from "../Dashboard/Analytics/PieChart";
-import BarCharts from "../Dashboard/Analytics/BarChart";
-import ProgressChart from "../Dashboard/Analytics/ProgressChart";
-import TransactionCountChart from "../Dashboard/Analytics/TransactionsChart";
-import SideBar from "../Dashboard/Navbar/SideBar";
+import PieCharts from "../../Dashboard/Analytics/PieChart";
+import BarCharts from "../../Dashboard/Analytics/BarChart";
+import ProgressChart from "../../Dashboard/Analytics/ProgressChart";
+import TransactionCountChart from "../../Dashboard/Analytics/TransactionsChart";
+import SideBar from "../../Dashboard/Navbar/SideBar";
 
 export default function AnalyticsRep() {
   return (

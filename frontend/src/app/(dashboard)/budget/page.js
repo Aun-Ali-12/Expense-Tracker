@@ -1,4 +1,4 @@
-import BudgetRep from "@/component/Representation/Budget"
+import BudgetRep from "@/component/Representation/admin/Budget"
 
 export default function BudgetPage() {
     return (

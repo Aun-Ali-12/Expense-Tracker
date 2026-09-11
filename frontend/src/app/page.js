@@ -1,3 +1,7 @@
-export default function Home() {
-  return (<>Welcome to home page</>);
+import Home from "@/component/site/home/Home";
+
+export default function HomePage() {
+  return (<>
+    <Home />
+  </>);
 }

@@ -1,18 +1,18 @@
 "use client";
-import ExpenseCard from "../Dashboard/ExpenseCard";
-import ExpenseForm from "../Dashboard/ExpenseForm";
+import ExpenseCard from "../../Dashboard/ExpenseCard";
+import ExpenseForm from "../../Dashboard/ExpenseForm";
 import { useEffect } from "react";
 import useExpenseHook from "@/hooks/dashboard/useExpense";
 import { useExpense } from "@/Context/ExpenseData";
-import Highlights from "../Dashboard/Highlights";
+import Highlights from "../../Dashboard/Highlights";
 import { useFeatures } from "@/hooks/dashboard/useFeatures";
 import usePagination from "@/hooks/dashboard/Pagination";
-import SideBar from "../Dashboard/Navbar/SideBar";
-import BudgetSummary from "../Dashboard/Budget/BudgetSummary";
-import TransactionCountChart from "../Dashboard/Analytics/TransactionsChart";
-import ProgressChart from "../Dashboard/Analytics/ProgressChart";
+import SideBar from "../../Dashboard/Navbar/SideBar";
+import BudgetSummary from "../../Dashboard/Budget/BudgetSummary";
+import TransactionCountChart from "../../Dashboard/Analytics/TransactionsChart";
+import ProgressChart from "../../Dashboard/Analytics/ProgressChart";
 import { useCategoryColors } from "@/hooks/dashboard/utility/getCategoryColors";
-import MobileNav from "../Dashboard/Navbar/MobNav";
+import MobileNav from "../../Dashboard/Navbar/MobNav";
 
 export default function DashboardRep() {
   const {

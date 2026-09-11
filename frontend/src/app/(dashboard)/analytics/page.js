@@ -1,4 +1,4 @@
-import AnalyticsRep from "@/component/Representation/AnalyticsRep"
+import AnalyticsRep from "@/component/Representation/admin/AnalyticsRep"
 
 
 export default function AnalyticsPage() {

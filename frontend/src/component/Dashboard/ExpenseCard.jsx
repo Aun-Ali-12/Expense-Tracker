@@ -49,7 +49,7 @@ export default function ExpenseCard({
             </tr>
           </thead>
           <tbody>
-            {expense &&
+            {expense && expense.length > 0 ? (
               expense.map((e) => (
                 <tr
                   key={e._id}
@@ -93,7 +93,17 @@ export default function ExpenseCard({
                     </div>
                   </td>
                 </tr>
-              ))}
+              ))
+            ) : (
+              <tr>
+                <td
+                  className="px-5 py-3.5 text-text-primary font-medium text-center"
+                  colSpan={5}
+                >
+                  No data found
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

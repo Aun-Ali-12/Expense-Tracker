@@ -1,8 +1,8 @@
 "use client";
 import { useFeatures } from "@/hooks/dashboard/useFeatures";
-import Budget from "../Dashboard/Budget/Budget";
-import BudgetSummary from "../Dashboard/Budget/BudgetSummary";
-import SideBar from "../Dashboard/Navbar/SideBar";
+import Budget from "../../Dashboard/Budget/Budget";
+import BudgetSummary from "../../Dashboard/Budget/BudgetSummary";
+import SideBar from "../../Dashboard/Navbar/SideBar";
 
 export default function BudgetRep() {
   const { budget, totalExpense, balanceBudget } = useFeatures();
