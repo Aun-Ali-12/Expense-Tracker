@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { X, Receipt } from "lucide-react";
+import { useUser } from "@/Context/User";
+import { X, Receipt, User, LogOut } from "lucide-react";
 export default function ExpenseForm({
   formData,
   handleChange,
@@ -12,30 +11,63 @@ export default function ExpenseForm({
   isOpen,
   setIsOpen,
 }) {
-  const router = useRouter(); //use to relocate user if not loggedin
-
-  //runs when component mounts to check if user is loggedin
-  useEffect(() => {
-    const token = localStorage.getItem("token"); //token from localstorage
-    if (!token) {
-      router.push("/login");
-    }
-  }, []);
+  const { user, show, setShow } = useUser();
 
   return (
     <>
       <div>
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold text-text-primary">
+        <div className="flex items-center justify-end gap-2">
+          {/* <h2 className="text-2xl font-semibold text-text-primary">
             Dashboard
-          </h2>
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="bg-accent-primary text-white text-sm font-medium px-4 py-2.5 rounded-3xl shadow-sm hover:opacity-90 transition-opacity cursor-pointer"
-          >
-            +
-          </button>
+          </h2> */}
+
+          {/* add expense button  */}
+          <div>
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="bg-accent-primary text-white text-sm font-medium px-4 py-2.5 rounded-3xl shadow-sm hover:opacity-90 transition-opacity cursor-pointer"
+            >
+              +
+            </button>
+          </div>
+
+          {/* profile  */}
+
+          <div>
+            <div />
+            <User
+              onClick={() => setShow(!show)}
+              size={10}
+              className="w-8 h-8 text-accent-primary object-cover cursor-pointer"
+            />
+          </div>
+          <div>
+            {show && (
+              <>
+                <div
+                  className="fixed inset-0 z-10"
+                  onClick={() => {
+                    setShow(!show);
+                  }}
+                />
+                <div className="flex flex-col items-start gap-3 absolute right-0 mt-2 w-56 bg-white border border-slate-200 rounded-lg shadow-lg p-4 z-50">
+                  <p className="text-sm font-semibold text-slate-900 truncate">
+                    {user?.name}
+                  </p>
+                  <p className="text-xs text-slate-500 truncate mt-0.5">
+                    {user?.email}
+                  </p>
+                  {/* Logout button */}
+                  <button className="flex items-center gap-2.5 w-full px-3.5 py-2 rounded-xl text-sm text-slate-500 hover:bg-rose-500 hover:text-slate-100 transition-colors">
+                    <LogOut size={16} aria-hidden="true" />
+                    logout
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
         </div>
+
         {isOpen && (
           <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in"
@@ -46,7 +78,9 @@ export default function ExpenseForm({
               onClick={(e) => e.stopPropagation()}
             >
               <button
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  setIsOpen(false);
+                }}
                 aria-label="Close form"
                 className="absolute top-5 right-5 text-text-secondary hover:text-text-primary hover:rotate-90 transition-all duration-200"
               >
@@ -81,6 +115,7 @@ export default function ExpenseForm({
                     id="note"
                     value={isEdit ? edit.note : formData.note}
                     onChange={handleChange}
+                    required
                     placeholder="e.g. Grocery shopping"
                     className="px-3.5 py-2.5 rounded-xl border border-border text-sm text-text-primary placeholder:text-text-secondary/60 focus:outline-none focus:ring-2 focus:ring-accent-primary focus:border-transparent transition-all"
                   />
@@ -100,6 +135,7 @@ export default function ExpenseForm({
                     value={isEdit ? edit.amount : formData.amount}
                     onChange={handleChange}
                     placeholder="0.00"
+                    required
                     className="px-3.5 py-2.5 rounded-xl border border-border text-sm text-text-primary placeholder:text-text-secondary/60 focus:outline-none focus:ring-2 focus:ring-accent-primary focus:border-transparent transition-all"
                   />
                 </div>
@@ -117,6 +153,7 @@ export default function ExpenseForm({
                     id="date"
                     value={isEdit ? edit.date : formData.date}
                     onChange={handleChange}
+                    required
                     className="px-3.5 py-2.5 rounded-xl border border-border text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-accent-primary focus:border-transparent transition-all"
                   />
                 </div>

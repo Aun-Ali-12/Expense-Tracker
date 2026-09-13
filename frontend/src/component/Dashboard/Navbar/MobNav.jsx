@@ -67,16 +67,6 @@ export default function MobileNav() {
               );
             })}
           </ul>
-
-          <div className="mt-1 pt-2 border-t border-white/10">
-            <button
-              onClick={() => setIsOpen(false)}
-              className="flex items-center gap-2.5 w-full px-3.5 py-3 rounded-xl text-sm text-rose-200 hover:bg-rose-500/15 hover:text-rose-100 transition-colors"
-            >
-              <LogOut size={17} aria-hidden="true" />
-              <span>Logout</span>
-            </button>
-          </div>
         </div>
       )}
 

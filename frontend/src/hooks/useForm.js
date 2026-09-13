@@ -1,7 +1,9 @@
+import { useUser } from "@/Context/User"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 export default function useForm(mode) {
+    const { setUser } = useUser()
     const router = useRouter() //for navigation
 
     //manages form data 
@@ -65,6 +67,7 @@ export default function useForm(mode) {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endPoint}`, {
                 method: "POST",
                 headers: { "content-type": "application/json" },
+                credentials: "include",
                 body: JSON.stringify(body)
             })
 
@@ -78,8 +81,9 @@ export default function useForm(mode) {
             }
             setSuccess(successMessage)
             console.log(data);
-            localStorage.setItem("token", data.token) //setting token in localstorage
-            localStorage.setItem("user", JSON.stringify(data.user)) //setting user object in localstorage
+            setUser(data.user)
+            // localStorage.setItem("token", data.token) //setting token in localstorage
+            // localStorage.setItem("user", JSON.stringify(data.user)) //setting user object in localstorage
 
             //navigating user on base of mode
             if (mode === "login") {

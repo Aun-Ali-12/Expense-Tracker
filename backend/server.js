@@ -5,17 +5,24 @@ import cors from "cors";
 import authRoutes from "/ExpenseTracker/Expense-Tracker/backend/routes/authRoutes.js"
 import expenseRoutes from "/ExpenseTracker/Expense-Tracker/backend/routes/dashboard/expenseRoutes.js"
 import budgetRoutes from "/ExpenseTracker/Expense-Tracker/backend/routes/dashboard/budgetRoutes.js"
+import userRoutes from "/ExpenseTracker/Expense-Tracker/backend/routes/dashboard/userRoutes.js"
+import cookieParser from "cookie-parser";
 
 config();
 connectDB();
 const app = express();
 
+app.use(cookieParser())
 app.use(express.json()); //to parse request body in json
-app.use(cors()); //to make request allowable from frontend
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true
+})); //to make request allowable from another ip
 
 app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", expenseRoutes)
 app.use("/api", budgetRoutes)
+app.use("/api", userRoutes)
 
 app.get("/", (req, res) => {
   res.send("Hello World");

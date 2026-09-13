@@ -61,15 +61,14 @@ export default function useExpenseHook() {
     const addExpense = async () => {
         setMessage("")
         const endPoint = "/dashboard/expenses"
-        const token = localStorage.getItem("token")
 
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endPoint}`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
-                    "Authorization": `Bearer ${token}`
                 },
+                credentials: "include",
                 body: JSON.stringify(formData)
             })
 
@@ -99,22 +98,10 @@ export default function useExpenseHook() {
             })
             setIsOpen(false)
         }
-        // if (isEdit) {
-        //     try {
-        //         const endPoint = `/dashboard/expense/${edit._id}`
-        //         console.log(endPoint);
-        //     }
-        //     catch (err) {
-        //         console.log("something wen't wrong while updating expense in collection");
-
-        //     }
-
-        // }
     }
 
     const updateExpense = async (id) => {
         setMessage("")
-        const token = localStorage.getItem("token")
         try {
             const endPoint = `/dashboard/expenses/${id}`
 
@@ -122,8 +109,8 @@ export default function useExpenseHook() {
                 method: "PUT",
                 headers: {
                     "content-type": "application/json",
-                    "Authorization": `Bearer ${token}`
                 },
+                credentials: "include",
                 body: JSON.stringify(edit)
             })
 

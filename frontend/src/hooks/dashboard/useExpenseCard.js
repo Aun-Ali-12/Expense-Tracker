@@ -11,8 +11,6 @@ export default function useExpenseCard() {
     const fetchExpense = async (from, to) => {
         setLoading(true)
 
-        const token = localStorage.getItem("token")
-
         const params = new URLSearchParams()
 
         if (from) params.append("from", from)
@@ -22,10 +20,7 @@ export default function useExpenseCard() {
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endPoint}`, {
                 method: "GET",
-                headers: {
-                    "content-type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
+                credentials: "include"
             })
 
             const data = await res.json()
@@ -38,7 +33,6 @@ export default function useExpenseCard() {
             setExpense(data.data)
         }
         catch (err) {
-            console.log(data.message);
             console.log(err.message);
         }
         finally {
@@ -46,10 +40,8 @@ export default function useExpenseCard() {
         }
     }
 
-
     //delete handle
     const handleDel = async (id) => {
-        const token = localStorage.getItem("token")
         console.log(id);
         const endPoint = `/dashboard/expenses/${id}`
         setError("")
@@ -59,8 +51,8 @@ export default function useExpenseCard() {
                 method: "DELETE",
                 headers: {
                     "content-type": "application/json",
-                    "Authorization": `Bearer ${token}`
                 },
+                credentials: "include"
             })
 
             const data = await res.json()

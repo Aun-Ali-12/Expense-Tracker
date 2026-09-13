@@ -11,7 +11,7 @@ export default function Pagination({
   return (
     <>
       <div>
-        {page && page.length > 0 ? (
+        {page && page > 0 ? (
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-4">
             {/* Prev / Next controls */}
             <div className="flex items-center gap-2">
@@ -24,15 +24,21 @@ export default function Pagination({
                 <ChevronLeft size={16} />
               </button>
 
-              <span className="text-sm text-text-secondary px-1">
-                Page{" "}
-                <span className="font-medium text-text-primary">{page}</span>
-                of
-                <span className="font-medium text-text-primary">
-                  {" "}
-                  {totalPages}
+              {limit === "all" ? (
+                <span className="text-sm text-text-secondary px-1">
+                  showing all pages
                 </span>
-              </span>
+              ) : (
+                <span className="text-sm text-text-secondary px-1">
+                  Page{" "}
+                  <span className="font-medium text-text-primary">{page}</span>
+                  of
+                  <span className="font-medium text-text-primary">
+                    {" "}
+                    {totalPages}
+                  </span>
+                </span>
+              )}
 
               <button
                 onClick={() => setPage(page + 1)}

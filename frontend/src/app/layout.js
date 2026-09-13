@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import { ExpenseProvider } from "@/Context/ExpenseData";
+import { UserProvider } from "@/Context/User";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -30,7 +31,9 @@ export default function RootLayout({ children }) {
       className={`${poppins.variable} ${poppins.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <ExpenseProvider>{children}</ExpenseProvider>
+        <UserProvider>
+          <ExpenseProvider>{children}</ExpenseProvider>
+        </UserProvider>
       </body>
     </html>
   );

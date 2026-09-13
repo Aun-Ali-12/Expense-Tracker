@@ -8,15 +8,14 @@ export default function useBudget() {
 
     //set budget
     const setBudgetHandler = async () => {
-        const token = localStorage.getItem("token")
         const endPoint = "/budget"
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endPoint}`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
-                    "Authorization": `Bearer ${token}`
                 },
+                credentials: "include",
                 body: JSON.stringify({ month, amount })
             })
 
@@ -40,15 +39,11 @@ export default function useBudget() {
 
     //fetch budget
     const fetchBudgetHandler = async () => {
-        const token = localStorage.getItem("token")
         const endPoint = "/getbudget"
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endPoint}`, {
                 method: "GET",
-                headers: {
-                    "content-type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                }
+                credentials: "include",
             })
 
             const data = await res.json()
