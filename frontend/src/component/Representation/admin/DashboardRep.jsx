@@ -25,9 +25,10 @@ export default function DashboardRep() {
     isOpen,
     setIsOpen,
     message,
+    resetEdit,
   } = useExpenseHook();
 
-  const { expense, fetchExpense, handleDel } = useExpense();
+  const { fetchExpense, handleDel, loading, expenseLoading } = useExpense();
 
   const {
     totalSpendingCategoryWise,
@@ -37,8 +38,15 @@ export default function DashboardRep() {
     highestSpendingItem,
   } = useFeatures();
 
-  const { page, setPage, limit, setLimit, paginatedExpense, totalPages } =
-    usePagination();
+  const {
+    page,
+    setPage,
+    limit,
+    setLimit,
+    paginatedExpense,
+    totalPages,
+    expense,
+  } = usePagination();
 
   const { getCategoryColor } = useCategoryColors();
 
@@ -66,6 +74,7 @@ export default function DashboardRep() {
           isOpen={isOpen}
           setIsOpen={setIsOpen}
           message={message}
+          resetEdit={resetEdit}
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -75,10 +84,12 @@ export default function DashboardRep() {
               budget={budget}
               totalExpense={totalExpense}
               balanceBudget={balanceBudget}
+              loading={loading}
+              expenseLoading={expenseLoading}
             />
 
             <ExpenseCard
-              expense={paginatedExpense}
+              paginatedData={paginatedExpense}
               handleDel={handleDel}
               handleEdit={handleEdit}
               page={page}
@@ -89,6 +100,7 @@ export default function DashboardRep() {
               isOpen={isOpen}
               setIsOpen={setIsOpen}
               getCategoryColor={getCategoryColor}
+              expense={expense}
             />
           </div>
 

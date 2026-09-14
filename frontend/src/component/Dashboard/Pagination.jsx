@@ -7,6 +7,8 @@ export default function Pagination({
   limit,
   setLimit,
   totalPages,
+  expense,
+  paginatedData,
 }) {
   return (
     <>
@@ -29,15 +31,19 @@ export default function Pagination({
                   showing all pages
                 </span>
               ) : (
-                <span className="text-sm text-text-secondary px-1">
-                  Page{" "}
-                  <span className="font-medium text-text-primary">{page}</span>
-                  of
-                  <span className="font-medium text-text-primary">
-                    {" "}
-                    {totalPages}
+                <div>
+                  <span className="text-sm text-text-secondary px-1">
+                    Page{" "}
+                    <span className="font-medium text-text-primary">
+                      {page}{" "}
+                    </span>
+                    of
+                    <span className="font-medium text-text-primary">
+                      {" "}
+                      {totalPages}
+                    </span>
                   </span>
-                </span>
+                </div>
               )}
 
               <button
@@ -50,25 +56,40 @@ export default function Pagination({
               </button>
             </div>
             {/* Limit selector */}
-            <div className="flex items-center gap-2">
-              <label htmlFor="limit" className="text-xs text-text-secondary">
-                Show
-              </label>
-              <select
-                id="limit"
-                value={limit}
-                onChange={(e) => {
-                  setLimit(e.target.value);
-                  setPage(1);
-                }}
-                className="text-sm text-text-primary border border-border rounded-lg px-2.5 py-1.5 bg-card focus:outline-none focus:ring-2 focus:ring-accent-primary transition-all"
-              >
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-                <option value="50">50</option>
-                <option value="all">Show all</option>
-              </select>
+            <div className="flex flex-col items-center gap-2">
+              <div>
+                <label htmlFor="limit" className="text-xs text-text-secondary">
+                  Show{" "}
+                </label>
+                <select
+                  id="limit"
+                  value={limit}
+                  onChange={(e) => {
+                    setLimit(e.target.value);
+                    setPage(1);
+                  }}
+                  className="text-sm text-text-primary border border-border rounded-lg px-2.5 py-1.5 bg-card focus:outline-none focus:ring-2 focus:ring-accent-primary transition-all"
+                >
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                  <option value="50">50</option>
+                  <option value="all">Show all</option>
+                </select>
+              </div>
+              <div>
+                <span className="text-sm text-text-secondary px-1">
+                  Showing{" "}
+                  <span className="font-medium text-text-primary">
+                    {paginatedData.length}{" "}
+                  </span>
+                  entries out of
+                  <span className="font-medium text-text-primary">
+                    {" "}
+                    {expense.length}
+                  </span>
+                </span>
+              </div>
             </div>
           </div>
         ) : (

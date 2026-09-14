@@ -4,7 +4,7 @@ import Filters from "./Filters";
 import Pagination from "./Pagination";
 
 export default function ExpenseCard({
-  expense,
+  paginatedData,
   handleDel,
   handleEdit,
   page,
@@ -15,6 +15,7 @@ export default function ExpenseCard({
   isOpen,
   setIsOpen,
   getCategoryColor,
+  expense,
 }) {
   return (
     <section className="bg-card rounded-2xl p-4 border border-border capitalize">
@@ -49,8 +50,8 @@ export default function ExpenseCard({
             </tr>
           </thead>
           <tbody>
-            {expense && expense.length > 0 ? (
-              expense.map((e) => (
+            {paginatedData && paginatedData.length > 0 ? (
+              paginatedData.map((e) => (
                 <tr
                   key={e._id}
                   className="border-b border-border last:border-0 hover:bg-slate-50/50 transition-colors"
@@ -110,8 +111,8 @@ export default function ExpenseCard({
 
       {/*  MOBILE: CARD VIEW */}
       <div className="flex flex-col gap-3 md:hidden">
-        {expense &&
-          expense.map((e) => (
+        {paginatedData &&
+          paginatedData.map((e) => (
             <div
               key={e._id}
               className="bg-card rounded-2xl border border-border p-4"
@@ -169,6 +170,8 @@ export default function ExpenseCard({
           limit={limit}
           setLimit={setLimit}
           totalPages={totalPages}
+          expense={expense}
+          paginatedData={paginatedData}
         />
       </div>
     </section>

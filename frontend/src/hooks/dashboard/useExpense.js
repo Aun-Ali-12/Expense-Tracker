@@ -18,9 +18,15 @@ export default function useExpenseHook() {
     //used to handle form toggling
     const [isOpen, setIsOpen] = useState(false);
     //expense context
-    const { expense, setExpense } = useExpense()
+    const { expense, fetchExpense, setExpense } = useExpense()
     //message
     const [message, setMessage] = useState("")
+
+    const resetEdit = () => {
+        setIsEdit(!isEdit)
+        setEditId(null)
+        setEdit(null)
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -121,7 +127,7 @@ export default function useExpenseHook() {
                 setMessage(data.message)
                 return
             }
-            setExpense((prev) => [data.data, ...prev])
+            fetchExpense()
             setMessage(data.message)
             alert("updated")
         }
@@ -129,14 +135,10 @@ export default function useExpenseHook() {
             console.log("err in update handler");
         }
         finally {
-            setFormData({
-                note: "",
-                amount: "",
-                date: ""
-            })
+            setEdit(null)
             setIsOpen(false)
         }
     }
 
-    return { formData, handleChange, handleSubmit, handleEdit, edit, isEdit, isOpen, setIsOpen, message, setMessage }
+    return { formData, handleChange, handleSubmit, handleEdit, edit, isEdit, isOpen, setIsOpen, message, setMessage, resetEdit }
 }

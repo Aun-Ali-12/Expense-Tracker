@@ -29,7 +29,7 @@ export default function useExpenseCard() {
                 console.log(data.message);
                 return
             }
-            console.log(data.message);
+            console.log(data.data);
             setExpense(data.data)
         }
         catch (err) {

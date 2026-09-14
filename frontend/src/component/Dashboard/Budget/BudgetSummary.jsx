@@ -1,7 +1,15 @@
 "use client";
 import { Wallet, BadgeDollarSign, ReceiptText } from "lucide-react";
+import { BudgetSummarySkeleton } from "./Loader";
 
-export default function BudgetSummary({ budget, balanceBudget, totalExpense }) {
+export default function BudgetSummary({
+  budget,
+  balanceBudget,
+  totalExpense,
+  loading,
+  expenseLoading,
+}) {
+  if (loading || expenseLoading) return <BudgetSummarySkeleton />;
   return (
     <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
       {/* Card 1: Budget */}

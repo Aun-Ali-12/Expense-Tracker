@@ -4,6 +4,7 @@ export default function useBudget() {
     const [budget, setBudget] = useState(0) //handle budget of user
     const [amount, setAmount] = useState(0) //handles amount getting from user input
     const [isOpen, setIsOpen] = useState(false) //toggles the state of set budget button
+    const [loading, setLoading] = useState(false)
     const month = new Date().toISOString().slice(0, 7) //this gives yyy-mm
 
     //set budget
@@ -39,6 +40,7 @@ export default function useBudget() {
 
     //fetch budget
     const fetchBudgetHandler = async () => {
+        setLoading(true)
         const endPoint = "/getbudget"
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endPoint}`, {
@@ -58,6 +60,9 @@ export default function useBudget() {
         catch (err) {
             console.log(err.message);
         }
+        finally {
+            setLoading(false)
+        }
     }
-    return { amount, setAmount, setBudgetHandler, fetchBudgetHandler, isOpen, setIsOpen, budget }
+    return { amount, setAmount, setBudgetHandler, fetchBudgetHandler, isOpen, setIsOpen, budget, loading }
 }

@@ -10,6 +10,8 @@ export default function ExpenseForm({
   isEdit,
   isOpen,
   setIsOpen,
+  setIsEdit,
+  resetEdit,
 }) {
   const { user, show, setShow } = useUser();
 
@@ -24,7 +26,9 @@ export default function ExpenseForm({
           {/* add expense button  */}
           <div>
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => {
+                setIsOpen(!isOpen);
+              }}
               className="bg-accent-primary text-white text-sm font-medium px-4 py-2.5 rounded-3xl shadow-sm hover:opacity-90 transition-opacity cursor-pointer"
             >
               +
@@ -71,7 +75,10 @@ export default function ExpenseForm({
         {isOpen && (
           <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in"
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => {
+              setIsOpen(!isOpen);
+              resetEdit();
+            }}
           >
             <div
               className="bg-card w-full max-w-md mx-4 rounded-2xl p-7 relative shadow-2xl animate-scale-in"
@@ -80,6 +87,7 @@ export default function ExpenseForm({
               <button
                 onClick={() => {
                   setIsOpen(false);
+                  resetEdit();
                 }}
                 aria-label="Close form"
                 className="absolute top-5 right-5 text-text-secondary hover:text-text-primary hover:rotate-90 transition-all duration-200"
@@ -113,7 +121,7 @@ export default function ExpenseForm({
                     type="text"
                     name="note"
                     id="note"
-                    value={isEdit ? edit.note : formData.note}
+                    value={isEdit ? edit?.note : formData?.note}
                     onChange={handleChange}
                     required
                     placeholder="e.g. Grocery shopping"
@@ -132,7 +140,7 @@ export default function ExpenseForm({
                     type="number"
                     name="amount"
                     id="amount"
-                    value={isEdit ? edit.amount : formData.amount}
+                    value={isEdit ? edit?.amount : formData?.amount}
                     onChange={handleChange}
                     placeholder="0.00"
                     required
@@ -151,7 +159,7 @@ export default function ExpenseForm({
                     type="date"
                     name="date"
                     id="date"
-                    value={isEdit ? edit.date : formData.date}
+                    value={isEdit ? edit?.date : formData?.date}
                     onChange={handleChange}
                     required
                     className="px-3.5 py-2.5 rounded-xl border border-border text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-accent-primary focus:border-transparent transition-all"
@@ -162,7 +170,7 @@ export default function ExpenseForm({
                   type="submit"
                   className="mt-2 bg-accent-primary text-white text-sm font-semibold py-3 rounded-xl shadow-sm hover:opacity-90 hover:shadow-md active:scale-[0.98] transition-all"
                 >
-                  Add Expense
+                  {isEdit ? "Update Expense" : "Add Expense"}
                 </button>
               </form>
             </div>

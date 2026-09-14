@@ -15,5 +15,5 @@ export default function usePagination() {
 
     const totalPages = Math.ceil(expense.length / limit);
 
-    return { page, setPage, limit, setLimit, paginatedExpense, totalPages }
+    return { page, setPage, limit, setLimit, paginatedExpense, totalPages, expense }
 }

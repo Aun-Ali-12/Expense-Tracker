@@ -8,8 +8,14 @@ const ExpenseContext = createContext();
 
 //provider
 export const ExpenseProvider = ({ children }) => {
-  const { expense, setExpense, loading, error, fetchExpense, handleDel } =
-    useExpenseCard();
+  const {
+    expense,
+    setExpense,
+    error,
+    loading: expenseLoading,
+    fetchExpense,
+    handleDel,
+  } = useExpenseCard();
   const {
     budget,
     fetchBudgetHandler,
@@ -18,6 +24,7 @@ export const ExpenseProvider = ({ children }) => {
     setBudgetHandler,
     isOpen,
     setIsOpen,
+    loading,
   } = useBudget();
 
   useEffect(() => {
@@ -39,6 +46,8 @@ export const ExpenseProvider = ({ children }) => {
         setBudgetHandler,
         isOpen,
         setIsOpen,
+        loading,
+        expenseLoading
       }}
     >
       {children}
