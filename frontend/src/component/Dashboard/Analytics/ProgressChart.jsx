@@ -1,8 +1,9 @@
 "use client";
 import useBudgetProgress from "@/hooks/dashboard/Analytics/useBudgetProgress";
 import { Target } from "lucide-react";
+import { BudgetComparisonSkeleton } from "../Budget/Loader";
 
-export default function ProgressChart() {
+export default function ProgressChart({ loading }) {
   const {
     rawPercentage,
     percentage,
@@ -12,6 +13,7 @@ export default function ProgressChart() {
     balanceBudget,
   } = useBudgetProgress();
 
+  if (loading) return <BudgetComparisonSkeleton />;
   return (
     <section className="bg-card border border-border rounded-2xl p-4 sm:p-5">
       <div className="flex items-center gap-2 mb-3">

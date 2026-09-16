@@ -101,6 +101,7 @@ export default function DashboardRep() {
               setIsOpen={setIsOpen}
               getCategoryColor={getCategoryColor}
               expense={expense}
+              expenseLoading={expenseLoading}
             />
           </div>
 
@@ -108,7 +109,7 @@ export default function DashboardRep() {
           <div className="lg:col-span-1">
             {/* Progress + Transaction Count side by side */}
             <div className="grid grid-cols-1 gap-4 mb-2">
-              <ProgressChart />
+              <ProgressChart loading={loading} />
               <TransactionCountChart />
             </div>
 
