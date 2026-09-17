@@ -9,6 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import BarChartSkeleton from "./Loaders/BarSkeleton";
 
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
@@ -28,9 +29,10 @@ const CustomTooltip = ({ active, payload }) => {
   return null;
 };
 
-export default function BarCharts() {
+export default function BarCharts({ expenseLoading }) {
   const { highestSpendingItem: stats } = useFeatures();
 
+  if (expenseLoading) return <BarChartSkeleton />;
   return (
     <section className="bg-card border border-border rounded-2xl p-4 sm:p-5">
       <h2 className="text-sm font-semibold text-text-primary mb-1">

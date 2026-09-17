@@ -1,11 +1,13 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [show, setShow] = useState(false);
-
+  const route = useRouter();
   useEffect(() => {
     getUser();
   }, []);
@@ -25,7 +27,6 @@ export const UserProvider = ({ children }) => {
         return;
       }
       setUser(data.data);
-      console.log(data.message);
     } catch (err) {
       console.log(err.message);
     }
@@ -45,7 +46,8 @@ export const UserProvider = ({ children }) => {
         console.log("couldn't cleared cookie");
         return;
       }
-      alert(data.message);
+      toast.success("logged out successfully");
+      route.push("/login");
     } catch (err) {
       console.log(err.message);
     }

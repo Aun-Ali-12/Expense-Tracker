@@ -10,10 +10,9 @@ export default function ExpenseForm({
   isEdit,
   isOpen,
   setIsOpen,
-  setIsEdit,
   resetEdit,
 }) {
-  const { user, show, setShow } = useUser();
+  const { user, show, setShow, handleLogout } = useUser();
 
   return (
     <>
@@ -62,7 +61,12 @@ export default function ExpenseForm({
                     {user?.email}
                   </p>
                   {/* Logout button */}
-                  <button className="flex items-center gap-2.5 w-full px-3.5 py-2 rounded-xl text-sm text-slate-500 hover:bg-rose-500 hover:text-slate-100 transition-colors">
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                    }}
+                    className="flex items-center gap-2.5 w-full px-3.5 py-2 rounded-xl text-sm text-slate-500 hover:bg-rose-500 hover:text-slate-100 transition-colors"
+                  >
                     <LogOut size={16} aria-hidden="true" />
                     logout
                   </button>

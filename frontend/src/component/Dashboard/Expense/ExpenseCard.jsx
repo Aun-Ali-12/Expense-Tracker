@@ -2,7 +2,7 @@
 import { Pencil, Trash2 } from "lucide-react";
 import Filters from "./Filters";
 import Pagination from "./Pagination";
-import { ECardSkeleton } from "./ECardSkeleton";
+import { TableSkeleton } from "./Loader/TableSkeleton";
 
 export default function ExpenseCard({
   paginatedData,
@@ -53,7 +53,9 @@ export default function ExpenseCard({
           </thead>
           <tbody>
             {expenseLoading
-              ? Array.from({ length: 5 }).map((_, i) => <ECardSkeleton />)
+              ? Array.from({ length: 5 }).map((_, i) => (
+                  <TableSkeleton key={i} />
+                ))
               : paginatedData.map((e) => (
                   <tr
                     key={e._id}

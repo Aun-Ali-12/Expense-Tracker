@@ -50,7 +50,7 @@ export default function Navbar() {
         </nav>
 
         <Link
-          href="/signup"
+          href="/login"
           className="hidden md:inline-block bg-accent-primary text-white text-sm font-medium px-4 py-2 rounded-lg hover:opacity-90 hover:scale-105 transition-all shadow-sm shadow-accent-primary/20 no-underline"
         >
           Get started
@@ -89,7 +89,7 @@ export default function Navbar() {
             );
           })}
           <Link
-            href="/signup"
+            href="/login"
             onClick={() => setIsOpen(false)}
             className="mt-2 bg-accent-primary text-white text-sm font-medium px-4 py-2.5 rounded-lg text-center no-underline hover:opacity-90 transition-opacity"
           >

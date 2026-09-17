@@ -1,5 +1,7 @@
 "use client"
 import { useState } from "react"
+import toast from "react-hot-toast"
+import Swal from "sweetalert2"
 
 export default function useExpenseCard() {
     const [error, setError] = useState("")
@@ -42,31 +44,27 @@ export default function useExpenseCard() {
 
     //delete handle
     const handleDel = async (id) => {
-        console.log(id);
-        const endPoint = `/dashboard/expenses/${id}`
         setError("")
         setLoading(true)
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endPoint}`, {
-                method: "DELETE",
-                headers: {
-                    "content-type": "application/json",
-                },
-                credentials: "include"
+            const result = await Swal.fire({
+                title: 'Are you sure?',
+                text: 'This action cannot be undone.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#5B4FCF',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
             })
 
-            const data = await res.json()
-
-            if (!res.ok) {
-                console.log("couldn't deleted, try again!");
-                setError("couldn't deleted, try again!")
-                return;
+            if (result.isConfirmed) {
+                await Delete(id)
+                Swal.fire('Deleted!', 'The record has been removed.', 'success');
+                toast.success('Item deleted successfully');
             }
-
-            alert("deleted")
-            setExpense((prev) => prev.filter((i) => (i._id !== id)))
-        }
-        catch (err) {
+        } catch (err) {
+            Swal.fire('Error!', 'Something went wrong while deleting.', 'error');
+            toast.error('Delete failed');
             console.log("Something went wrong", err.message);
         }
         finally {
@@ -74,6 +72,26 @@ export default function useExpenseCard() {
         }
     }
 
+    // delete logic  
+    async function Delete(id) {
+        const endPoint = `/dashboard/expenses/${id}`
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endPoint}`, {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json",
+            },
+            credentials: "include"
+        })
+
+        const data = await res.json()
+
+        if (!res.ok) {
+            console.log("couldn't deleted, try again!");
+            setError("couldn't deleted, try again!")
+            return;
+        }
+        setExpense((prev) => prev.filter((i) => (i._id !== id)))
+    }
 
     return { expense, setExpense, loading, error, fetchExpense, handleDel }
 }

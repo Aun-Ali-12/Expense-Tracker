@@ -1,14 +1,16 @@
 "use client";
 import { useFeatures } from "@/hooks/dashboard/useFeatures";
 import { ListChecks, Calculator } from "lucide-react";
+import TransactionSkeleton from "./Loaders/TransactionSkeleton";
 
-export default function TransactionCountChart() {
+export default function TransactionCountChart({ expenseLoading }) {
   const { expense, totalExpense } = useFeatures();
 
   const totalTransactions = expense.length;
   const averagePerTransaction =
     totalTransactions > 0 ? (totalExpense / totalTransactions).toFixed(0) : 0;
 
+  if (expenseLoading) return <TransactionSkeleton />;
   return (
     <section className="bg-card border border-border rounded-2xl p-4 sm:p-5">
       <h2 className="text-sm font-semibold text-text-primary mb-4">

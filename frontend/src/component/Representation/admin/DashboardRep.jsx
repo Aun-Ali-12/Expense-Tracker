@@ -1,10 +1,10 @@
 "use client";
-import ExpenseCard from "../../Dashboard/ExpenseCard";
-import ExpenseForm from "../../Dashboard/ExpenseForm";
+import ExpenseCard from "../../Dashboard/Expense/ExpenseCard";
+import ExpenseForm from "../../Dashboard/Expense/ExpenseForm";
 import { useEffect } from "react";
 import useExpenseHook from "@/hooks/dashboard/useExpense";
 import { useExpense } from "@/Context/ExpenseData";
-import Highlights from "../../Dashboard/Highlights";
+import Highlights from "../../Dashboard/Expense/Highlights";
 import { useFeatures } from "@/hooks/dashboard/useFeatures";
 import usePagination from "@/hooks/dashboard/Pagination";
 import SideBar from "../../Dashboard/Navbar/SideBar";
@@ -110,13 +110,14 @@ export default function DashboardRep() {
             {/* Progress + Transaction Count side by side */}
             <div className="grid grid-cols-1 gap-4 mb-2">
               <ProgressChart loading={loading} />
-              <TransactionCountChart />
+              <TransactionCountChart expenseLoading={expenseLoading} />
             </div>
 
             <Highlights
               totalSpendingCategoryWise={totalSpendingCategoryWise}
               highestSpendingItem={highestSpendingItem}
               getCategoryColor={getCategoryColor}
+              expenseLoading={expenseLoading}
             />
           </div>
         </div>

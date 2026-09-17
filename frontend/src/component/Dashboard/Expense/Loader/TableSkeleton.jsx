@@ -1,6 +1,6 @@
-import { SkeletonLoader } from "./Skeleton/SkelenLoader";
+import { SkeletonLoader } from "../../Skeleton/SkelenLoader";
 
-export function ECardSkeleton() {
+export function TableSkeleton() {
   return (
     <>
       <tr className="border-b border-border">

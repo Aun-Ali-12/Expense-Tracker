@@ -2,6 +2,9 @@ import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import { ExpenseProvider } from "@/Context/ExpenseData";
 import { UserProvider } from "@/Context/User";
+import { Toaster } from "react-hot-toast";
+import NextTopLoader from "nextjs-toploader";
+
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -31,8 +34,16 @@ export default function RootLayout({ children }) {
       className={`${poppins.variable} ${poppins.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        {/* user context provider  */}
         <UserProvider>
-          <ExpenseProvider>{children}</ExpenseProvider>
+          {/* expense context provider  */}
+          <ExpenseProvider>
+            {/* top bar loader whenever user relocates  */}
+            <NextTopLoader color="#0ea5e9" showSpinner={false} />
+            {children}
+            {/* toaster alert  */}
+            <Toaster position="top-right" reverseOrder={false} />
+          </ExpenseProvider>
         </UserProvider>
       </body>
     </html>

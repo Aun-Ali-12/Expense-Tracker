@@ -4,12 +4,19 @@ import BarCharts from "../../Dashboard/Analytics/BarChart";
 import ProgressChart from "../../Dashboard/Analytics/ProgressChart";
 import TransactionCountChart from "../../Dashboard/Analytics/TransactionsChart";
 import SideBar from "../../Dashboard/Navbar/SideBar";
+import MobileNav from "@/component/Dashboard/Navbar/MobNav";
+import { useExpense } from "@/Context/ExpenseData";
 
 export default function AnalyticsRep() {
+  const { expenseLoading } = useExpense();
   return (
     <div className="flex">
       <div className="hidden md:block bg-sidebar">
         <SideBar />
+      </div>
+
+      <div className="block md:hidden">
+        <MobileNav />
       </div>
 
       <div className="flex-1 flex flex-col gap-4 p-4 sm:p-6">
@@ -22,8 +29,8 @@ export default function AnalyticsRep() {
 
         {/* Row 1 — Pie + Bar charts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <PieCharts />
-          <BarCharts />
+          <PieCharts expenseLoading={expenseLoading} />
+          <BarCharts expenseLoading={expenseLoading} />
         </div>
 
         {/* Row 2 — Progress + Transaction count */}

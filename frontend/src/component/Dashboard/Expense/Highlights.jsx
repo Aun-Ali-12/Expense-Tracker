@@ -1,10 +1,13 @@
 "use client";
+import HighlightSkeleton from "./Loader/HighlightSkeleton";
 
 export default function TopHighlights({
   totalSpendingCategoryWise,
   highestSpendingItem,
   getCategoryColor,
+  expenseLoading,
 }) {
+  if (expenseLoading) return <HighlightSkeleton />;
   return (
     <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
       {/* ---------- Section 1: Top Highlights (Category-wise spending) ---------- */}

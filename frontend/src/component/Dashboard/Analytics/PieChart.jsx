@@ -8,6 +8,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useFeatures } from "@/hooks/dashboard/useFeatures";
+import PieChartSkeleton from "./Loaders/PieSkeleton";
 
 const PIE_COLORS = ["#0EA5E9", "#2DD4BF", "#FBBF24", "#FB7185", "#8B5CF6"];
 
@@ -26,9 +27,10 @@ const CustomTooltip = ({ active, payload }) => {
   return null;
 };
 
-export default function PieCharts() {
+export default function PieCharts({ expenseLoading }) {
   const { totalSpendingCategoryWise: stats } = useFeatures();
 
+  if (expenseLoading) return <PieChartSkeleton />;
   return (
     <section className="bg-card border border-border rounded-2xl p-4 sm:p-5">
       <h2 className="text-sm font-semibold text-text-primary mb-1">

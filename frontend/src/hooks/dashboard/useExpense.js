@@ -1,5 +1,6 @@
 import { useExpense } from "@/Context/ExpenseData"
 import { useState } from "react"
+import toast from "react-hot-toast"
 
 export default function useExpenseHook() {
     //handles add expense data 
@@ -88,11 +89,9 @@ export default function useExpenseHook() {
             }
             setExpense((prev) => [data.data, ...prev])
             setMessage(data.message)
-            alert("Added")
-            console.log("added success", data.data);
+            toast.success("Expense successfully added!")
         }
         catch (err) {
-            console.log("Something went wrong");
             console.log(err.message);
         }
 
@@ -123,16 +122,15 @@ export default function useExpenseHook() {
             const data = await res.json()
 
             if (!res.ok) {
-                console.log(data.message);
                 setMessage(data.message)
                 return
             }
             fetchExpense()
             setMessage(data.message)
-            alert("updated")
+            toast.success("Expense successfully updated!")
         }
         catch (err) {
-            console.log("err in update handler");
+            console.log(err.message);
         }
         finally {
             setEdit(null)

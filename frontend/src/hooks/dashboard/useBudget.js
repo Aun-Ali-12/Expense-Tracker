@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function useBudget() {
     const [budget, setBudget] = useState(0) //handle budget of user
@@ -26,11 +27,11 @@ export default function useBudget() {
                 console.log(data.message);
                 return
             }
-            alert("Budget is set! you can update it anytime.")
+            toast.success("Budget has been successfully set!")
             await fetchBudgetHandler()
         }
         catch (err) {
-            return res.status(500).json({ message: "something went wrong" })
+            console.log(err.message);
         }
         finally {
             setIsOpen(false)
