@@ -71,6 +71,7 @@ export default function useForm(mode) {
                 body: JSON.stringify(body)
             })
 
+
             //convert res into json
             const data = await res.json()
 
@@ -80,10 +81,7 @@ export default function useForm(mode) {
                 return;
             }
             setSuccess(successMessage)
-            console.log(data);
             setUser(data.user)
-            // localStorage.setItem("token", data.token) //setting token in localstorage
-            // localStorage.setItem("user", JSON.stringify(data.user)) //setting user object in localstorage
 
             //navigating user on base of mode
             if (mode === "login") {
@@ -91,6 +89,7 @@ export default function useForm(mode) {
             } else {
                 router.push("/login")
             }
+            console.log(res.status);
         }
         catch (error) {
             setError("Server error, please try again!", error)

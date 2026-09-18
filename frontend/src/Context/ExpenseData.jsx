@@ -47,7 +47,7 @@ export const ExpenseProvider = ({ children }) => {
         isOpen,
         setIsOpen,
         loading,
-        expenseLoading
+        expenseLoading,
       }}
     >
       {children}

@@ -1,9 +1,7 @@
 "use client";
 import { useExpense } from "@/Context/ExpenseData";
-import { useFeatures } from "@/hooks/dashboard/useFeatures";
-import SideBar from "../Navbar/SideBar";
-import { Wallet, Receipt, X, DollarSignIcon } from "lucide-react";
-import BudgetSummary from "./BudgetSummary";
+import { X } from "lucide-react";
+
 
 export default function Budget() {
   const { amount, setAmount, setBudgetHandler, isOpen, setIsOpen } =
@@ -23,51 +21,6 @@ export default function Budget() {
             Set your budget
           </button>
         </div>
-
-        {/* Stat cards
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            <div className="bg-balance-bg rounded-2xl p-5 sm:p-6">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-9 h-9 rounded-lg bg-card/60 flex items-center justify-center">
-                  <Wallet size={16} className="text-balance-label" />
-                </div>
-                <p className="text-sm font-medium text-balance-label">
-                  This month's budget
-                </p>
-              </div>
-              <p className="text-2xl sm:text-3xl font-bold text-balance-text">
-                Rs. {budget}
-              </p>
-            </div>
-
-            <div className="bg-income-bg rounded-2xl p-5 sm:p-6">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-9 h-9 rounded-lg bg-card/60 flex items-center justify-center">
-                  <DollarSignIcon size={16} className="text-income-label" />
-                </div>
-                <p className="text-sm font-medium text-income-label">
-                  Remaining balance
-                </p>
-              </div>
-              <p className="text-2xl sm:text-3xl font-bold text-income-text">
-                Rs. {balanceBudget}
-              </p>
-            </div>
-
-            <div className="bg-expense-bg rounded-2xl p-5 sm:p-6 sm:col-span-2 lg:col-span-1">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-9 h-9 rounded-lg bg-card/60 flex items-center justify-center">
-                  <Receipt size={16} className="text-expense-label" />
-                </div>
-                <p className="text-sm font-medium text-expense-label">
-                  Total spendings
-                </p>
-              </div>
-              <p className="text-2xl sm:text-3xl font-bold text-expense-text">
-                Rs. {totalExpense}
-              </p>
-            </div>
-          </div> */}
       </div>
 
       {/* Modal overlay */}

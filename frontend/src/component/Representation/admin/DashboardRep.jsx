@@ -13,6 +13,7 @@ import TransactionCountChart from "../../Dashboard/Analytics/TransactionsChart";
 import ProgressChart from "../../Dashboard/Analytics/ProgressChart";
 import { useCategoryColors } from "@/hooks/dashboard/utility/getCategoryColors";
 import MobileNav from "../../Dashboard/Navbar/MobNav";
+import useBudget from "@/hooks/dashboard/useBudget";
 
 export default function DashboardRep() {
   const {
@@ -26,6 +27,7 @@ export default function DashboardRep() {
     setIsOpen,
     message,
     resetEdit,
+    resetAdd,
   } = useExpenseHook();
 
   const { fetchExpense, handleDel, loading, expenseLoading } = useExpense();
@@ -48,10 +50,13 @@ export default function DashboardRep() {
     expense,
   } = usePagination();
 
+  const { fetchBudgetHandler } = useBudget();
   const { getCategoryColor } = useCategoryColors();
 
   useEffect(() => {
+    console.log("DR Chala");
     fetchExpense();
+    fetchBudgetHandler();
   }, []);
 
   return (
@@ -75,6 +80,7 @@ export default function DashboardRep() {
           setIsOpen={setIsOpen}
           message={message}
           resetEdit={resetEdit}
+          resetAdd={resetAdd}
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -102,6 +108,7 @@ export default function DashboardRep() {
               getCategoryColor={getCategoryColor}
               expense={expense}
               expenseLoading={expenseLoading}
+              resetEdit={resetEdit}
             />
           </div>
 

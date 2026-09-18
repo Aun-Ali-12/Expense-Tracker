@@ -9,6 +9,7 @@ import {
 } from "recharts";
 import { useFeatures } from "@/hooks/dashboard/useFeatures";
 import PieChartSkeleton from "./Loaders/PieSkeleton";
+import Filters from "../Expense/Filters";
 
 const PIE_COLORS = ["#0EA5E9", "#2DD4BF", "#FBBF24", "#FB7185", "#8B5CF6"];
 
@@ -33,9 +34,14 @@ export default function PieCharts({ expenseLoading }) {
   if (expenseLoading) return <PieChartSkeleton />;
   return (
     <section className="bg-card border border-border rounded-2xl p-4 sm:p-5">
-      <h2 className="text-sm font-semibold text-text-primary mb-1">
-        Category wise spending
-      </h2>
+      <div className="flex justify-between items-center">
+        <h2 className="text-sm font-semibold text-text-primary mb-1">
+          Category wise spending
+        </h2>
+        <span>
+          <Filters />
+        </span>
+      </div>
       <p className="text-xs text-text-secondary mb-3">
         How your spending is split this month
       </p>

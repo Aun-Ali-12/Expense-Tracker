@@ -23,8 +23,17 @@ export default function useExpenseHook() {
     //message
     const [message, setMessage] = useState("")
 
+    //resets add states
+    const resetAdd = () => {
+        setFormData({
+            note: "",
+            amount: "",
+            date: ""
+        })
+    }
+    //resets edit states
     const resetEdit = () => {
-        setIsEdit(!isEdit)
+        setIsEdit(false)
         setEditId(null)
         setEdit(null)
     }
@@ -137,6 +146,5 @@ export default function useExpenseHook() {
             setIsOpen(false)
         }
     }
-
-    return { formData, handleChange, handleSubmit, handleEdit, edit, isEdit, isOpen, setIsOpen, message, setMessage, resetEdit }
+    return { formData, handleChange, handleSubmit, handleEdit, edit, isEdit, isOpen, setIsOpen, message, setMessage, resetEdit, resetAdd }
 }

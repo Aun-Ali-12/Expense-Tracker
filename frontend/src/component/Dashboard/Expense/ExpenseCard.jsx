@@ -18,6 +18,7 @@ export default function ExpenseCard({
   getCategoryColor,
   expense,
   expenseLoading,
+  resetEdit,
 }) {
   return (
     <section className="bg-card rounded-2xl p-4 border border-border capitalize">

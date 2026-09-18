@@ -11,6 +11,7 @@ export default function ExpenseForm({
   isOpen,
   setIsOpen,
   resetEdit,
+  resetAdd,
 }) {
   const { user, show, setShow, handleLogout } = useUser();
 
@@ -82,6 +83,7 @@ export default function ExpenseForm({
             onClick={() => {
               setIsOpen(!isOpen);
               resetEdit();
+              resetAdd();
             }}
           >
             <div
@@ -90,8 +92,9 @@ export default function ExpenseForm({
             >
               <button
                 onClick={() => {
-                  setIsOpen(false);
+                  setIsOpen(!isOpen);
                   resetEdit();
+                  resetAdd();
                 }}
                 aria-label="Close form"
                 className="absolute top-5 right-5 text-text-secondary hover:text-text-primary hover:rotate-90 transition-all duration-200"
@@ -105,7 +108,7 @@ export default function ExpenseForm({
                 </div>
                 <div>
                   <h1 className="text-lg font-semibold text-text-primary">
-                    Add Expense
+                    {isEdit ? " Update Expense" : " Add Expense"}
                   </h1>
                   <p className="text-xs text-text-secondary">
                     Track your spending
