@@ -20,8 +20,6 @@ export const insertBudget = async (req, res) => {
 
             return res.status(404).json({ message: "couldn't set the budget, try again!" })
         }
-        console.log("success mn", setBudget);
-
         return res.status(200).json({ message: "Successfully set the budget", data: setBudget })
     } catch (err) {
         console.log(err.message);

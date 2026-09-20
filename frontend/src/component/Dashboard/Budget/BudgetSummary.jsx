@@ -1,14 +1,12 @@
 "use client";
 import { Wallet, BadgeDollarSign, ReceiptText } from "lucide-react";
 import { BudgetSummarySkeleton } from "./Loader";
+import { useFeatures } from "@/hooks/dashboard/useFeatures";
 
-export default function BudgetSummary({
-  budget,
-  balanceBudget,
-  totalExpense,
-  loading,
-  expenseLoading,
-}) {
+export default function BudgetSummary() {
+  const { budget, balanceBudget, totalExpense, loading, expenseLoading } =
+    useFeatures();
+
   if (loading || expenseLoading) return <BudgetSummarySkeleton />;
   return (
     <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">

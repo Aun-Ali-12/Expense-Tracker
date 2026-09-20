@@ -8,6 +8,7 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [show, setShow] = useState(false);
   const route = useRouter();
+  
   useEffect(() => {
     getUser();
   }, []);
@@ -41,6 +42,8 @@ export const UserProvider = ({ children }) => {
         credentials: "include",
       });
       const data = await res.json();
+
+      console.log(data.message);
 
       if (!res.ok) {
         console.log("couldn't cleared cookie");

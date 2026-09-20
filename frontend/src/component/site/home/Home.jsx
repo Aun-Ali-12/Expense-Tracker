@@ -10,7 +10,8 @@ import {
 import Navbar from "../navbar/Navbar";
 import Footer from "../navbar/Footer";
 import StatCard from "./StatsCard";
-
+import heroImage from "../../../../public/hero.png";
+import Image from "next/image";
 const ICONS = { LayoutDashboard, BarChart3, Wallet, Sparkles };
 
 export default function Home() {
@@ -77,17 +78,8 @@ export default function Home() {
             style={{ animationDelay: "0.4s" }}
           >
             <div className="absolute -inset-4 bg-gradient-to-r from-accent-primary/20 to-purple-400/20 rounded-3xl blur-2xl opacity-50" />
-            <div className="relative rounded-2xl border border-border bg-card shadow-2xl overflow-hidden aspect-video">
-              {/* Apni app ki demo video ka path yahan dein */}
-              <video
-                className="w-full h-full object-cover"
-                src="/videos/app-demo.mp4"
-                poster="/images/app-preview.png"
-                autoPlay
-                loop
-                muted
-                playsInline
-              />
+            <div className="relative rounded-2xl border border-border bg-card shadow-2xl overflow-hidden">
+              <Image src={heroImage} alt="App UI" />
             </div>
           </div>
         </section>

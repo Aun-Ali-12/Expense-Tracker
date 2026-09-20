@@ -29,8 +29,8 @@ const CustomTooltip = ({ active, payload }) => {
   return null;
 };
 
-export default function BarCharts({ expenseLoading }) {
-  const { highestSpendingItem: stats } = useFeatures();
+export default function BarCharts() {
+  const { highestSpendingItem: stats, expenseLoading } = useFeatures();
 
   if (expenseLoading) return <BarChartSkeleton />;
   return (

@@ -1,16 +1,14 @@
 "use client";
-import { useFeatures } from "@/hooks/dashboard/useFeatures";
 import Budget from "../../Dashboard/Budget/Budget";
 import BudgetSummary from "../../Dashboard/Budget/BudgetSummary";
 import SideBar from "../../Dashboard/Navbar/SideBar";
 import MobileNav from "@/component/Dashboard/Navbar/MobNav";
 
 export default function BudgetRep() {
-  const { budget, totalExpense, balanceBudget } = useFeatures();
   return (
     <>
       <section className="flex">
-        {/* side navbar  */}
+        {/* side navbar */}
         <div className="hidden md:block bg-sidebar">
           <SideBar />
         </div>
@@ -19,14 +17,12 @@ export default function BudgetRep() {
           <MobileNav />
         </div>
 
-        {/* budget component  */}
-        <div className="p-2">
-          <Budget />
-          <BudgetSummary
-            budget={budget}
-            totalExpense={totalExpense}
-            balanceBudget={balanceBudget}
-          />
+        {/* budget component */}
+        <div className="flex-1 flex flex-col items-center px-4 py-4 mt-20 md:mt-0 md:items-stretch md:px-6">
+          <div className="w-full max-w-md md:max-w-none flex flex-col gap-4">
+            <Budget />
+            <BudgetSummary />
+          </div>
         </div>
       </section>
     </>

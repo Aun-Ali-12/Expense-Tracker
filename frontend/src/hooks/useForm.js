@@ -1,9 +1,11 @@
+import { useExpense } from "@/Context/ExpenseData"
 import { useUser } from "@/Context/User"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 export default function useForm(mode) {
     const { setUser } = useUser()
+    const { fetchBudgetHandler, fetchExpense } = useExpense()
     const router = useRouter() //for navigation
 
     //manages form data 
@@ -76,6 +78,7 @@ export default function useForm(mode) {
             const data = await res.json()
 
             if (!res.ok) {
+                console.log(data.message);
                 setError(data.message || "Something went wrong!")
                 setLoading(false)
                 return;
@@ -85,11 +88,12 @@ export default function useForm(mode) {
 
             //navigating user on base of mode
             if (mode === "login") {
+                await fetchBudgetHandler()
+                await fetchExpense()
                 router.push("/expense")
             } else {
                 router.push("/login")
             }
-            console.log(res.status);
         }
         catch (error) {
             setError("Server error, please try again!", error)

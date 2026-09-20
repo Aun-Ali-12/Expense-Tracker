@@ -1,6 +1,8 @@
+"use client";
 import Link from "next/link";
-import { ChartColumnBig } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { FaTwitter, FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa";
+import { ChartColumnBig } from "lucide-react";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -16,9 +18,97 @@ const socials = [
   { icon: FaGithub, href: "https://github.com", label: "GitHub" },
 ];
 
+function FooterGlowCurve() {
+  const pathRef = useRef(null);
+  const wrapperRef = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect(); // sirf ek baar chale, scroll up/down pe repeat na ho
+        }
+      },
+      { threshold: 0.25 },
+    );
+
+    if (wrapperRef.current) observer.observe(wrapperRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (visible && pathRef.current) {
+      const length = pathRef.current.getTotalLength();
+      pathRef.current.style.strokeDasharray = `${length}`;
+      pathRef.current.style.strokeDashoffset = `${length}`;
+      // force reflow taake transition trigger ho
+      pathRef.current.getBoundingClientRect();
+      pathRef.current.style.transition =
+        "stroke-dashoffset 2.2s cubic-bezier(0.16, 1, 0.3, 1)";
+      pathRef.current.style.strokeDashoffset = "0";
+    }
+  }, [visible]);
+
+  return (
+    <div
+      ref={wrapperRef}
+      className="pointer-events-none absolute inset-0 overflow-hidden"
+    >
+      <svg
+        viewBox="0 0 1200 300"
+        preserveAspectRatio="none"
+        className="absolute inset-0 w-full h-full"
+      >
+        <defs>
+          <filter id="footerGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="8" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        {/* Glow layer — thick, blurred, halka opacity */}
+        <path
+          d="M 0 280 C 250 280, 350 60, 600 150 C 850 240, 950 20, 1200 20"
+          fill="none"
+          stroke="var(--color-accent-primary)"
+          strokeWidth="6"
+          strokeLinecap="round"
+          opacity="0.35"
+          filter="url(#footerGlow)"
+          style={{
+            strokeDasharray: 1800,
+            strokeDashoffset: visible ? 0 : 1800,
+            transition: visible
+              ? "stroke-dashoffset 2.2s cubic-bezier(0.16, 1, 0.3, 1)"
+              : "none",
+          }}
+        />
+
+        {/* Sharp core line */}
+        <path
+          ref={pathRef}
+          d="M 0 280 C 250 280, 350 60, 600 150 C 850 240, 950 20, 1200 20"
+          fill="none"
+          stroke="var(--color-accent-primary)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          opacity="0.8"
+        />
+      </svg>
+    </div>
+  );
+}
+
 export default function Footer() {
   return (
     <footer className="relative border-t border-border mt-20 overflow-hidden">
+      <FooterGlowCurve />
+
       <div className="pointer-events-none absolute -bottom-24 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-accent-primary/5 rounded-full blur-3xl" />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-14">

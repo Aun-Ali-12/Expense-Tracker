@@ -1,11 +1,9 @@
 "use client";
 import ExpenseCard from "../../Dashboard/Expense/ExpenseCard";
 import ExpenseForm from "../../Dashboard/Expense/ExpenseForm";
-import { useEffect } from "react";
 import useExpenseHook from "@/hooks/dashboard/useExpense";
 import { useExpense } from "@/Context/ExpenseData";
 import Highlights from "../../Dashboard/Expense/Highlights";
-import { useFeatures } from "@/hooks/dashboard/useFeatures";
 import usePagination from "@/hooks/dashboard/Pagination";
 import SideBar from "../../Dashboard/Navbar/SideBar";
 import BudgetSummary from "../../Dashboard/Budget/BudgetSummary";
@@ -13,7 +11,6 @@ import TransactionCountChart from "../../Dashboard/Analytics/TransactionsChart";
 import ProgressChart from "../../Dashboard/Analytics/ProgressChart";
 import { useCategoryColors } from "@/hooks/dashboard/utility/getCategoryColors";
 import MobileNav from "../../Dashboard/Navbar/MobNav";
-import useBudget from "@/hooks/dashboard/useBudget";
 
 export default function DashboardRep() {
   const {
@@ -30,15 +27,7 @@ export default function DashboardRep() {
     resetAdd,
   } = useExpenseHook();
 
-  const { fetchExpense, handleDel, loading, expenseLoading } = useExpense();
-
-  const {
-    totalSpendingCategoryWise,
-    budget,
-    totalExpense,
-    balanceBudget,
-    highestSpendingItem,
-  } = useFeatures();
+  const { handleDel, loading, expenseLoading } = useExpense();
 
   const {
     page,
@@ -50,14 +39,7 @@ export default function DashboardRep() {
     expense,
   } = usePagination();
 
-  const { fetchBudgetHandler } = useBudget();
   const { getCategoryColor } = useCategoryColors();
-
-  useEffect(() => {
-    console.log("DR Chala");
-    fetchExpense();
-    fetchBudgetHandler();
-  }, []);
 
   return (
     <div className="flex">
@@ -86,13 +68,7 @@ export default function DashboardRep() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {/* Left — wide column: Budget summary + Expense table */}
           <div className="lg:col-span-2 flex flex-col gap-4">
-            <BudgetSummary
-              budget={budget}
-              totalExpense={totalExpense}
-              balanceBudget={balanceBudget}
-              loading={loading}
-              expenseLoading={expenseLoading}
-            />
+            <BudgetSummary />
 
             <ExpenseCard
               paginatedData={paginatedExpense}
@@ -117,15 +93,10 @@ export default function DashboardRep() {
             {/* Progress + Transaction Count side by side */}
             <div className="grid grid-cols-1 gap-4 mb-2">
               <ProgressChart loading={loading} />
-              <TransactionCountChart expenseLoading={expenseLoading} />
+              <TransactionCountChart />
             </div>
 
-            <Highlights
-              totalSpendingCategoryWise={totalSpendingCategoryWise}
-              highestSpendingItem={highestSpendingItem}
-              getCategoryColor={getCategoryColor}
-              expenseLoading={expenseLoading}
-            />
+            <Highlights getCategoryColor={getCategoryColor} />
           </div>
         </div>
       </section>

@@ -12,23 +12,15 @@ import rateLimit from "express-rate-limit"
 config();
 connectDB();
 const app = express();
-//auth limiter
-const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 5,
-  message: 'Too many requests, try again!',
-  standardHeaders: true,
-  legacyHeaders: false,
-});
 
-//api limiter
-const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-  message: 'Too many requests, try again!',
-  standardHeaders: true,
-  legacyHeaders: false,
-});
+// //api limiter
+// const apiLimiter = rateLimit({
+//   windowMs: 15 * 60 * 1000,
+//   max: 100,
+//   message: 'Too many requests, try again!',
+//   standardHeaders: true,
+//   legacyHeaders: false,
+// });
 
 app.use(cookieParser())
 app.use(express.json()); //to parse request body in json
@@ -39,10 +31,10 @@ app.use(cors({
 
 
 
-app.use("/api/auth", authLimiter, authRoutes);
-app.use("/api/dashboard", apiLimiter, expenseRoutes)
-app.use("/api", apiLimiter, budgetRoutes)
-app.use("/api", apiLimiter, userRoutes)
+app.use("/api/auth", authRoutes);
+app.use("/api/dashboard", expenseRoutes)
+app.use("/api", budgetRoutes)
+app.use("/api", userRoutes)
 
 app.get("/", (req, res) => {
   res.send("Hello World");

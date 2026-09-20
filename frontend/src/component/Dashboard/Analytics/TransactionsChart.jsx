@@ -3,8 +3,8 @@ import { useFeatures } from "@/hooks/dashboard/useFeatures";
 import { ListChecks, Calculator } from "lucide-react";
 import TransactionSkeleton from "./Loaders/TransactionSkeleton";
 
-export default function TransactionCountChart({ expenseLoading }) {
-  const { expense, totalExpense } = useFeatures();
+export default function TransactionCountChart() {
+  const { expense, totalExpense, expenseLoading } = useFeatures();
 
   const totalTransactions = expense.length;
   const averagePerTransaction =

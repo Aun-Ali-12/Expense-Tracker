@@ -1,12 +1,10 @@
 "use client";
+import { useFeatures } from "@/hooks/dashboard/useFeatures";
 import HighlightSkeleton from "./Loader/HighlightSkeleton";
 
-export default function TopHighlights({
-  totalSpendingCategoryWise,
-  highestSpendingItem,
-  getCategoryColor,
-  expenseLoading,
-}) {
+export default function TopHighlights({ getCategoryColor }) {
+  const { totalSpendingCategoryWise, highestSpendingItem, expenseLoading } =
+    useFeatures();
   if (expenseLoading) return <HighlightSkeleton />;
   return (
     <div className="grid grid-cols-1 md:grid-cols-1 gap-4">

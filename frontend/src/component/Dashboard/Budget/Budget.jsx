@@ -1,11 +1,18 @@
 "use client";
 import { useExpense } from "@/Context/ExpenseData";
 import { X } from "lucide-react";
-
+import { useState } from "react";
 
 export default function Budget() {
-  const { amount, setAmount, setBudgetHandler, isOpen, setIsOpen } =
-    useExpense();
+  const { setBudgetHandler } = useExpense();
+  const [amount, setAmount] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleSubmit = async () => {
+    await setBudgetHandler(amount);
+    setAmount(0);
+    setIsOpen(false);
+  };
   return (
     <>
       {/* Main content */}
@@ -16,9 +23,9 @@ export default function Budget() {
 
           <button
             onClick={() => setIsOpen(true)}
-            className="bg-accent-primary text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:opacity-90 active:scale-[0.98] transition-all self-start sm:self-auto"
+            className="bg-accent-primary text-white text-sm font-medium px-4 py-2.5 rounded-3xl shadow-sm hover:opacity-90 transition-opacity cursor-pointer"
           >
-            Set your budget
+            +
           </button>
         </div>
       </div>
@@ -70,7 +77,7 @@ export default function Budget() {
             </div>
 
             <button
-              onClick={setBudgetHandler}
+              onClick={handleSubmit}
               className="w-full bg-accent-primary text-white text-sm font-semibold py-2.5 rounded-xl shadow-sm hover:opacity-90 active:scale-[0.98] transition-all"
             >
               Set budget

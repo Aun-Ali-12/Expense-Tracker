@@ -142,7 +142,7 @@ export default function useExpenseHook() {
             console.log(err.message);
         }
         finally {
-            setEdit(null)
+            resetEdit()
             setIsOpen(false)
         }
     }
