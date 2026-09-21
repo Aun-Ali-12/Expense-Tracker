@@ -175,6 +175,13 @@ export default function AuthForm({ mode }) {
                   : "Log in"}
             </button>
 
+            {/* forgot password button  */}
+            {mode === "login" && (
+              <div>
+                <button onClick={() => {}}>forgot password</button>
+              </div>
+            )}
+
             {/* Error / Success messages */}
             {error && (
               <p className="text-xs text-expense-label bg-expense-bg border border-expense-bg rounded-lg px-3 py-2 text-center">

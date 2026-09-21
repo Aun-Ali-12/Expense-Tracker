@@ -16,6 +16,16 @@ const userSchema = new mongoose.Schema(
       required: true,
       select: false
     },
+    isVerified: {
+      type: Boolean,
+      default: false
+    },
+    verificationToken: {
+      type: String,
+    },
+    verificationTokenExpiry: {
+      type: Date
+    }
   },
   { timestamps: true }, // handles createdAt/updatedAt
 );

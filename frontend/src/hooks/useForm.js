@@ -78,12 +78,12 @@ export default function useForm(mode) {
             const data = await res.json()
 
             if (!res.ok) {
-                console.log(data.message);
-                setError(data.message || "Something went wrong!")
+                console.log(data.error);
+                setError(data.message)
                 setLoading(false)
                 return;
             }
-            setSuccess(successMessage)
+            setSuccess(data.message)
             setUser(data.user)
 
             //navigating user on base of mode
@@ -91,8 +91,6 @@ export default function useForm(mode) {
                 await fetchBudgetHandler()
                 await fetchExpense()
                 router.push("/expense")
-            } else {
-                router.push("/login")
             }
         }
         catch (error) {
