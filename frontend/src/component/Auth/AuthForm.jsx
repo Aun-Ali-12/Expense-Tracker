@@ -8,7 +8,7 @@ import {
   CheckCircle2,
   XCircle,
 } from "lucide-react";
-import useForm from "@/hooks/useForm";
+import useForm from "@/hooks/Auth/useForm";
 import { useState } from "react";
 import Link from "next/link";
 
@@ -175,13 +175,6 @@ export default function AuthForm({ mode }) {
                   : "Log in"}
             </button>
 
-            {/* forgot password button  */}
-            {mode === "login" && (
-              <div>
-                <button onClick={() => {}}>forgot password</button>
-              </div>
-            )}
-
             {/* Error / Success messages */}
             {error && (
               <p className="text-xs text-expense-label bg-expense-bg border border-expense-bg rounded-lg px-3 py-2 text-center">
@@ -193,6 +186,13 @@ export default function AuthForm({ mode }) {
                 {succes}
               </p>
             )}
+
+            {/* forgot password button  */}
+            <p className="text-sm font-md text-text-secondary text-start mt-6">
+              {mode === "login" && (
+                <Link href="/forgot-password">forgot password?</Link>
+              )}
+            </p>
             {/* Mode toggle */}
             <p className="text-sm text-text-secondary text-center mt-6">
               {mode === "signup"

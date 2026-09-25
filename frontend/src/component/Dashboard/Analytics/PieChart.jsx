@@ -46,36 +46,44 @@ export default function PieCharts({ expenseLoading }) {
         How your spending is split this month
       </p>
 
-      <ResponsiveContainer width="100%" height={280}>
-        <PieChart>
-          <Pie
-            data={stats}
-            cx="50%"
-            cy="45%"
-            innerRadius={65}
-            outerRadius={95}
-            paddingAngle={2}
-            dataKey="amount"
-            nameKey="category"
-            labelLine={false}
-          >
-            {stats &&
-              stats.map((entry, index) => (
-                <Cell
-                  key={index}
-                  fill={PIE_COLORS[index % PIE_COLORS.length]}
-                  stroke="none"
-                />
-              ))}
-          </Pie>
-          <Tooltip content={<CustomTooltip />} />
-          <Legend
-            iconType="circle"
-            iconSize={8}
-            wrapperStyle={{ fontSize: 12, paddingTop: 12 }}
-          />
-        </PieChart>
-      </ResponsiveContainer>
+      <div className="h-[280px]">
+        {stats.length > 0 ? (
+          <ResponsiveContainer width="100%" height={280}>
+            <PieChart>
+              <Pie
+                data={stats}
+                cx="50%"
+                cy="45%"
+                innerRadius={65}
+                outerRadius={95}
+                paddingAngle={2}
+                dataKey="amount"
+                nameKey="category"
+                labelLine={false}
+              >
+                {stats &&
+                  stats.map((entry, index) => (
+                    <Cell
+                      key={index}
+                      fill={PIE_COLORS[index % PIE_COLORS.length]}
+                      stroke="none"
+                    />
+                  ))}
+              </Pie>
+              <Tooltip content={<CustomTooltip />} />
+              <Legend
+                iconType="circle"
+                iconSize={8}
+                wrapperStyle={{ fontSize: 12, paddingTop: 12 }}
+              />
+            </PieChart>
+          </ResponsiveContainer>
+        ) : (
+          <p className="text-sm flex items-center justify-center h-full">
+            No data found
+          </p>
+        )}
+      </div>
     </section>
   );
 }

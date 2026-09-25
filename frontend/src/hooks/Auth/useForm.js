@@ -22,9 +22,9 @@ export default function useForm(mode) {
 
     //password validator:
     const passwordChecks = {
-        hasMinLength: formData.password.length > 8,
-        hasUpperCase: /[A-Z]/.test(formData.password),
-        hasLowerCase: /[a-z]/.test(formData.password),
+        hasMinLength: formData.password.length >= 8,
+        hasUpperCase: /[A-Z]/.test(formData.password ?? ""),
+        hasLowerCase: /[a-z]/.test(formData.password) ?? "",
         hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(formData.password)
     }
 
@@ -49,7 +49,7 @@ export default function useForm(mode) {
             return
         }
         if (formData.password.length < 8) {
-            alert("password should be of 8 characters")
+            setError("password should be of 8 characters")
             return
         }
         //route based on mode
@@ -78,7 +78,7 @@ export default function useForm(mode) {
             const data = await res.json()
 
             if (!res.ok) {
-                console.log(data.error);
+                console.log(data.message);
                 setError(data.message)
                 setLoading(false)
                 return;

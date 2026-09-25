@@ -18,7 +18,6 @@ export default function Filters() {
           className="flex items-center gap-2 bg-card border border-border text-sm text-text-primary px-3.5 py-2 rounded-xl hover:bg-slate-50 transition-colors"
         >
           <Calendar size={15} className="text-accent-primary" />
-          Filter by date
           <ChevronDown
             size={14}
             className={`text-text-secondary transition-transform ${isOpen ? "rotate-180" : ""}`}
@@ -27,7 +26,7 @@ export default function Filters() {
 
         {/* Dropdown panel */}
         {isOpen && (
-          <div className="absolute top-full mt-2 left-0 z-40 bg-card border border-border rounded-2xl p-4 w-64 animate-scale-in">
+          <div className="absolute top-full mt-2 right-0 z-40 bg-card border border-border rounded-2xl p-4 w-64 animate-scale-in">
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-1.5">
                 <label

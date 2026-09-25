@@ -25,6 +25,12 @@ const userSchema = new mongoose.Schema(
     },
     verificationTokenExpiry: {
       type: Date
+    },
+    passwordToken: {
+      type: String
+    },
+    passwordTokenExpiry: {
+      type: Date
     }
   },
   { timestamps: true }, // handles createdAt/updatedAt

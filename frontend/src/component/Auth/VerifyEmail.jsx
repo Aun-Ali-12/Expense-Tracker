@@ -7,9 +7,11 @@ import Link from "next/link";
 function VerifyEmailContent() {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
-  const [status, setStatus] = useState("verifying"); // verifying | success | error
-  const [message, setMessage] = useState("");
+  console.log(token);
 
+  const [status, setStatus] = useState("verifying");
+  const [message, setMessage] = useState("");
+  const [isExpired, setIsExpired] = useState(false);
   useEffect(() => {
     const verify = async () => {
       if (!token) {
@@ -34,10 +36,12 @@ function VerifyEmailContent() {
 
         if (!res.ok) {
           setStatus("error");
+          setIsExpired(data.expired);
           setMessage(data.message);
           return;
         }
         setStatus("success");
+        setIsExpired(data.expired);
         setMessage(data.message);
       } catch (err) {
         setStatus("error");
@@ -82,13 +86,22 @@ function VerifyEmailContent() {
 
         {status === "error" && (
           <>
-            <div className="w-14 h-14 rounded-full bg-rose-50 flex items-center justify-center mx-auto mb-4">
-              <XCircle size={28} className="text-rose-600" />
+            <div className="mb-4">
+              <div className="w-14 h-14 rounded-full bg-rose-50 flex items-center justify-center mx-auto mb-4">
+                <XCircle size={28} className="text-rose-600" />
+              </div>
+              <h1 className="text-lg font-semibold text-text-primary mb-1">
+                Verification failed
+              </h1>
+              <p className="text-sm text-text-secondary">{message}</p>
             </div>
-            <h1 className="text-lg font-semibold text-text-primary mb-1">
-              Verification failed
-            </h1>
-            <p className="text-sm text-text-secondary">{message}</p>
+
+            <Link
+              href={"/resend-verification"}
+              className="mt-2 bg-accent-primary text-white text-sm font-semibold py-3 px-2 rounded-xl shadow-sm hover:opacity-90 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed transition-all"
+            >
+              Resend Verification Email
+            </Link>
           </>
         )}
       </div>

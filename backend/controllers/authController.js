@@ -36,7 +36,8 @@ export const signup = async (req, res) => {
     });
 
     //send email:
-    await sendVerificationEmail(email, verificationTok)
+    const route = "verify"
+    await sendVerificationEmail(email, verificationTok, route)
 
 
     //res
@@ -45,20 +46,6 @@ export const signup = async (req, res) => {
         message: "Signup successful! Please check your email to verify your account.",
       }
     )
-    //create token:
-    // const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
-    //   expiresIn: "7d",
-    // });
-
-    //send token response
-    // res.status(201).json({
-    //   token,
-    //   user: {
-    //     id: newUser._id,
-    //     name: newUser.name,
-    //     email: newUser.email,
-    //   },
-    // });
   } catch (err) {
     return res
       .status(500)
@@ -72,12 +59,14 @@ export const verifyEmail = async (req, res) => {
 
   try {
     const user = await userModel.findOne({ verificationToken: token })
+    console.log(user);
+
     if (!user) {
       return res.status(400).json({ message: "Invalid verification link" });
     }
 
     if (new Date() > user.verificationTokenExpiry) {
-      return res.status(400).json({ message: "Verification link has expired" });
+      return res.status(400).json({ message: "Verification link has expired", expired: true });
     }
 
     user.isVerified = true;
@@ -93,6 +82,52 @@ export const verifyEmail = async (req, res) => {
   }
 }
 
+
+//resend account verification email:
+export const resendVerification = async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ message: "Email is required" });
+  }
+
+  try {
+    const user = await userModel.findOne({ email });
+
+    //  For Security Purpose: even if user doesn't exist 
+    if (!user) {
+      return res.status(200).json({
+        message: "If an account exists, a verification email has been sent.",
+      });
+    }
+
+    //if already verified
+    if (user.isVerified) {
+      return res
+        .status(400)
+        .json({ message: "This account is already verified. Please login." });
+    }
+
+    // generate new token
+    const newToken = await generateToken()
+    user.verificationToken = newToken;
+    user.verificationTokenExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+    await user.save();
+
+    await sendVerificationEmail(user.email, newToken, "verify");
+
+    return res.status(200).json({
+      message: "If an account exists, a verification email has been sent.",
+    });
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ message: "Something went wrong", error: err.message });
+  }
+};
+
+//login controller
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -155,5 +190,62 @@ export const logout = (req, res) => {
     return res.status(200).json({ message: "Logged out successfully" });
   } catch (err) {
     return res.status(500).json({ message: "somthing wen't wrong", error: err.message })
+  }
+}
+
+//forgot password link:
+export const forgotLink = async (req, res) => {
+  const { email } = req.body
+  //token
+  const token = await generateToken()
+  //token expiry
+  const tokenExpiry = new Date(Date.now() + 15 * 60 * 1000)
+  try {
+    const user = await userModel.findOne({ email })
+    //if user not available
+    if (!user) {
+      return res.status(404).json({ message: "No account found with this email" });
+    }
+
+    user.passwordToken = token
+    user.passwordTokenExpiry = tokenExpiry
+    await user.save()
+
+    await sendVerificationEmail(email, token)
+
+    return res.status(200).json({ message: "Reset link sent to your email" });
+
+  } catch (err) {
+    return res.status(500).json({ message: "somthing wen't wrong", error: err.message })
+  }
+}
+
+export const updatePassword = async (req, res) => {
+  const { password, token } = req.body
+
+  //if any of the one not found
+  if (!password || !token) {
+    return res.status(400).json({ message: "Password and token are required" });
+  }
+
+
+  try {
+    const user = await userModel.findOne({ passwordToken: token })
+
+    if (!user) {
+      return res.status(404).json({ message: "Token not found" });
+    }
+
+    if (new Date() > user.passwordTokenExpiry) {
+      return res.status(404).json({ message: "Token is expired" });
+    }
+    user.password = await bycrypt.hash(password, 10)
+    user.passwordToken = undefined
+    user.passwordTokenExpiry = undefined
+    await user.save()
+
+    return res.status(200).json({ message: "Password updated successfully" })
+  } catch (err) {
+    return res.status(500).json({ message: "Something wen't wrong", error: err.message })
   }
 }
