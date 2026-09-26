@@ -49,8 +49,7 @@ export default function useBudget() {
                 console.log(data.message);
                 return
             }
-            console.log(data);
-            setBudget(data.data)
+             setBudget(data.data)
         }
         catch (err) {
             console.log(err.message);

@@ -76,6 +76,7 @@ export default function useForm(mode) {
 
             //convert res into json
             const data = await res.json()
+            console.log(data.message);
 
             if (!res.ok) {
                 console.log(data.message);
@@ -85,6 +86,7 @@ export default function useForm(mode) {
             }
             setSuccess(data.message)
             setUser(data.user)
+            console.log(data.message);
 
             //navigating user on base of mode
             if (mode === "login") {
