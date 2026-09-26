@@ -19,7 +19,7 @@ export function middleware(request) {
         return NextResponse.redirect(loginUrl)
     }
 
-    NextResponse.next()
+    return NextResponse.next()
 }
 
 export const config = {

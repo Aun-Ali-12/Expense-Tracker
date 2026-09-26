@@ -11,7 +11,6 @@ export const ExpenseProvider = ({ children }) => {
   const {
     expense,
     setExpense,
-    error,
     loading: expenseLoading,
     fetchExpense,
     handleDel,
@@ -19,11 +18,7 @@ export const ExpenseProvider = ({ children }) => {
   const {
     budget,
     fetchBudgetHandler,
-    amount,
-    setAmount,
     setBudgetHandler,
-    isOpen,
-    setIsOpen,
     loading,
   } = useBudget();
 
