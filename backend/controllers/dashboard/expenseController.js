@@ -90,7 +90,6 @@ export const getData = async (req, res) => {
         return res.status(200).json({ data: expenseData })
     }
     catch (err) {
-        console.log(err.message);
         return res.status(500).json({ message: "Something wen't wrong", error: err.message })
     }
 }
@@ -166,13 +165,10 @@ export const deleteAllExpense = async (req, res) => {
         const deleteResponse = await expenseModel.deleteMany({ userId })
 
         if (!deleteResponse) {
-            console.log(deleteResponse);
             return res.status(404).json({ message: "No record found to be delete" })
         }
-        console.log(deleteResponse);
         return res.status(200).json({ message: "All record successfully deleted", count: deleteResponse.deletedCount })
     } catch (err) {
-        console.log(err.message);
         return res.status(500).json({ message: err.message })
     }
 }

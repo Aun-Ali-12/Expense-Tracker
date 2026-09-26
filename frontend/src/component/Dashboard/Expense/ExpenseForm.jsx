@@ -19,9 +19,6 @@ export default function ExpenseForm({
     <>
       <div>
         <div className="flex items-center justify-end gap-2">
-          {/* <h2 className="text-2xl font-semibold text-text-primary">
-            Dashboard
-          </h2> */}
 
           {/* add expense button  */}
           <div>

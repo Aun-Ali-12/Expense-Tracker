@@ -54,7 +54,6 @@ export const ExpenseProvider = ({ children }) => {
         .reduce((acc, item) => acc + item.amount, 0),
     }));
   }, [expense]);
-  // console.log(totalSpendingCategoryWise);
 
   //highest spending item from each category:
   const highestSpendingItem = useMemo(() => {
@@ -89,8 +88,6 @@ export const ExpenseProvider = ({ children }) => {
       };
     });
   }, [expense]);
-
-  console.log(highestSpendingItem);
 
   const contextValue = useMemo(
     () => ({

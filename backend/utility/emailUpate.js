@@ -20,5 +20,4 @@ export const sendVerificationEmail = async (email, token, route) => {
       </div>
     `,
   });
-  console.log("Email sent");
 };

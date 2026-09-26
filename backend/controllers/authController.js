@@ -59,7 +59,6 @@ export const verifyEmail = async (req, res) => {
 
   try {
     const user = await userModel.findOne({ verificationToken: token })
-    console.log(user);
 
     if (!user) {
       return res.status(400).json({ message: "Invalid verification link" });

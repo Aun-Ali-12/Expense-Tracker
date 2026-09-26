@@ -8,7 +8,7 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [show, setShow] = useState(false);
   const route = useRouter();
-  
+
   useEffect(() => {
     getUser();
   }, []);
@@ -24,12 +24,11 @@ export const UserProvider = ({ children }) => {
       const data = await res.json();
 
       if (!res.ok) {
-        console.log(data.message);
         return;
       }
       setUser(data.data);
     } catch (err) {
-      console.log(err.message);
+      return err.message;
     }
   };
 
@@ -43,16 +42,13 @@ export const UserProvider = ({ children }) => {
       });
       const data = await res.json();
 
-      console.log(data.message);
-
       if (!res.ok) {
-        console.log("couldn't cleared cookie");
         return;
       }
       toast.success("logged out successfully");
       route.push("/login");
     } catch (err) {
-      console.log(err.message);
+      return err.message;
     }
   };
 

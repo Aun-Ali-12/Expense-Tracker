@@ -21,6 +21,6 @@ export default function detectCategory(lowerNote) {
         }
     }
     catch (error) {
-        console.log("error in detectCategory", error.message);
+        console.log(error.message);
     }
 }
