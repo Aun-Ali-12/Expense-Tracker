@@ -13,14 +13,15 @@ export default function useExpenseCard() {
     const fetchExpense = async (from, to) => {
         setLoading(true)
 
-        const params = new URLSearchParams()
+        // const params = new URLSearchParams()
 
-        if (from) params.append("from", from)
-        if (to) params.append("to", to)
+        // if (from) params.append("from", from)
+        // if (to) params.append("to", to)
 
-        const endPoint = `/dashboard/expenses/all${params.toString() ? `?${params.toString()}` : ""}`
+        // const endPoint = `/dashboard/expenses/all${params.toString() ? `?${params.toString()}` : ""}`
+        const endPoint = "/api/expense"
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endPoint}`, {
+            const res = await fetch(`${endPoint}`, {
                 method: "GET",
                 credentials: "include"
             })
@@ -31,7 +32,6 @@ export default function useExpenseCard() {
                 console.log(data.message);
                 return
             }
-            console.log(data.data);
             setExpense(data.data)
         }
         catch (err) {

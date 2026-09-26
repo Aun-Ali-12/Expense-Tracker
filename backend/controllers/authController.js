@@ -155,17 +155,18 @@ export const login = async (req, res) => {
       expiresIn: "7d",
     });
 
-    //set cookie
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      maxAge: 24 * 60 * 60 * 1000
-    })
+    // //set cookie
+    // res.cookie("token", token, {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === "production",
+    //   sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    //   maxAge: 24 * 60 * 60 * 1000
+    // })
 
     //send token
-    res.status(200).json({
+    return res.status(200).json({
       message: "Login successfully",
+      token: token,
       user: {
         id: user._id.toString(),
         name: user.name,
