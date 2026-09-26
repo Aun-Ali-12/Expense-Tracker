@@ -2,10 +2,10 @@ import express from "express";
 import connectDB from "./db.js";
 import { config } from "dotenv";
 import cors from "cors";
-import authRoutes from "/ExpenseTracker/Expense-Tracker/backend/routes/authRoutes.js"
-import expenseRoutes from "/ExpenseTracker/Expense-Tracker/backend/routes/dashboard/expenseRoutes.js"
-import budgetRoutes from "/ExpenseTracker/Expense-Tracker/backend/routes/dashboard/budgetRoutes.js"
-import userRoutes from "/ExpenseTracker/Expense-Tracker/backend/routes/dashboard/userRoutes.js"
+import authRoutes from "./routes/authRoutes.js"
+import expenseRoutes from "./routes/dashboard/expenseRoutes.js"
+import budgetRoutes from "./routes/dashboard/budgetRoutes.js"
+import userRoutes from "./routes/dashboard/userRoutes.js"
 import cookieParser from "cookie-parser";
 import rateLimit from "express-rate-limit"
 
@@ -13,7 +13,7 @@ config();
 connectDB();
 const app = express();
 
-// //api limiter
+//  //api limiter
 // const apiLimiter = rateLimit({
 //   windowMs: 15 * 60 * 1000,
 //   max: 100,
