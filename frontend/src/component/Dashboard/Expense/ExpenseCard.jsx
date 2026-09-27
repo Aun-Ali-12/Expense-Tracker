@@ -56,32 +56,32 @@ export default function ExpenseCard({
               ? Array.from({ length: 5 }).map((_, i) => (
                   <TableSkeleton key={i} />
                 ))
-              : paginatedData.map((e) => (
+              : paginatedData.map((e, index) => (
                   <tr
-                    key={e._id}
+                    key={index}
                     className="border-b border-border last:border-0 hover:bg-slate-50/50 transition-colors"
                   >
                     <td className="px-5 py-3.5 text-text-secondary">
-                      {new Date(e.date).toLocaleDateString()}
+                      {new Date(e?.date).toLocaleDateString()}
                     </td>
                     <td className="px-5 py-3.5 text-text-primary font-medium">
-                      {e.note}
+                      {e?.note}
                     </td>
                     <td className="px-5 py-3.5 text-text-primary font-semibold">
-                      Rs. {e.amount}
+                      Rs. {e?.amount}
                     </td>
                     <td className="px-5 py-3.5">
                       <span
-                        className={`text-xs font-medium px-2.5 py-1 rounded-full ${getCategoryColor(e.category)} `}
+                        className={`text-xs font-medium px-2.5 py-1 rounded-full ${getCategoryColor(e?.category)} `}
                       >
-                        {e.category}
+                        {e?.category}
                       </span>
                     </td>
                     <td className="px-5 py-3.5">
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => {
-                            handleEdit(e, e._id);
+                            handleEdit(e, e?._id);
                             setIsOpen(!isOpen);
                           }}
                           aria-label="Edit expense"
@@ -90,7 +90,7 @@ export default function ExpenseCard({
                           <Pencil size={15} />
                         </button>
                         <button
-                          onClick={() => handleDel(e._id)}
+                          onClick={() => handleDel(e?._id)}
                           aria-label="Delete expense"
                           className="p-1.5 rounded-lg text-text-secondary hover:bg-rose-50 hover:text-rose-600 transition-colors"
                         >
@@ -120,22 +120,22 @@ export default function ExpenseCard({
       {/*  MOBILE: CARD VIEW */}
       <div className="flex flex-col gap-3 md:hidden">
         {paginatedData &&
-          paginatedData.map((e) => (
+          paginatedData.map((e, index) => (
             <div
-              key={e._id}
+              key={index}
               className="bg-card rounded-2xl border border-border p-4"
             >
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <p className="text-sm font-medium text-text-primary">
-                    {e.note}
+                    {e?.note}
                   </p>
                   <p className="text-xs text-text-secondary">
-                    {new Date(e.date).toLocaleDateString()}
+                    {new Date(e?.date).toLocaleDateString()}
                   </p>
                 </div>
                 <p className="text-sm font-semibold text-text-primary">
-                  Rs. {e.amount}
+                  Rs. {e?.amount}
                 </p>
               </div>
 
@@ -143,13 +143,13 @@ export default function ExpenseCard({
                 <span
                   className={`text-xs font-medium px-2.5 py-1 rounded-full`}
                 >
-                  {e.category}
+                  {e?.category}
                 </span>
 
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => {
-                      handleEdit(e, e._id);
+                      handleEdit(e, e?._id);
                       setIsOpen(!isOpen);
                     }}
                     aria-label="Edit expense"
@@ -158,7 +158,7 @@ export default function ExpenseCard({
                     <Pencil size={15} />
                   </button>
                   <button
-                    onClick={() => handleDel(e._id)}
+                    onClick={() => handleDel(e?._id)}
                     aria-label="Delete expense"
                     className="p-1.5 rounded-lg text-text-secondary hover:bg-rose-50 hover:text-rose-600 transition-colors"
                   >

@@ -14,11 +14,11 @@ export function useCategoryColors() {
         let total = 0
 
         //loop to get code of every char 
-        for (let i = 0; i < category.length; i++) {
-            total = total + category.charCodeAt(i)
+        for (let i = 0; i < category?.length; i++) {
+            total = total + category?.charCodeAt(i)
         }
 
-        let index = total % colors.length;
+        let index = total % colors?.length;
 
         return colors[index]
     }

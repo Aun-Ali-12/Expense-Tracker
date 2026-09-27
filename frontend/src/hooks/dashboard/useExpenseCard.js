@@ -19,12 +19,9 @@ export default function useExpenseCard() {
         // if (to) params.append("to", to)
 
         // const endPoint = `/dashboard/expenses/all${params.toString() ? `?${params.toString()}` : ""}`
-        const endPoint = "/api/expense"
+        const endPoint = `/api/proxy/dashboard/expenses/all`
         try {
-            const res = await fetch(`${endPoint}`, {
-                method: "GET",
-                credentials: "include"
-            })
+            const res = await fetch(`${endPoint}`, { credentials: "include" })
 
             const data = await res.json()
             if (!res.ok) {
@@ -32,6 +29,7 @@ export default function useExpenseCard() {
                 console.log(data.message);
                 return
             }
+            console.log(data.data);
             setExpense(data.data)
         }
         catch (err) {

@@ -86,11 +86,11 @@ export default function useForm(mode) {
             }
             setSuccess(data.message)
             setUser(data.user)
-            console.log(data.message);
 
             //navigating user on base of mode
             if (mode === "login") {
                 router.push("/expense")
+                await fetchExpense()
             }
         }
         catch (error) {

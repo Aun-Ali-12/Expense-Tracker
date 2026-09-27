@@ -43,7 +43,7 @@ export const addExpenseController = async (req, res) => {
         if (!addExpense) {
             return res.status(400).json({ message: "Couldn't add expense, try again!" })
         }
-        res.status(200).json({ message: "expense added successfully!", data: addExpense })
+        return res.status(200).json({ message: "expense added successfully!", data: addExpense })
     }
     catch (err) {
         return res.status(400).json({ message: "Something wen't wrong, try again!" })

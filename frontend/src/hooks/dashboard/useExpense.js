@@ -65,10 +65,10 @@ export default function useExpenseHook() {
         setIsEdit(true)
         setEditId(id)
         setEdit({
-            userId: data.userId,
-            note: data.note.toLowerCase().trim(),
-            amount: data.amount,
-            date: data.date.split("T")[0] //splits date and select 1st index
+            userId: data?.userId,
+            note: data?.note.toLowerCase().trim(),
+            amount: data?.amount,
+            date: data?.date?.split("T")[0] //splits date and select 1st index
         })
         console.log(id);
         console.log(edit);
@@ -76,15 +76,15 @@ export default function useExpenseHook() {
 
     const addExpense = async () => {
         setMessage("")
-        const endPoint = "/dashboard/expenses"
+        const endPoint = "/api/proxy/dashboard/expenses"
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endPoint}`, {
+            const res = await fetch(`${endPoint}`, {
                 method: "POST",
+                credentials: "include",
                 headers: {
                     "content-type": "application/json",
                 },
-                credentials: "include",
                 body: JSON.stringify(formData)
             })
 
@@ -94,7 +94,7 @@ export default function useExpenseHook() {
             if (!res.ok) {
                 console.log(data.message);
                 setMessage(data.message)
-                return res.status(400).json({ message: "something went wrong" })
+                return
             }
             setExpense((prev) => [data.data, ...prev])
             setMessage(data.message)

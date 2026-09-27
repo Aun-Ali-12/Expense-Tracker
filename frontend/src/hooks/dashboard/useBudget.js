@@ -8,9 +8,9 @@ export default function useBudget() {
 
     //set budget
     const setBudgetHandler = async (amount) => {
-        const endPoint = "/budget"
+        const endPoint = "/api/proxy/budget"
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endPoint}`, {
+            const res = await fetch(endPoint, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
@@ -27,6 +27,7 @@ export default function useBudget() {
             }
             toast.success("Budget has been successfully set!")
             await fetchBudgetHandler()
+            console.log(data);
         }
         catch (err) {
             console.log(err.message);
@@ -36,9 +37,9 @@ export default function useBudget() {
     //fetch budget
     const fetchBudgetHandler = async () => {
         setLoading(true)
-        const endPoint = "/getbudget"
+        const endPoint = "/api/proxy/getbudget"
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endPoint}`, {
+            const res = await fetch(endPoint, {
                 method: "GET",
                 credentials: "include",
             })
@@ -50,6 +51,7 @@ export default function useBudget() {
                 return
             }
             setBudget(data.data)
+            console.log(data);
         }
         catch (err) {
             console.log(err.message);
