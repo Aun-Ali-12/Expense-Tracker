@@ -5,9 +5,6 @@ export const insertBudget = async (req, res) => {
     const userId = req.userId
 
     const { month, amount } = req.body
-    console.log(amount);
-    console.log(month);
-
 
     try {
         const setBudget = await budgetModel.findOneAndUpdate(

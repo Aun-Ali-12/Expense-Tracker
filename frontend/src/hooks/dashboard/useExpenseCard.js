@@ -13,15 +13,19 @@ export default function useExpenseCard() {
     const fetchExpense = async (from, to) => {
         setLoading(true)
 
-        // const params = new URLSearchParams()
+        const params = new URLSearchParams()
 
-        // if (from) params.append("from", from)
-        // if (to) params.append("to", to)
+        if (from) params.append("from", from)
+        if (to) params.append("to", to)
+        console.log(from, to);
+
 
         // const endPoint = `/dashboard/expenses/all${params.toString() ? `?${params.toString()}` : ""}`
-        const endPoint = `/api/proxy/dashboard/expenses/all`
+        const endPoint = `/api/proxy/dashboard/expenses/all${params.toString() ? `?${params.toString()}` : ""}`
+        console.log(endPoint);
+
         try {
-            const res = await fetch(`${endPoint}`, { credentials: "include" })
+            const res = await fetch(endPoint, { credentials: "include" })
 
             const data = await res.json()
             if (!res.ok) {
@@ -72,8 +76,8 @@ export default function useExpenseCard() {
 
     // delete logic  
     async function Delete(id) {
-        const endPoint = `/dashboard/expenses/${id}`
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endPoint}`, {
+        const endPoint = `/api/proxy/dashboard/expenses/${id}`
+        const res = await fetch(endPoint, {
             method: "DELETE",
             headers: {
                 "content-type": "application/json",

@@ -7,9 +7,12 @@ export default function Budget() {
   const { setBudgetHandler } = useExpense();
   const [amount, setAmount] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
+    setLoading(true);
     await setBudgetHandler(amount);
+    setLoading(false);
     setAmount(0);
     setIsOpen(false);
   };
@@ -78,10 +81,16 @@ export default function Budget() {
 
             <button
               onClick={handleSubmit}
-              className="w-full bg-accent-primary text-white text-sm font-semibold py-2.5 rounded-xl shadow-sm hover:opacity-90 active:scale-[0.98] transition-all"
+              className="w-full bg-accent-primary text-white text-sm font-semibold py-2.5 rounded-xl shadow-sm hover:opacity-90 active:scale-[0.98] transition-all disabled:bg-sidebar-light-1 disabled:cursor-not-allowed disabled:opacity-60"
+              disabled={loading}
             >
               Set budget
             </button>
+            {loading && (
+              <p className="mt-3 text-center text-sidebar-light-1 text-sm font-medium animate-pulse">
+                Loading, please wait...
+              </p>
+            )}
           </div>
         </div>
       )}

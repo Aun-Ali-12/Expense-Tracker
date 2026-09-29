@@ -14,9 +14,9 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   const getUser = async () => {
-    const endPoint = "/user";
+    const endPoint = "/api/proxy/user";
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endPoint}`, {
+      const res = await fetch(endPoint, {
         method: "GET",
         credentials: "include",
       });
@@ -33,9 +33,9 @@ export const UserProvider = ({ children }) => {
   };
 
   const handleLogout = async () => {
-    const endPoint = "/auth/logout";
+    const endPoint = "/api/auth/logout";
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endPoint}`, {
+      const res = await fetch(endPoint, {
         method: "POST",
         headers: { "content-type": "application/json" },
         credentials: "include",

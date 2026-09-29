@@ -3,10 +3,13 @@ import { NextResponse } from "next/server";
 
 export async function handler(request, { params }) {
     const { path } = await params //path:[api, anyendpoint ]
-    // console.log(params);
-
-
     const fullPath = "/" + path.join("/") // /api/anyendpoint
+
+    //query 
+    const queryString = request.nextUrl.searchParams.toString()
+    //final path, if query and if no query
+    const finalPath = queryString ? `${fullPath}?${queryString}` : fullPath
+
 
     //initiate cookies
     const cookiesStore = await cookies();
@@ -19,7 +22,7 @@ export async function handler(request, { params }) {
     //body data on basis of method
     const body = request.method !== "GET" ? await request.text() : undefined
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${fullPath}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${finalPath}`, {
         method: request.method,
         headers: {
             "content-type": "application/json",

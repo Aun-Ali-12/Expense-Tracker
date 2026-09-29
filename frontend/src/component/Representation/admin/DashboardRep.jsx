@@ -17,6 +17,7 @@ export default function DashboardRep() {
     formData,
     handleChange,
     handleSubmit,
+    loading: expFormLoading,
     handleEdit,
     edit,
     isEdit,
@@ -58,6 +59,7 @@ export default function DashboardRep() {
           isEdit={isEdit}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
+          expFormLoading={expFormLoading}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
           message={message}

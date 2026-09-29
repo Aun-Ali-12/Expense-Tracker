@@ -13,7 +13,7 @@ export const middleware = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.userId = decoded.userId;
+        req.userId = decoded.userId; //only id from token
         next();
     } catch (err) {
         return res.status(401).json({ message: "Invalid token" });

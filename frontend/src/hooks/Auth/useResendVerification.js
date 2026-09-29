@@ -9,6 +9,7 @@ export default function useResendVerification() {
     const resendVerification = async () => {
         setError("");
         setMessage("");
+        console.log(email);
 
         if (!email) {
             setError("Please enter your email address.");

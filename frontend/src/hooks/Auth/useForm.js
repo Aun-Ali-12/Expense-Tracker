@@ -58,7 +58,7 @@ export default function useForm(mode) {
         //user req
         const body = mode === "signup" ? {
             name: formData.name.trim().replace(/\s+/g, " "),
-            email: formData.email.trim().replace(/\s+/g, " "),
+            email: formData.email.trim().toLowerCase().replace(/\s+/g, " "),
             password: formData.password.trim()
         } : { email: formData.email.trim().replace(/\s+/g, " "), password: formData.password.trim() }
         setLoading(true)
@@ -69,7 +69,7 @@ export default function useForm(mode) {
             const res = await fetch(`${endPoint}`, {
                 method: "POST",
                 headers: { "content-type": "application/json" },
-                credentials: "include",
+                ...(mode === "login" && { credentials: "include", }), //spread trick
                 body: JSON.stringify(body)
             })
 
@@ -94,6 +94,8 @@ export default function useForm(mode) {
             }
         }
         catch (error) {
+            console.log(error.message);
+
             setError("Server error, please try again!", error)
         }
         finally {

@@ -22,6 +22,8 @@ export default function useExpenseHook() {
     const { expense, fetchExpense, setExpense } = useExpense()
     //message
     const [message, setMessage] = useState("")
+    //loading
+    const [loading, setLoading] = useState(false)
 
     //resets add states
     const resetAdd = () => {
@@ -53,7 +55,6 @@ export default function useExpenseHook() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
         if (isEdit) {
             await updateExpense(editId)
         } else {
@@ -77,7 +78,7 @@ export default function useExpenseHook() {
     const addExpense = async () => {
         setMessage("")
         const endPoint = "/api/proxy/dashboard/expenses"
-
+        setLoading(true)
         try {
             const res = await fetch(`${endPoint}`, {
                 method: "POST",
@@ -111,15 +112,17 @@ export default function useExpenseHook() {
                 date: ""
             })
             setIsOpen(false)
+            setLoading(false)
         }
     }
 
     const updateExpense = async (id) => {
         setMessage("")
+        setLoading(true)
         try {
-            const endPoint = `/dashboard/expenses/${id}`
+            const endPoint = `/api/proxy/dashboard/expenses/${id}`
 
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endPoint}`, {
+            const res = await fetch(endPoint, {
                 method: "PUT",
                 headers: {
                     "content-type": "application/json",
@@ -134,7 +137,7 @@ export default function useExpenseHook() {
                 setMessage(data.message)
                 return
             }
-            fetchExpense()
+            await fetchExpense()
             setMessage(data.message)
             toast.success("Expense successfully updated!")
         }
@@ -144,7 +147,8 @@ export default function useExpenseHook() {
         finally {
             resetEdit()
             setIsOpen(false)
+            setLoading(false)
         }
     }
-    return { formData, handleChange, handleSubmit, handleEdit, edit, isEdit, isOpen, setIsOpen, message, setMessage, resetEdit, resetAdd }
+    return { formData, handleChange, handleSubmit, loading, handleEdit, edit, isEdit, isOpen, setIsOpen, message, setMessage, resetEdit, resetAdd }
 }

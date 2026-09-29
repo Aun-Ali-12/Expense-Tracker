@@ -6,6 +6,7 @@ export default function ExpenseForm({
   formData,
   handleChange,
   handleSubmit,
+  expFormLoading,
   edit,
   isEdit,
   isOpen,
@@ -19,7 +20,6 @@ export default function ExpenseForm({
     <>
       <div>
         <div className="flex items-center justify-end gap-2">
-
           {/* add expense button  */}
           <div>
             <button
@@ -172,10 +172,17 @@ export default function ExpenseForm({
 
                 <button
                   type="submit"
-                  className="mt-2 bg-accent-primary text-white text-sm font-semibold py-3 rounded-xl shadow-sm hover:opacity-90 hover:shadow-md active:scale-[0.98] transition-all"
+                  className="mt-2 bg-accent-primary text-white text-sm font-semibold py-3 rounded-xl shadow-sm hover:opacity-90 hover:shadow-md active:scale-[0.98] transition-all disabled:bg-sidebar-light-1 disabled:cursor-not-allowed disabled:opacity-60"
+                  disabled={expFormLoading}
                 >
                   {isEdit ? "Update Expense" : "Add Expense"}
                 </button>
+
+                {expFormLoading && (
+                  <p className="text-center text-sidebar-light-1 text-sm font-medium animate-pulse">
+                    Loading, please wait...
+                  </p>
+                )}
               </form>
             </div>
           </div>
