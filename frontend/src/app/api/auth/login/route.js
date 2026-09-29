@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getClientHeaders } from "../../getClientHeaders";
 
 export async function POST(request) {
     const body = await request.json();
@@ -7,7 +8,10 @@ export async function POST(request) {
     //nodejs backend login api 
     const backendRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endPoint}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+            "Content-Type": "application/json",
+            ...getClientHeaders(request),
+        },
         body: JSON.stringify(body),
     });
 

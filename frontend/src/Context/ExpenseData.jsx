@@ -33,7 +33,9 @@ export const ExpenseProvider = ({ children }) => {
   }, [expense]);
 
   //remaining budget of the user
-  const balanceBudget = Number(budget) - Number(totalExpense);
+  const safeBudget = budget || 0;
+  const balanceBudget = safeBudget - totalExpense;
+  console.log(balanceBudget);
 
   //total spendings category wise:
   const totalSpendingCategoryWise = useMemo(() => {

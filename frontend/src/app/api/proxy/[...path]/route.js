@@ -27,8 +27,10 @@ export async function handler(request, { params }) {
         headers: {
             "content-type": "application/json",
             "Authorization": `Bearer ${token}`,
+            ...getClientHeaders(request),
         },
-        body: body
+        body: body,
+        cache: "no-store"
     })
 
     const data = await res.json()
