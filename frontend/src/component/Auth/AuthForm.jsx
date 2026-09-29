@@ -66,7 +66,7 @@ export default function AuthForm({ mode }) {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    placeholder="John Doe"
+                    placeholder="Ahmad Ali"
                     className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-border bg-page text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-accent-primary focus:border-transparent focus:bg-card transition-all"
                   />
                 </div>
