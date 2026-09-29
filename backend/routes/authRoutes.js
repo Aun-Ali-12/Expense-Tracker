@@ -1,6 +1,5 @@
 import express from "express";
 import { login, signup, verifyEmail, forgotLink, updatePassword, resendVerification } from "../controllers/authController.js";
-import { middleware } from "../middleware/middleware.js";
 import rateLimit from "express-rate-limit";
 
 const router = express.Router();

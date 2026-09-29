@@ -12,6 +12,7 @@ export const signup = async (req, res) => {
 
     //verifying email to be unique:
     const emailCheck = await userModel.findOne({ email });
+    
     if (emailCheck) {
       return res.status(400).json({ message: "User already exists" });
     }

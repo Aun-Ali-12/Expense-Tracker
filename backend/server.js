@@ -12,6 +12,8 @@ import rateLimit from "express-rate-limit"
 config();
 connectDB();
 const app = express();
+app.set("trust proxy", 1); // tells express to trust render's X-Forwarded-For header
+
 
 //  //api limiter
 // const apiLimiter = rateLimit({
