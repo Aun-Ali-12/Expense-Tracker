@@ -7,21 +7,12 @@ import expenseRoutes from "./routes/dashboard/expenseRoutes.js"
 import budgetRoutes from "./routes/dashboard/budgetRoutes.js"
 import userRoutes from "./routes/dashboard/userRoutes.js"
 import cookieParser from "cookie-parser";
-import rateLimit from "express-rate-limit"
 
 config();
 connectDB();
 const app = express();
 app.set("trust proxy", 3); // tells express to trust render's X-Forwarded-For header
 
-//  //api limiter
-// const apiLimiter = rateLimit({
-//   windowMs: 15 * 60 * 1000,
-//   max: 100,
-//   message: 'Too many requests, try again!',
-//   standardHeaders: true,
-//   legacyHeaders: false,
-// });
 
 app.use(cookieParser())
 app.use(express.json()); //to parse request body in json
