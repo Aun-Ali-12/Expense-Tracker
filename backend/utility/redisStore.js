@@ -11,6 +11,7 @@ redisClient.on("error", (err) => console.error("Redis error:", err))
 
 //redis client connect
 await redisClient.connect()
+console.log("Redis PING:", await redisClient.ping());
 
 //handle to store counter with prefix 
 export const makeStore = (prefix) => {
