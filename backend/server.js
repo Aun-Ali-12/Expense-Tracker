@@ -13,7 +13,10 @@ config();
 connectDB();
 const app = express();
 app.set("trust proxy", 1); // tells express to trust render's X-Forwarded-For header
-
+app.use((req, res, next) => {
+  console.log("| requestIp:", req.ip, "| trustproxy:", app.get("trust proxy"), "| xff:", req.headers["x-forwarded-for"]);
+  next()
+})
 
 //  //api limiter
 // const apiLimiter = rateLimit({
