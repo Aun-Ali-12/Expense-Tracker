@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { getClientHeaders } from "../../getClientHeaders";
 
 export async function handler(request, { params }) {
     const { path } = await params //path:[api, anyendpoint ]
@@ -27,6 +28,7 @@ export async function handler(request, { params }) {
         headers: {
             "content-type": "application/json",
             "Authorization": `Bearer ${token}`,
+            ...getClientHeaders(request)
         },
         body: body,
         cache: "no-store"
