@@ -21,6 +21,8 @@
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.9.3",
     "nodemailer": "^10.0.10",
+    "rate-limit-redis": "^6.0.1",
+    "redis": "^6.3.0",
     "resend": "^6.28.1"
   },
   "devDependencies": {

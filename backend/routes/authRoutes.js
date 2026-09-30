@@ -1,6 +1,7 @@
 import express from "express";
 import { login, signup, verifyEmail, forgotLink, updatePassword, resendVerification } from "../controllers/authController.js";
 import { rateLimit, ipKeyGenerator } from "express-rate-limit";
+import { makeStore } from "../utility/redisStore.js";
 
 const router = express.Router();
 
@@ -15,18 +16,28 @@ const getClientIp = (req) => {
     return req.ip
 }
 
+// login limiter
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 50,
-    message: 'Too many login attempts, try again later!',
+    max: 10,
+    standardHeaders: true,
+    legacyHeaders: false,
     skipSuccessfulRequests: true,
-    keyGenerator: (req) => { ipKeyGenerator(getClientIp(req)) }
+    keyGenerator: (req) => { ipKeyGenerator(getClientIp(req)) },
+    store: makeStore("login"),
+    passOnStoreError: true,
+    message: 'Too many login attempts, try again later!',
 });
 
+//signup limiter
 const signupLimiter = rateLimit({
-    windowMs: 60 * 60 * 1000,
-    max: 25,
-    message: "You have reached your account creation limit, try again later!"
+    windowMs: 15 * 60 * 1000,
+    max: 8,
+    standardHeaders: true,
+    legacyHeaders: false,
+    store: makeStore("signup-ip"),
+    passOnStoreError: true,
+    message: "You have reached your account creation limit, try again later!",
 });
 
 router.post("/signup", signupLimiter, signup);
