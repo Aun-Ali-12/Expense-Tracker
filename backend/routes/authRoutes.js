@@ -1,22 +1,10 @@
 import express from "express";
 import { login, signup, verifyEmail, forgotLink, updatePassword, resendVerification } from "../controllers/authController.js";
-import { rateLimit, ipKeyGenerator } from "express-rate-limit";
+import { rateLimit } from "express-rate-limit";
 import { makeStore } from "../utility/redisStore.js";
+import { makeKey } from "../utility/clientIp.js";
 
 const router = express.Router();
-
-const getClientIp = (req) => {
-    const secret = req.headers["x-proxy-secret"];
-    const clientIp = req.headers["x-client-ip"];
-    const secretOk = !!secret && secret === process.env.PROXY_SECRET
-    console.log("req.ip:", req.ip, "| x-client-ip:", clientIp, "| secretOk:", secretOk);
-
-    //if secret matches, only then accept forwarded ip
-    if (secretOk && clientIp) return clientIp
-    return req.ip
-}
-
-const makeKey = (req) => ipKeyGenerator(getClientIp(req));
 
 // login limiter
 const loginLimiter = rateLimit({
