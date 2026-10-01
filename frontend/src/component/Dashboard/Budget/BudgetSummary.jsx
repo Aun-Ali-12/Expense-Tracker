@@ -20,7 +20,11 @@ export default function BudgetSummary() {
             Current month's budget
           </p>
         </div>
-        <h2 className="text-2xl font-bold text-balance-text">Rs. {budget}</h2>
+        <h2 className="text-2xl font-bold text-balance-text">
+          {budget === null || budget === undefined
+            ? "Add budget for this month!"
+            : `Rs. ${Number(budget).toLocaleString("en-PK")}`}
+        </h2>
       </div>
 
       {/* Card 2: Balance */}

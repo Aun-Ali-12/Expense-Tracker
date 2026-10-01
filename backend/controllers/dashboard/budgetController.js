@@ -39,3 +39,19 @@ export const fetchBudget = async (req, res) => {
         res.status(500).json({ message: "Something wen't wrong" })
     }
 }
+
+//get budget
+export const getBudget = async (req, res) => {
+    const userId = req.userId
+    try {
+        const allBudgets = await budgetModel
+            .find({ userId }) //find by userId
+            .sort({ month: -1 }) // first newest
+            .lean(); //converts raw data into plain obj
+
+        return res.status(200).json({ message: "Budget of all months", data: allBudgets });
+    } catch (err) {
+        console.error("getBudget error:", err);
+        return res.status(500).json({ message: "Something went wrong" });
+    }
+}

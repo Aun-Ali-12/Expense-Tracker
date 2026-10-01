@@ -20,7 +20,6 @@ export default function useExpenseCard() {
         console.log(from, to);
 
 
-        // const endPoint = `/dashboard/expenses/all${params.toString() ? `?${params.toString()}` : ""}`
         const endPoint = `/api/proxy/dashboard/expenses/all${params.toString() ? `?${params.toString()}` : ""}`
         console.log(endPoint);
 

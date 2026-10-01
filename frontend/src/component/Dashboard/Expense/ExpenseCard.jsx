@@ -52,56 +52,9 @@ export default function ExpenseCard({
             </tr>
           </thead>
           <tbody>
-            {expenseLoading
-              ? Array.from({ length: 5 }).map((_, i) => (
-                  <TableSkeleton key={i} />
-                ))
-              : paginatedData.map((e, index) => (
-                  <tr
-                    key={index}
-                    className="border-b border-border last:border-0 hover:bg-slate-50/50 transition-colors"
-                  >
-                    <td className="px-5 py-3.5 text-text-secondary">
-                      {new Date(e?.date).toLocaleDateString()}
-                    </td>
-                    <td className="px-5 py-3.5 text-text-primary font-medium">
-                      {e?.note}
-                    </td>
-                    <td className="px-5 py-3.5 text-text-primary font-semibold">
-                      Rs. {e?.amount}
-                    </td>
-                    <td className="px-5 py-3.5">
-                      <span
-                        className={`text-xs font-medium px-2.5 py-1 rounded-full ${getCategoryColor(e?.category)} `}
-                      >
-                        {e?.category}
-                      </span>
-                    </td>
-                    <td className="px-5 py-3.5">
-                      <div className="flex items-center justify-end gap-2">
-                        <button
-                          onClick={() => {
-                            handleEdit(e, e?._id);
-                            setIsOpen(!isOpen);
-                          }}
-                          aria-label="Edit expense"
-                          className="p-1.5 rounded-lg text-text-secondary hover:bg-accent-primary/10 hover:text-accent-primary transition-colors"
-                        >
-                          <Pencil size={15} />
-                        </button>
-                        <button
-                          onClick={() => handleDel(e?._id)}
-                          aria-label="Delete expense"
-                          className="p-1.5 rounded-lg text-text-secondary hover:bg-rose-50 hover:text-rose-600 transition-colors"
-                        >
-                          <Trash2 size={15} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-
-            {paginatedData.length === 0 ? (
+            {expenseLoading ? (
+              Array.from({ length: 5 }).map((_, i) => <TableSkeleton key={i} />)
+            ) : !paginatedData?.length ? (
               <tr>
                 <td
                   className="px-5 py-3.5 text-text-primary font-medium text-center"
@@ -111,7 +64,50 @@ export default function ExpenseCard({
                 </td>
               </tr>
             ) : (
-              ""
+              paginatedData.map((e, index) => (
+                <tr
+                  key={index}
+                  className="border-b border-border last:border-0 hover:bg-slate-50/50 transition-colors"
+                >
+                  <td className="px-5 py-3.5 text-text-secondary">
+                    {new Date(e?.date).toLocaleDateString()}
+                  </td>
+                  <td className="px-5 py-3.5 text-text-primary font-medium">
+                    {e?.note}
+                  </td>
+                  <td className="px-5 py-3.5 text-text-primary font-semibold">
+                    Rs. {e?.amount}
+                  </td>
+                  <td className="px-5 py-3.5">
+                    <span
+                      className={`text-xs font-medium px-2.5 py-1 rounded-full ${getCategoryColor(e?.category)} `}
+                    >
+                      {e?.category}
+                    </span>
+                  </td>
+                  <td className="px-5 py-3.5">
+                    <div className="flex items-center justify-end gap-2">
+                      <button
+                        onClick={() => {
+                          handleEdit(e, e?._id);
+                          setIsOpen(!isOpen);
+                        }}
+                        aria-label="Edit expense"
+                        className="p-1.5 rounded-lg text-text-secondary hover:bg-accent-primary/10 hover:text-accent-primary transition-colors"
+                      >
+                        <Pencil size={15} />
+                      </button>
+                      <button
+                        onClick={() => handleDel(e?._id)}
+                        aria-label="Delete expense"
+                        className="p-1.5 rounded-lg text-text-secondary hover:bg-rose-50 hover:text-rose-600 transition-colors"
+                      >
+                        <Trash2 size={15} />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))
             )}
           </tbody>
         </table>
