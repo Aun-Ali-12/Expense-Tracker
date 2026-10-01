@@ -1,5 +1,5 @@
 import rateLimit from "express-rate-limit";
-import { makeStore } from "./redisStore";
+import { makeStore } from "./redisStore.js";
 
 //key generator
 const userKey = (req) => req.user?.id?.toString() || makeKey(req);
