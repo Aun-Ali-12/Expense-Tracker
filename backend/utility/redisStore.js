@@ -15,8 +15,8 @@ console.log("Redis PING:", await redisClient.ping());
 
 //handle to store counter with prefix 
 export const makeStore = (prefix) => {
-    new RedisStore({
+    return new RedisStore({
         sendCommand: (...args) => redisClient.sendCommand(args),
-        prefix: `r1:${prefix}:`
+        prefix: `rl:${prefix}:`
     })
 }
