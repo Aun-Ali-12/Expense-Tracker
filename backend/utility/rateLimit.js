@@ -1,6 +1,9 @@
 import rateLimit from "express-rate-limit";
 import { makeStore } from "./redisStore.js";
 
+//makeKey
+const makeKey = (req) => ipKeyGenerator(getClientIp(req));
+
 //key generator
 const userKey = (req) => req.user?.id?.toString() || makeKey(req);
 
