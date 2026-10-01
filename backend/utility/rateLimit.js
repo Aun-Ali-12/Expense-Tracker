@@ -1,3 +1,4 @@
+import rateLimit from "express-rate-limit";
 import { makeStore } from "./redisStore";
 
 //key generator
