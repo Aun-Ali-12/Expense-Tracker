@@ -137,7 +137,7 @@ export default function ExpenseCard({
 
               <div className="flex items-center justify-between pt-3 border-t border-border">
                 <span
-                  className={`text-xs font-medium px-2.5 py-1 rounded-full`}
+                  className={`text-xs font-medium px-2.5 py-1 rounded-full ${getCategoryColor(e?.category)}`}
                 >
                   {e?.category}
                 </span>

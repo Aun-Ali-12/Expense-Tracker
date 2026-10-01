@@ -9,6 +9,7 @@ const navLinks = [
   { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
   { href: "/contact", label: "Contact" },
+  { href: "/privacy-policy", label: "Privacy & Policy" },
 ];
 
 const socials = [

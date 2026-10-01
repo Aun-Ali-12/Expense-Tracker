@@ -46,3 +46,15 @@ export const BudgetComparisonSkeleton = () => {
     </>
   );
 };
+
+export function RowSkeleton() {
+  return (
+    <li className="px-5 py-4 flex items-center justify-between animate-pulse">
+      <div className="space-y-2">
+        <div className="h-4 w-32 rounded bg-slate-200" />
+        <div className="h-3 w-24 rounded bg-slate-100" />
+      </div>
+      <div className="h-5 w-24 rounded bg-slate-200" />
+    </li>
+  );
+}

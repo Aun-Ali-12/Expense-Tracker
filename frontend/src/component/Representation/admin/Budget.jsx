@@ -1,4 +1,5 @@
 "use client";
+import { LogBudget } from "@/component/Dashboard/Budget/LogBudget";
 import Budget from "../../Dashboard/Budget/Budget";
 import BudgetSummary from "../../Dashboard/Budget/BudgetSummary";
 import SideBar from "../../Dashboard/Navbar/SideBar";
@@ -18,10 +19,14 @@ export default function BudgetRep() {
         </div>
 
         {/* budget component */}
-        <div className="flex-1 flex flex-col items-center px-4 py-4 mt-20 md:mt-0 md:items-stretch md:px-6">
-          <div className="w-full max-w-md md:max-w-none flex flex-col gap-4">
+        <div className="flex-1 flex flex-col items-center px-3 mt-20 md:mt-0 md:items-stretch md:px-4">
+          <div className="w-full max-w-lg md:max-w-none flex flex-col gap-4">
             <Budget />
             <BudgetSummary />
+          </div>
+
+          <div>
+            <LogBudget />
           </div>
         </div>
       </section>
