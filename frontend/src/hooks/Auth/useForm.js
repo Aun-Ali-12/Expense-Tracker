@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 export default function useForm(mode) {
-    const { setUser } = useUser()
+    const { getUser } = useUser()
     const { fetchBudgetHandler, fetchExpense } = useExpense()
     const router = useRouter() //for navigation
 
@@ -92,6 +92,7 @@ export default function useForm(mode) {
                 router.push("/expense")
                 await fetchExpense()
                 await fetchBudgetHandler()
+                await getUser()
             }
         }
         catch (error) {

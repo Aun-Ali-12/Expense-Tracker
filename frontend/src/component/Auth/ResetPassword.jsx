@@ -1,8 +1,9 @@
 "use client";
 import useResetPassword from "@/hooks/Auth/useForgotPassword";
 import { XCircle, CheckCircle2, Eye, EyeOff } from "lucide-react";
+import { Suspense } from "react";
 
-export default function ResetPassword() {
+function ResetPasswordComp() {
   const {
     password,
     setPassword,
@@ -159,6 +160,16 @@ export default function ResetPassword() {
           )}
         </div>
       </div>
+    </>
+  );
+}
+
+export default function ResetPassword() {
+  return (
+    <>
+      <Suspense fallback={<div className="p-6 text-center">Loading...</div>}>
+        <ResetPasswordComp />
+      </Suspense>
     </>
   );
 }
