@@ -9,7 +9,7 @@ const router = express.Router();
 // login limiter
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 10,
+    max: 30,
     standardHeaders: true,
     legacyHeaders: false,
     skipSuccessfulRequests: true,
@@ -26,10 +26,8 @@ const loginEmailLimiter = rateLimit({
     limit: 5,
     standardHeaders: true,
     legacyHeaders: false,
-    keyGenerator: (req) => {
-        const email = req?.body?.email?.toLowerCase().trim()
-        return email || makeKey(req) //return email || if body has already email run makeKey counter 
-    },
+    skip: (req) => typeof req.body?.email !== "string" || !req.body.email.trim(),
+    keyGenerator: (req) => `email:${req.body.email.toLowerCase().trim()}`,
     store: makeStore("login-email"),
     passOnStoreError: true
 })
@@ -38,7 +36,7 @@ const loginEmailLimiter = rateLimit({
 //signup limiter
 const signupLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    limit: 10,
+    limit: 25,
     standardHeaders: true,
     legacyHeaders: false,
     keyGenerator: makeKey,
@@ -53,10 +51,8 @@ const signupEmailLimiter = rateLimit({
     limit: 3,
     standardHeaders: true,
     legacyHeaders: false,
-    keyGenerator: (req) => {
-        const email = req.body?.email?.toLowerCase().trim();
-        return email || makeKey(req);
-    },
+    skip: (req) => typeof req.body?.email !== "string" || !req.body.email.trim(),
+    keyGenerator: (req) => `email:${req.body.email.toLowerCase().trim()}`,
     store: makeStore("signup-email"),
     passOnStoreError: true,
 });
