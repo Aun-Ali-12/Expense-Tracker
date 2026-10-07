@@ -7,6 +7,7 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [show, setShow] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const route = useRouter();
 
   useEffect(() => {
@@ -34,6 +35,7 @@ export const UserProvider = ({ children }) => {
 
   const handleLogout = async () => {
     const endPoint = "/api/auth/logout";
+    setIsLoggingOut(true);
     try {
       const res = await fetch(endPoint, {
         method: "POST",
@@ -43,18 +45,21 @@ export const UserProvider = ({ children }) => {
       const data = await res.json();
 
       if (!res.ok) {
+        setIsLoggingOut(false);
         return;
       }
       toast.success("logged out successfully");
       route.push("/login");
+      setIsLoggingOut(false);
     } catch (err) {
+      setIsLoggingOut(false);
       return err.message;
     }
   };
 
   return (
     <UserContext.Provider
-      value={{ user, getUser, handleLogout, show, setShow }}
+      value={{ user, getUser, handleLogout, show, setShow, isLoggingOut }}
     >
       {children}
     </UserContext.Provider>

@@ -22,12 +22,10 @@ export default function useBudget() {
             const data = await res.json()
 
             if (!res.ok) {
-                console.log(data.message);
                 return
             }
             toast.success("Budget has been successfully set!")
             await fetchBudgetHandler()
-            console.log(data);
         }
         catch (err) {
             console.log(err.message);
@@ -47,11 +45,9 @@ export default function useBudget() {
             const data = await res.json()
 
             if (!res.ok) {
-                console.log(data.message);
                 return
             }
             setBudget(data.data)
-            console.log(data);
         }
         catch (err) {
             console.log(err.message);

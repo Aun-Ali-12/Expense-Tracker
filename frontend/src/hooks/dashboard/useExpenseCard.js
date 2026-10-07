@@ -17,11 +17,9 @@ export default function useExpenseCard() {
 
         if (from) params.append("from", from)
         if (to) params.append("to", to)
-        console.log(from, to);
 
 
         const endPoint = `/api/proxy/dashboard/expenses/all${params.toString() ? `?${params.toString()}` : ""}`
-        console.log(endPoint);
 
         try {
             const res = await fetch(endPoint, { credentials: "include" })
@@ -29,10 +27,8 @@ export default function useExpenseCard() {
             const data = await res.json()
             if (!res.ok) {
                 setError("No data found")
-                console.log(data.message);
                 return
             }
-            console.log(data.data);
             setExpense(data.data)
         }
         catch (err) {
@@ -66,7 +62,6 @@ export default function useExpenseCard() {
         } catch (err) {
             Swal.fire('Error!', 'Something went wrong while deleting.', 'error');
             toast.error('Delete failed');
-            console.log("Something went wrong", err.message);
         }
         finally {
             setLoading(false)
@@ -87,7 +82,6 @@ export default function useExpenseCard() {
         const data = await res.json()
 
         if (!res.ok) {
-            console.log("couldn't deleted, try again!");
             setError("couldn't deleted, try again!")
             return;
         }

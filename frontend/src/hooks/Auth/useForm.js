@@ -64,7 +64,6 @@ export default function useForm(mode) {
         setLoading(true)
         setError("")
         setSuccess("")
-        console.log(body);
         try {
             //fetch api:
             const res = await fetch(`${endPoint}`, {
@@ -77,10 +76,8 @@ export default function useForm(mode) {
 
             //convert res into json
             const data = await res.json()
-            console.log(data.message);
 
             if (!res.ok) {
-                console.log(data.message);
                 setError(data.message)
                 setLoading(false)
                 return;
@@ -96,7 +93,6 @@ export default function useForm(mode) {
             }
         }
         catch (error) {
-            console.log(error.message);
             setError("Server error, please try again!", error)
         }
         finally {

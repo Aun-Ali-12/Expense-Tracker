@@ -20,17 +20,14 @@ export default function useforgotPassword() {
 
             const data = await res.json();
             if (!res.ok) {
-                console.log(data.message);
                 setIsError(true)
                 setMessage(data.message)
                 return;
             }
             setMessage(data.message)
-            console.log(data.message);
         }
         catch (err) {
             setIsError(true)
-            console.log(err.message);
         }
         finally {
             setLoading(false)

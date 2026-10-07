@@ -79,7 +79,7 @@ export default function Home() {
           >
             <div className="absolute -inset-4 bg-gradient-to-r from-accent-primary/20 to-purple-400/20 rounded-3xl blur-2xl opacity-50" />
             <div className="relative rounded-2xl border border-border bg-card shadow-2xl overflow-hidden">
-              <Image src={heroImage} alt="App UI" />
+              <Image src={heroImage} alt="App UI" priority />
             </div>
           </div>
         </section>

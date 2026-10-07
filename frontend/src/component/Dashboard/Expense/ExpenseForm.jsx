@@ -14,7 +14,7 @@ export default function ExpenseForm({
   resetEdit,
   resetAdd,
 }) {
-  const { user, show, setShow, handleLogout } = useUser();
+  const { user, show, setShow, handleLogout, isLoggingOut } = useUser();
 
   return (
     <>
@@ -60,13 +60,14 @@ export default function ExpenseForm({
                   </p>
                   {/* Logout button */}
                   <button
+                    disabled={isLoggingOut}
                     onClick={() => {
                       handleLogout();
                     }}
-                    className="flex items-center gap-2.5 w-full px-3.5 py-2 rounded-xl text-sm text-slate-500 hover:bg-rose-500 hover:text-slate-100 transition-colors"
+                    className="flex items-center gap-2.5 w-full px-3.5 py-2 rounded-xl text-sm text-slate-500 hover:bg-rose-500 hover:text-slate-100 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                   >
                     <LogOut size={16} aria-hidden="true" />
-                    logout
+                    {isLoggingOut ? "Logging out" : "logout"}
                   </button>
                 </div>
               </>

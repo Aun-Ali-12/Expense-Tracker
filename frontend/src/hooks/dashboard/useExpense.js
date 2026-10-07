@@ -71,8 +71,6 @@ export default function useExpenseHook() {
             amount: data?.amount,
             date: data?.date?.split("T")[0] //splits date and select 1st index
         })
-        console.log(id);
-        console.log(edit);
     }
 
     const addExpense = async () => {
@@ -90,10 +88,8 @@ export default function useExpenseHook() {
             })
 
             const data = await res.json()
-            console.log(data);
 
             if (!res.ok) {
-                console.log(data.message);
                 setMessage(data.message)
                 return
             }

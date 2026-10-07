@@ -60,14 +60,12 @@ export default function useResetPassword() {
             const data = await res.json()
 
             if (!res.ok) {
-                console.log(data.message);
                 setMessage(data.message)
                 return
             }
             setMessage(data.message)
-            console.log(data.message);
         } catch (err) {
-            console.log(err.message);
+            setError("Something wen't wrong, try again!")
         }
         finally {
             setLoading(false)
