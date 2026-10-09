@@ -17,13 +17,9 @@ app.set("trust proxy", 3); // tells express to trust render's X-Forwarded-For he
 app.use(cookieParser())
 app.use(express.json()); //to parse request body in json
 app.use(cors({
-  origin:
-    process.env.NODE_ENV === "production" ?
-      process.env.FRONTEND_URL
-      : "http://localhost:3000",
+  origin: ["http://localhost:3000", process.env.FRONTEND_URL],
   credentials: true
-})); //to make request allowable from another ip
-
+}));
 
 
 app.use("/api/auth", authRoutes);

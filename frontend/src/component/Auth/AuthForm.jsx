@@ -209,6 +209,20 @@ export default function AuthForm({ mode }) {
                 )}
               </button>
             </p>
+
+            {/* verify your email  */}
+            <p className="text-sm text-text-secondary text-center mt-6">
+              {mode === "signup" ? (
+                <button
+                  type="button"
+                  className="text-accent-primary font-semibold hover:underline"
+                >
+                  verify your email
+                </button>
+              ) : (
+                ""
+              )}
+            </p>
           </form>
         </div>
       </div>
