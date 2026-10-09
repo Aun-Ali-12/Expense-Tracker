@@ -187,6 +187,17 @@ export default function AuthForm({ mode }) {
               </p>
             )}
 
+            {/* verify your email  */}
+            {error === "Please verify your email before logging in" && (
+              <a
+                type="button"
+                className="text-accent-primary font-semibold hover:underline text-center"
+                href="/resend-verification"
+              >
+                verify your email
+              </a>
+            )}
+
             {/* forgot password button  */}
             <p className="text-sm font-md text-text-secondary text-start mt-6">
               {mode === "login" && (
@@ -208,20 +219,6 @@ export default function AuthForm({ mode }) {
                   <Link href="/signup">Create One</Link>
                 )}
               </button>
-            </p>
-
-            {/* verify your email  */}
-            <p className="text-sm text-text-secondary text-center mt-6">
-              {mode === "signup" ? (
-                <button
-                  type="button"
-                  className="text-accent-primary font-semibold hover:underline"
-                >
-                  verify your email
-                </button>
-              ) : (
-                ""
-              )}
             </p>
           </form>
         </div>

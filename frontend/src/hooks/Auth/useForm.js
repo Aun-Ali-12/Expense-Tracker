@@ -79,14 +79,12 @@ export default function useForm(mode) {
 
             if (!res.ok) {
                 setError(data.message)
+                console.log(res);
+                console.log(data);
                 setLoading(false)
-                console.log(error);
                 return;
             }
             setSuccess(data.message)
-            console.log(succes);
-
-
 
             //navigating user on base of mode
             if (mode === "login") {
