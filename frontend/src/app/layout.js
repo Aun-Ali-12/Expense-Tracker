@@ -4,6 +4,7 @@ import { ExpenseProvider } from "@/Context/ExpenseData";
 import { UserProvider } from "@/Context/User";
 import { Toaster } from "react-hot-toast";
 import NextTopLoader from "nextjs-toploader";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 
 const poppins = Poppins({
@@ -34,6 +35,7 @@ export default function RootLayout({ children }) {
       className={`${poppins.variable} ${poppins.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
         {/* user context provider  */}
         <UserProvider>
           {/* expense context provider  */}
@@ -45,6 +47,7 @@ export default function RootLayout({ children }) {
             <Toaster position="top-right" reverseOrder={false} />
           </ExpenseProvider>
         </UserProvider>
+
       </body>
     </html>
   );
