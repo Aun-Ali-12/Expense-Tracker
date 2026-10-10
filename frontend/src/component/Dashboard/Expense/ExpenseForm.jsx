@@ -1,7 +1,7 @@
 "use client";
 
 import { useUser } from "@/Context/User";
-import { X, Receipt, User, LogOut } from "lucide-react";
+import { X, Receipt, User, Handshake, LogOut } from "lucide-react";
 export default function ExpenseForm({
   formData,
   handleChange,
@@ -13,65 +13,84 @@ export default function ExpenseForm({
   setIsOpen,
   resetEdit,
   resetAdd,
+  mode,
 }) {
   const { user, show, setShow, handleLogout, isLoggingOut } = useUser();
 
   return (
     <>
       <div>
-        <div className="flex items-center justify-end gap-2">
+        <div className="flex items-center justify-between">
           {/* add expense button  */}
-          <div>
-            <button
-              onClick={() => {
-                setIsOpen(!isOpen);
-              }}
-              className="bg-accent-primary text-white text-sm font-medium px-4 py-2.5 rounded-3xl shadow-sm hover:opacity-90 transition-opacity cursor-pointer"
-            >
-              +
-            </button>
-          </div>
-
-          {/* profile  */}
-
-          <div>
-            <div />
-            <User
-              onClick={() => setShow(!show)}
-              size={10}
-              className="w-8 h-8 text-accent-primary object-cover cursor-pointer"
-            />
-          </div>
-          <div>
-            {show && (
-              <>
-                <div
-                  className="fixed inset-0 z-10"
-                  onClick={() => {
-                    setShow(!show);
-                  }}
-                />
-                <div className="flex flex-col items-start gap-3 absolute right-0 mt-2 w-56 bg-white border border-slate-200 rounded-lg shadow-lg p-4 z-50">
-                  <p className="text-sm font-semibold text-slate-900 truncate">
-                    {user?.name}
+          <div className="p-3">
+            {mode !== "expenses" ? (
+              <h1 className="text-sm md:text-xl font-semibold md:font-bold animate-scale-in">
+                {expFormLoading ? (
+                  <p className="w-29 h-3 animate-pulse bg-slate-200 rounded-md"></p>
+                ) : (
+                  <p className="text-text-primary">
+                    Welcome back, {user?.name}! 👋
                   </p>
-                  <p className="text-xs text-slate-500 truncate mt-0.5">
-                    {user?.email}
-                  </p>
-                  {/* Logout button */}
-                  <button
-                    disabled={isLoggingOut}
-                    onClick={() => {
-                      handleLogout();
-                    }}
-                    className="flex items-center gap-2.5 w-full px-3.5 py-2 rounded-xl text-sm text-slate-500 hover:bg-rose-500 hover:text-slate-100 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
-                  >
-                    <LogOut size={16} aria-hidden="true" />
-                    {isLoggingOut ? "Logging out" : "logout"}
-                  </button>
-                </div>
-              </>
+                )}
+              </h1>
+            ) : (
+              <h1 className="text-2xl font-semibold text-text-primary">
+                Expenses
+              </h1>
             )}
+          </div>
+
+          <div>
+            <div className="flex items-center justify-end gap-2">
+              <button
+                onClick={() => {
+                  setIsOpen(!isOpen);
+                }}
+                className="bg-accent-primary text-white text-sm font-medium px-4 py-2.5 rounded-3xl shadow-sm hover:opacity-90 transition-opacity cursor-pointer"
+              >
+                +
+              </button>
+
+              {/* profile  */}
+
+              <User
+                onClick={() => setShow(!show)}
+                size={10}
+                className="w-8 h-8 text-accent-primary object-cover cursor-pointer"
+              />
+            </div>
+
+            <div>
+              {show && (
+                <>
+                  <div
+                    className="fixed inset-0 z-10"
+                    onClick={() => {
+                      setShow(!show);
+                    }}
+                  />
+                  <div className="flex flex-col items-start gap-3 absolute right-0 mt-2 w-56 bg-white border border-slate-200 rounded-lg shadow-lg p-4 z-50">
+                    <p className="text-sm font-semibold text-slate-900 truncate">
+                      {user?.name}
+                    </p>
+                    <p className="text-xs text-slate-500 truncate mt-0.5">
+                      {user?.email}
+                    </p>
+                    {/* Logout button */}
+                    <button
+                      disabled={isLoggingOut}
+                      onClick={() => {
+                        handleLogout();
+                      }}
+                      className="flex items-center gap-2.5 w-full px-3.5 py-2 rounded-xl text-sm text-slate-500 hover:bg-rose-500 hover:text-slate-100 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                    >
+                      <LogOut size={16} aria-hidden="true" />
+                      {isLoggingOut ? "Logging out" : "logout"}
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
 

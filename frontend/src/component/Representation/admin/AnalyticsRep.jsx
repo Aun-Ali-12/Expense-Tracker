@@ -6,6 +6,7 @@ import TransactionCountChart from "../../Dashboard/Analytics/TransactionsChart";
 import SideBar from "../../Dashboard/Navbar/SideBar";
 import MobileNav from "@/component/Dashboard/Navbar/MobNav";
 import { useExpense } from "@/Context/ExpenseData";
+import { BarChart3 } from "lucide-react";
 
 export default function AnalyticsRep() {
   const { expenseLoading } = useExpense();
@@ -19,9 +20,14 @@ export default function AnalyticsRep() {
         <MobileNav />
       </div>
 
-      <div className="flex-1 flex flex-col gap-4 p-4 sm:p-6">
+      <div className="flex-1 flex flex-col gap-4 p-4 sm:p-6 mt-20 md:mt-0">
         <div>
-          <h1 className="text-xl font-semibold text-text-primary">Analytics</h1>
+          <div className="flex items-center gap-2">
+            <h1 className="text-2xl md:text-3xl font-semibold text-text-primary">
+              Analytics{" "}
+            </h1>
+            <BarChart3 />
+          </div>
           <p className="text-sm text-text-secondary">
             Insights into your spending habits
           </p>

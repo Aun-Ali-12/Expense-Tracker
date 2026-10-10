@@ -7,7 +7,7 @@ import {
   ChartColumnBig,
   Menu,
   X,
-  LogOut,
+  CircleDollarSign,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -17,7 +17,8 @@ export default function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { label: "Dashboard", link: "/expense", icon: LayoutDashboard },
+    { label: "Dashboard", link: "/dashboard", icon: LayoutDashboard },
+    { label: "Expenses", link: "/expenses", icon: CircleDollarSign },
     { label: "Budget", link: "/budget", icon: Wallet },
     { label: "Analytics", link: "/analytics", icon: BarChart3 },
   ];

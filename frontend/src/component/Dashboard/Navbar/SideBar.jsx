@@ -7,19 +7,19 @@ import {
   ChartColumnBig,
   ChevronLeft,
   ChevronRight,
-  LogOut,
+  CircleDollarSign,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { useUser } from "@/Context/User";
 
 export default function SideBar() {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
-  const { handleLogout } = useUser();
+
   //navbar elements
   const navItems = [
-    { label: "Dashboard", link: "/expense", icon: LayoutDashboard },
+    { label: "Dashboard", link: "/dashboard", icon: LayoutDashboard },
+    { label: "Expenses", link: "/expenses", icon: CircleDollarSign },
     { label: "Budget", link: "/budget", icon: Wallet },
     { label: "Analytics", link: "/analytics", icon: BarChart3 },
   ];

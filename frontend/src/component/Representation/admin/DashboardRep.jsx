@@ -11,6 +11,7 @@ import TransactionCountChart from "../../Dashboard/Analytics/TransactionsChart";
 import ProgressChart from "../../Dashboard/Analytics/ProgressChart";
 import { useCategoryColors } from "@/hooks/dashboard/utility/getCategoryColors";
 import MobileNav from "../../Dashboard/Navbar/MobNav";
+import { useUser } from "@/Context/User";
 
 export default function DashboardRep() {
   const {
@@ -59,7 +60,7 @@ export default function DashboardRep() {
           isEdit={isEdit}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
-          expFormLoading={expFormLoading}
+          expFormLoading={expenseLoading}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
           message={message}

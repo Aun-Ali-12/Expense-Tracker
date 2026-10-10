@@ -19,11 +19,12 @@ export default function Budget() {
   return (
     <>
       {/* Main content */}
-      <div className="flex-1 p-4 sm:p-6 lg:p-8 flex flex-col gap-6">
+      <div className="flex-1 p-4 sm:p-6 lg:p-6 flex flex-col gap-6">
         {/* Header + set budget action */}
         <div className="flex sm:items-center sm:justify-between gap-4">
-          <h2 className="text-2xl font-bold text-text-primary">Budget</h2>
-
+          <h2 className="text-2xl md:text-3xl font-semibold text-text-primary">
+            Budget
+          </h2>
           <button
             onClick={() => setIsOpen(true)}
             className="bg-accent-primary text-white text-sm font-medium px-4 py-2.5 rounded-3xl shadow-sm hover:opacity-90 transition-opacity cursor-pointer"

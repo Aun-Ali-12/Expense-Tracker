@@ -88,7 +88,7 @@ export default function useForm(mode) {
 
             //navigating user on base of mode
             if (mode === "login") {
-                router.push("/expense")
+                router.push("/dashboard")
                 await fetchExpense()
                 await fetchBudgetHandler()
                 await getUser()
