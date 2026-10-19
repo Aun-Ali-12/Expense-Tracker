@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const protectedRoute = ["/dashboard", "/expense", "/budget", "/analytics"]
+const protectedRoute = ["/dashboard", "/expenses", "/budget", "/analytics"]
 
 export function middleware(request) {
     // get token from cookies 
@@ -23,5 +23,5 @@ export function middleware(request) {
 }
 
 export const config = {
-    matcher: ["/dashboard", "/expense", "/budget", "/analytics"]
+    matcher: ["/dashboard", "/expenses", "/budget", "/analytics"]
 }
