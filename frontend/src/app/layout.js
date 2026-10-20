@@ -24,7 +24,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "ExTrack",
+  title: "ExTrack - Expense Tracker App",
   description: "ExTrack is an expense tracker app. It uses AI features to make it easier to track your daily transactions.",
 };
 
