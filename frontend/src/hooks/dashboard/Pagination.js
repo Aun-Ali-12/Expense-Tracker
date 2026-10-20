@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { useExpense } from "@/Context/ExpenseData";
 
-
 export default function usePagination() {
     const { expense } = useExpense();
     const [page, setPage] = useState(1); //at first page will be 1

@@ -28,7 +28,7 @@ const CustomTooltip = ({ active, payload }) => {
   return null;
 };
 
-export default function PieCharts({ expenseLoading }) {
+export default function PieCharts({ expenseLoading, mode }) {
   const { totalSpendingCategoryWise: stats } = useFeatures();
 
   if (expenseLoading) return <PieChartSkeleton />;
@@ -39,7 +39,7 @@ export default function PieCharts({ expenseLoading }) {
           Category wise spending
         </h2>
         <span>
-          <Filters />
+          <Filters mode={mode} />
         </span>
       </div>
       <p className="text-xs text-text-secondary mb-3">

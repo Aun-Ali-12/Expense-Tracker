@@ -3,7 +3,6 @@ import learnedCategoryModel from "../../models/LearnedCategory.js"
 import detectCategory from "../../utility/categoryMap.js";
 import { detectCategoryWithAI } from "../../utility/gemini.js";
 
-
 //add expense in collection (expense)
 export const addExpenseController = async (req, res) => {
 
@@ -53,7 +52,7 @@ export const addExpenseController = async (req, res) => {
 //fetches specific user's data
 export const getData = async (req, res) => {
     const userId = req.userId
-    const { from, to } = req.query
+    const { from, to, category } = req.query
 
 
     let startDate, endDate
@@ -78,7 +77,8 @@ export const getData = async (req, res) => {
         //fetch user's data
         const expenseData = await expenseModel.find({
             userId,
-            date: { $gte: startDate, $lte: endDate }
+            date: { $gte: startDate, $lte: endDate },
+            ...(category && category !== "all" && { category })
         }).sort({ date: -1 })
 
         //check if data is empty
@@ -169,6 +169,25 @@ export const deleteAllExpense = async (req, res) => {
         }
         return res.status(200).json({ message: "All record successfully deleted", count: deleteResponse.deletedCount })
     } catch (err) {
+        return res.status(500).json({ message: err.message })
+    }
+}
+
+export const fetchCategory = async (req, res) => {
+    const userId = req.userId
+
+    try {
+        const expense = await expenseModel.find({ userId })
+
+        if (expense.length === 0) {
+            return res.status(200).json({ message: "No data found", data: [] })
+        }
+
+        const uniqueCategory = [...new Set(expense.map((e) => e.category))]
+
+        return res.status(200).json({ message: "Category found", data: uniqueCategory })
+    }
+    catch (err) {
         return res.status(500).json({ message: err.message })
     }
 }

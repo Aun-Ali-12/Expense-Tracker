@@ -81,12 +81,12 @@ export default function Pagination({
                 <span className="text-sm text-text-secondary px-1">
                   Showing{" "}
                   <span className="font-medium text-text-primary">
-                    {paginatedData.length}{" "}
+                    {paginatedData?.length}{" "}
                   </span>
                   entries out of
                   <span className="font-medium text-text-primary">
                     {" "}
-                    {expense.length}
+                    {expense?.length}
                   </span>
                 </span>
               </div>

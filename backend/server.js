@@ -13,7 +13,6 @@ connectDB();
 const app = express();
 app.set("trust proxy", 3); // tells express to trust render's X-Forwarded-For header
 
-
 app.use(cookieParser())
 app.use(express.json()); //to parse request body in json
 app.use(cors({

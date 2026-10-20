@@ -40,7 +40,6 @@ export default function DashboardRep() {
     totalPages,
     expense,
   } = usePagination();
-
   const { getCategoryColor } = useCategoryColors();
 
   return (
@@ -95,7 +94,7 @@ export default function DashboardRep() {
           <div className="lg:col-span-1">
             {/* Progress + Transaction Count side by side */}
             <div className="grid grid-cols-1 gap-4 mb-2">
-              <ProgressChart loading={loading} />
+              <ProgressChart loading={expenseLoading} />
               <TransactionCountChart />
             </div>
 

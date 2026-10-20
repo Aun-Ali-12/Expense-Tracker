@@ -8,7 +8,7 @@ import MobileNav from "@/component/Dashboard/Navbar/MobNav";
 import { useExpense } from "@/Context/ExpenseData";
 import { BarChart3 } from "lucide-react";
 
-export default function AnalyticsRep() {
+export default function AnalyticsRep({ mode }) {
   const { expenseLoading } = useExpense();
   return (
     <div className="flex">
@@ -35,7 +35,7 @@ export default function AnalyticsRep() {
 
         {/* Row 1 — Pie + Bar charts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <PieCharts expenseLoading={expenseLoading} />
+          <PieCharts expenseLoading={expenseLoading} mode={mode} />
           <BarCharts expenseLoading={expenseLoading} />
         </div>
 

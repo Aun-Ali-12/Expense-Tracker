@@ -7,19 +7,22 @@ export default function useExpenseCard() {
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     const [expense, setExpense] = useState([])
-
+    const [category, setCategory] = useState([])
 
     //get data handle
-    const fetchExpense = async (from, to) => {
+    const fetchExpense = async (from, to, selected) => {
         setLoading(true)
+        setExpense([])
+        setError("")
 
         const params = new URLSearchParams()
 
         if (from) params.append("from", from)
         if (to) params.append("to", to)
+        if (selected && selected !== "all") params.append("category", selected)
 
 
-        const endPoint = `/api/proxy/dashboard/expenses/all${params.toString() ? `?${params.toString()}` : ""}`
+        const endPoint = `/api/proxy/dashboard/expenses${params.toString() ? `?${params.toString()}` : ""}`
 
         try {
             const res = await fetch(endPoint, { credentials: "include" })
@@ -27,6 +30,7 @@ export default function useExpenseCard() {
             const data = await res.json()
             if (!res.ok) {
                 setError("No data found")
+                setExpense([])
                 return
             }
             setExpense(data.data)
@@ -87,6 +91,27 @@ export default function useExpenseCard() {
         }
         setExpense((prev) => prev.filter((i) => (i._id !== id)))
     }
+    //get data handle
+    const fetchCategory = async () => {
+        const endPoint = "/api/proxy/dashboard/expenses/cat"
+        try {
+            const res = await fetch(endPoint, {
+                method: "GET",
+                credentials: "include"
+            })
 
-    return { expense, setExpense, loading, error, fetchExpense, handleDel }
+            const data = await res.json()
+
+            if (!res.ok) {
+                return
+            }
+            setCategory(data.data)
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    }
+
+
+    return { expense, setExpense, loading, error, fetchExpense, handleDel, category, fetchCategory }
 }

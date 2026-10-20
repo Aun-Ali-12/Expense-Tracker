@@ -95,6 +95,7 @@ export const ExpenseProvider = ({ children }) => {
       balanceBudget,
       totalSpendingCategoryWise,
       highestSpendingItem,
+      uniqueCategory,
     }),
     [
       budget,
@@ -110,6 +111,7 @@ export const ExpenseProvider = ({ children }) => {
       balanceBudget,
       totalSpendingCategoryWise,
       highestSpendingItem,
+      uniqueCategory,
     ],
   );
 
