@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 const protectedRoute = ["/dashboard", "/expenses", "/budget", "/analytics"]
 
-export function middleware(request) {
+export default function proxy(request) {
     // get token from cookies 
     const token = request.cookies.get("token")?.value
     //pathname extracting from req

@@ -1,11 +1,7 @@
-import { useExpense } from "@/Context/ExpenseData"
-import { useUser } from "@/Context/User"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 export default function useForm(mode) {
-    const { getUser } = useUser()
-    const { fetchBudgetHandler, fetchExpense } = useExpense()
     const router = useRouter() //for navigation
 
     //manages form data 
@@ -89,9 +85,6 @@ export default function useForm(mode) {
             //navigating user on base of mode
             if (mode === "login") {
                 router.push("/dashboard")
-                await fetchExpense()
-                await fetchBudgetHandler()
-                await getUser()
             }
         }
         catch (error) {

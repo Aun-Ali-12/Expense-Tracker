@@ -12,6 +12,7 @@ import ProgressChart from "../../Dashboard/Analytics/ProgressChart";
 import { useCategoryColors } from "@/hooks/dashboard/utility/getCategoryColors";
 import MobileNav from "../../Dashboard/Navbar/MobNav";
 import { useUser } from "@/Context/User";
+import { useEffect } from "react";
 
 export default function DashboardRep() {
   const {
@@ -29,7 +30,13 @@ export default function DashboardRep() {
     resetAdd,
   } = useExpenseHook();
 
-  const { handleDel, loading, expenseLoading } = useExpense();
+  const {
+    handleDel,
+    loading,
+    expenseLoading,
+    fetchBudgetHandler,
+    fetchExpense,
+  } = useExpense();
 
   const {
     page,
@@ -41,6 +48,13 @@ export default function DashboardRep() {
     expense,
   } = usePagination();
   const { getCategoryColor } = useCategoryColors();
+  const { getUser } = useUser();
+
+  useEffect(() => {
+    fetchExpense();
+    fetchBudgetHandler();
+    getUser();
+  }, []);
 
   return (
     <div className="flex">

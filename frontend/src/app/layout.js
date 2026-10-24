@@ -26,13 +26,13 @@ const geistMono = Geist_Mono({
 export const metadata = {
   metadataBase: new URL("https://extrack-delta.vercel.app"),
   title: {
-    default: "ExTrack - Expense Tracker",
+    default: "ExTrack - AI-Powered Expense Tracker & Budget Planner",
     template: "%s | ExTrack",
   },
   description:
     "ExTrack is an expense tracker app that uses AI features to make tracking your daily transactions and budgets easier.",
   openGraph: {
-    title: "ExTrack - Expense Tracker",
+    title: "ExTrack - AI-Powered Expense Tracker & Budget Planner",
     description:
       "Track your daily transactions and budgets with an AI-powered expense tracker.",
     siteName: "ExTrack",
@@ -48,7 +48,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ExTrack - Expense Tracker",
+    title: "ExTrack - AI-Powered Expense Tracker & Budget Planner",
     description:
       "Track your daily transactions and budgets with an AI-powered expense tracker.",
     images: ["/og-image.png"],
@@ -63,18 +63,11 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col">
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
-        {/* user context provider  */}
-        <UserProvider>
-          {/* expense context provider  */}
-          <ExpenseProvider>
-            {/* top bar loader whenever user relocates  */}
-            <NextTopLoader color="#0ea5e9" showSpinner={false} />
-            {children}
-            {/* toaster alert  */}
-            <Toaster position="top-right" reverseOrder={false} />
-          </ExpenseProvider>
-        </UserProvider>
-
+        {/* top bar loader whenever user relocates  */}
+        <NextTopLoader color="#0ea5e9" showSpinner={false} />
+        {children}
+        {/* toaster alert  */}
+        <Toaster position="top-right" reverseOrder={false} />
       </body>
     </html>
   );
