@@ -24,11 +24,35 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://extrack-delta.vercel.app"),
   title: {
     default: "ExTrack - Expense Tracker",
     template: "%s | ExTrack",
   },
-  description: "ExTrack is an expense tracker app. It uses AI features to make it easier to track your daily transactions.",
+  description:
+    "ExTrack is an expense tracker app that uses AI features to make tracking your daily transactions and budgets easier.",
+  openGraph: {
+    title: "ExTrack - Expense Tracker",
+    description:
+      "Track your daily transactions and budgets with an AI-powered expense tracker.",
+    siteName: "ExTrack",
+    type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "ExTrack expense tracker",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ExTrack - Expense Tracker",
+    description:
+      "Track your daily transactions and budgets with an AI-powered expense tracker.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({ children }) {

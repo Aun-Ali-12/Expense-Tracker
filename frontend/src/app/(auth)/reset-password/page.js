@@ -1,9 +1,10 @@
 import ResetPassword from "@/component/Auth/ResetPassword"
 
-export const metadata = {
+export const metadata = buildMetadata({
     title: "Reset Password",
-    robots: { index: false, follow: false },
-};
+    description: "If you forgot your Extrack password, you can reset your password from this page.",
+    noindex: true,
+});
 
 export default function ForgotPasswordPage() {
     return (

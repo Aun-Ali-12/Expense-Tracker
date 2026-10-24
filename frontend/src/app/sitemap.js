@@ -34,5 +34,11 @@ export default function sitemap() {
             changeFrequency: "monthly",
             priority: 0.8,
         },
+        {
+            url: "https://extrack-delta.vercel.app/privacy-policy",
+            lastModified: new Date("2026-10-24"),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
     ];
 }

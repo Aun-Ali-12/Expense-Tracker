@@ -1,10 +1,9 @@
 import ResendVerification from "@/component/Auth/ResendVerification"
 
-export const metadata = {
+export const metadata = buildMetadata({
     title: "Resend Email Verification",
-    description: "Verify your ExTrack account email.",
-    robots: { index: false, follow: false },
-};
+    noindex: true,
+});
 
 export default function ResendVerificationPage() {
     return (

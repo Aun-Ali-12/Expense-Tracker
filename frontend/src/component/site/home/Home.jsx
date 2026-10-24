@@ -10,7 +10,7 @@ import {
 import Navbar from "../navbar/Navbar";
 import Footer from "../navbar/Footer";
 import StatCard from "./StatsCard";
-import heroImage from "../../../../public/hero.png";
+import heroImage from "../../../../public/extrack.png";
 import Image from "next/image";
 const ICONS = { LayoutDashboard, BarChart3, Wallet, Sparkles };
 
