@@ -1,4 +1,5 @@
 import VerifyEmailPage from "@/component/Auth/VerifyEmail"
+import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
     title: "Verify Your ExTrack Email",

@@ -1,4 +1,5 @@
 import ResetPassword from "@/component/Auth/ResetPassword"
+import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
     title: "Reset Password",
